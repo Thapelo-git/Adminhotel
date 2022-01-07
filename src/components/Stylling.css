@@ -1,0 +1,78 @@
+.top_navbar{
+    position:fixed;
+    top:0;
+    left:0;
+    width :100%;
+    height:60px;
+    background-color:#4A1DD6 ;
+    box-shadow: 1px 0 2px #4A1DD6;
+    display: flex;
+    align-items: center;
+}
+.top_navbar .logo{
+    width:250px;
+    font-size: 25px;
+    font-weight: 700;
+    padding: 0 25px;
+    color: white;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    border-right: 1px solid white ;
+}
+.top_navbar .menu{
+    width:calc(100% -250px);
+    padding: 0 25px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.top_navbar .hamburger{
+    font-size: 25px;
+    cursor: pointer;
+    color: white;
+}
+.top_navbar .hamburger:hover{
+    color: black;
+}
+.sidebar{
+    position: fixed;
+    top: 60px;
+    left: 0;
+    width: 220px;
+    height: 100%;
+    background: #4A1DD6;
+}
+.sidebar ul li{
+    list-style-type: none;
+}
+.sidebar ul li a{
+    display: block;
+    padding: 16px 25px;
+    border-bottom: 1px solid black;
+    color: black;
+    
+}
+.sidebar ul li a .icon{
+    font-size: 18px;
+    color: white;
+    vertical-align: middle;
+}
+.sidebar ul li a .text{
+    margin-left: 19px;
+    color: white;
+    font-size: 18px;
+    font-family: sans-serif;
+    letter-spacing: 2px;
+}
+.sidebar ul li a:hover{
+    background:black ;
+    color: black;
+}
+.hover_collapse .sidebar{
+    width: 100px;
+    
+
+}
+.hover_collapse .sidebar ul li a .text{
+    display: none;
+}
