@@ -17,16 +17,16 @@ const Header = () =>{
         <>
        <IconContext.Provider value={{color:'#fff'}}>
            <div className="navbar">
-            <div className='menu-bars'>
+            <Link to='/' className='menu-bars'>
                 <FaIcons.FaBars onClick={showSidebar}/>
-            </div>
+            </Link>
            </div>
            <nav className={sidebar ? 'nav-menu active' : 'nav-menu'}>
             <ul className='nav-menu-items' onClick={showSidebar}>
                 <li className='navbar-toggle'>
-                    <div className='menu-bar'>
+                    <Link to='/' className='menu-bars'>
                         <AiIcons.AiOutlineClose/>
-                    </div>
+                    </Link>
                 </li>
                 {SidebarData.map((item,index)=>{
            return(
@@ -40,6 +40,9 @@ const Header = () =>{
 )
                 })}
             </ul>
+            {/* <Link to='/' className='logout'>
+                        <AiIcons.AiOutlineClose/>
+                    </Link> */}
            </nav>
           
            </IconContext.Provider>           
