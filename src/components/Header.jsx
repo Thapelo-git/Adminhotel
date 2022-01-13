@@ -7,6 +7,7 @@ import { SidebarData } from './SidebarData'
 import { NavLink } from 'react-router-dom'
 import './Navbar.css'
 import { IconContext } from 'react-icons'
+import Dashboard from './Dashboard'
 // import './Stylling.css'
 
 const Header = () =>{
@@ -28,14 +29,15 @@ const Header = () =>{
                     </div>
                 </li>
                 {SidebarData.map((item,index)=>{
-                    return(
-                        <li key={index} className={item.cName}>
-                            {/* <NavLink to={item.path}> */}
-                                {item.icon}
-                                <span>{item.title}</span>
-                            {/* </NavLink> */}
-                        </li>
-                    )
+           return(
+    <li key={index} className={item.cName}>
+        <Link exact to={item.path}>
+            
+            {item.icon}
+            <span>{item.title}</span>
+        </Link>
+    </li>
+)
                 })}
             </ul>
            </nav>
@@ -47,3 +49,14 @@ const Header = () =>{
 }
 
 export default Header
+
+
+// return(
+//     <li key={index} className={item.cName}>
+//         <Link exact to={item.path}>
+            
+//             {item.icon}
+//             <span>{item.title}</span>
+//         </Link>
+//     </li>
+// )

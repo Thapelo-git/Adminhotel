@@ -1,17 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
-import Header from './components/Header';
-import {BrowserRouter as Switch,Route, Router} from "react-router-dom"
-import SignIn from './components/SignIn';
+import logo from "./logo.svg";
+import "./App.css";
+import Header from "./components/Header";
+import {  BrowserRouter,
+  Switch,
+  Route,
+  Link,
+  useRouteMatch } from "react-router-dom";
+import SignIn from "./components/SignIn";
+import Dashboard from "./components/Dashboard";
+import MyAccount from "./components/MyAccount";
+import Guests from "./components/Guests";
+
+import { Bookings } from "./components/Bookings";
+import Rooms from "./components/Rooms";
 function App() {
   return (
-    <div className="App">
-     <Header/>
-      {/* <Router>
-      
-   
-      </Router> */}
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Header />
+        <Switch>
+        <Route exact path="/">
+        <SignIn/>
+        </Route>
+          <Route exact path={'/Dashboard'} element={<Dashboard/>}/>
+          {/* <Route exact path={'/MyAccount'} element={<MyAccount/>}/> */}
+          {/* <Route exact path={'/Guests'} element={<Guests/>}/> */}
+          {/* <Route exact path={'/Bookings'} element={<Bookings/>}/> */}
+          {/* <Route exact path={'/Rooms'} element={<Rooms/>}/> */}
+        </Switch>
+      </div>
+    </BrowserRouter>
   );
 }
 

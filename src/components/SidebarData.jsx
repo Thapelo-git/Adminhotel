@@ -35,10 +35,10 @@ export const SidebarData=[
         icon:<FaIcons.FaHome/>,
         cName:'nav-text'
     },
-    {
-        title:'Log Out',
+    // {
+    //     title:'Log Out',
         
-        icon:<IoIcons.IoIosLogOut/>,
-        cName:'nav-text'
-    },
+    //     icon:<IoIcons.IoIosLogOut/>,
+    //     cName:'nav-text'
+    // },
 ]
