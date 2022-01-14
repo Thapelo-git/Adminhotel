@@ -8,14 +8,15 @@ import { NavLink } from 'react-router-dom'
 import './Navbar.css'
 import { IconContext } from 'react-icons'
 import Dashboard from './Dashboard'
+import * as IoIcons from 'react-icons/io'
 // import './Stylling.css'
-
+import profile_pic from '../Images/profile_pic.png'
 const Header = () =>{
     const [sidebar,setSidebar]=useState(false)
     const showSidebar =()=>setSidebar(!sidebar);
     return (
         <>
-       <IconContext.Provider value={{color:'#fff'}}>
+       <IconContext.Provider value={{color:'#fff'}}>``
            <div className="navbar">
             <Link to='/' className='menu-bars'>
                 <FaIcons.FaBars onClick={showSidebar}/>
@@ -28,6 +29,8 @@ const Header = () =>{
                         <AiIcons.AiOutlineClose/>
                     </Link>
                 </li>
+                <img src={profile_pic} className='profilepic'/>
+                <hr/>
                 {SidebarData.map((item,index)=>{
            return(
     <li key={index} className={item.cName}>
@@ -36,15 +39,20 @@ const Header = () =>{
             {item.icon}
             <span>{item.title}</span>
         </Link>
+        
     </li>
 )
                 })}
+                <hr/>
+                <Link to='/' className='nav-text '>
+                        <IoIcons.IoIosLogOut/>
+                        <span>Log Out</span>
+                    </Link>
             </ul>
-            {/* <Link to='/' className='logout'>
-                        <AiIcons.AiOutlineClose/>
-                    </Link> */}
+           
+            
            </nav>
-          
+       
            </IconContext.Provider>           
         </>
         

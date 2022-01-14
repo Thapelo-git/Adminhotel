@@ -3,18 +3,18 @@ import { Link } from 'react-router-dom'
 import './Stylling.css'
 import profile_pic from '../Images/profile_pic.png'
 import personal_information from '../Images/personal_information.png'
-import On_the_office from '../Images/On_the_office.png'
-function SignIn() {
+import personal_info from '../Images/personal_info.png'
+function Register() {
     return (
-    <>
-        <div className='container'>
+        <>
+            <div className='container'>
           <div>
-            <img className='avatar' src={On_the_office}/>
+            <img className='avatar' src={personal_info}/>
           </div>
           <div className='login-container'>
             <form action='index.html'>
             <img src={profile_pic} className='profilepic'/>
-            <h1>SignIn</h1>  
+            <h1>Register</h1>  
             <div className='input-div one focus'>
             <div className='i'>
               <i className='fas fa-user'></i>
@@ -33,15 +33,14 @@ function SignIn() {
               <input className='input' type="password"></input>
             </div>
             </div>
-            <Link to="/Forgetpassword">Forgot Password</Link>
-            <input type="submit" className='btn' value="Login"></input>
-            <Link to="/Register">Register</Link>
+           
+            <input type="submit" className='btn' value="Register"></input>
             </form>
           </div>
           
-        </div>
+        </div> 
         </>
     )
 }
 
-export default SignIn
+export default Register

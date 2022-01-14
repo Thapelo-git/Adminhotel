@@ -13,6 +13,8 @@ import Guests from "./components/Guests";
 
 import { Bookings } from "./components/Bookings";
 import Rooms from "./components/Rooms";
+import Forgetpassword from "./components/Forgetpassword";
+import Register from "./components/Register";
 function App() {
   return (
     <BrowserRouter>
@@ -33,6 +35,15 @@ function App() {
         </Route>
         <Route exact path="/Bookings">
         <Bookings/>
+        </Route>
+        <Route exact path="/Rooms">
+        <Rooms/>
+        </Route>
+        <Route exact path="/Forgetpassword">
+       <Forgetpassword/>
+        </Route>
+        <Route exact path="/Register">
+       <Register/>
         </Route>
           {/* <Route exact path={'/Dashboard'} element={<Dashboard/>}/> */}
           {/* <Route exact path={'/MyAccount'} element={<MyAccount/>}/> */}
