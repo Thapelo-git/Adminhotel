@@ -16,7 +16,7 @@ const Header = () =>{
     const showSidebar =()=>setSidebar(!sidebar);
     return (
         <>
-       <IconContext.Provider value={{color:'#fff'}}>``
+       <IconContext.Provider value={{color:'#fff'}}>
            <div className="navbar">
             <Link to='/' className='menu-bars'>
                 <FaIcons.FaBars onClick={showSidebar}/>
@@ -26,7 +26,7 @@ const Header = () =>{
             <ul className='nav-menu-items' onClick={showSidebar}>
                 <li className='navbar-toggle'>
                     <Link to='/' className='menu-bars'>
-                        <AiIcons.AiOutlineClose/>
+                        {/* <AiIcons.AiOutlineClose/> */}
                     </Link>
                 </li>
                 <img src={profile_pic} className='profilepic'/>
