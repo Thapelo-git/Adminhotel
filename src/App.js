@@ -10,19 +10,24 @@ import SignIn from "./components/SignIn";
 import Dashboard from "./components/Dashboard";
 import MyAccount from "./components/MyAccount";
 import Guests from "./components/Guests";
-
+import {AuthProvider} from '../src/contexts/AuthContext'
 import { Bookings } from "./components/Bookings";
 import Rooms from "./components/Rooms";
 import Forgetpassword from "./components/Forgetpassword";
 import Register from "./components/Register";
 function App() {
   return (
+    <AuthProvider>
     <BrowserRouter>
       <div className="App">
-        <Header />
+        {/* <Header /> */}
         <Switch>
         <Route exact path="/">
         <SignIn/>
+        
+        </Route>
+        <Route exact path="/D">
+        <Header/>
         </Route>
         <Route exact path="/Dashboard">
         <Dashboard/>
@@ -53,6 +58,7 @@ function App() {
         </Switch>
       </div>
     </BrowserRouter>
+    </AuthProvider>
   );
 }
 
