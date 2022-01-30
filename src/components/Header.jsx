@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 
 import * as FaIcons from 'react-icons/fa'
 import * as AiIcons from 'react-icons/ai'
-import {Link} from 'react-router-dom'
+import {Link,useHistory} from 'react-router-dom'
 import { SidebarData } from './SidebarData'
 import { NavLink } from 'react-router-dom'
 import './Navbar.css'
@@ -11,11 +11,29 @@ import Dashboard from './Dashboard'
 import * as IoIcons from 'react-icons/io'
 // import './Stylling.css'
 import profile_pic from '../Images/profile_pic.png'
+import { useAuth } from '../contexts/AuthContext'
+
+
 const Header = () =>{
+    const {logOut}=useAuth()
     const [sidebar,setSidebar]=useState(false)
     const showSidebar =()=>setSidebar(!sidebar);
+    const [error,setError]=useState('')
+    const history=useHistory()
+   async function handleLogout (){
+        try{
+            setError('')
+
+            await logOut()
+            history.push("/")
+        }catch{
+            setError('Failed to log out')
+        }
+        
+    }
     return (
         <>
+       
        <IconContext.Provider value={{color:'#fff'}}>
            <div className="navbar">
             <Link to='/Dashboard' className='menu-bars'>
@@ -44,7 +62,7 @@ const Header = () =>{
 )
                 })}
                 <hr/>
-                <Link to='/' className='nav-text '>
+                <Link to='/' className='nav-text ' onClick={handleLogout}>
                         <IoIcons.IoIosLogOut/>
                         <span>Log Out</span>
                     </Link>

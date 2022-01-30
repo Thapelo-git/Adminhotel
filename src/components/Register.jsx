@@ -25,7 +25,7 @@ function Register() {
     try{
       setError('')
       setLoading(true)
-      signup(emailRef.current.value,passwordRef.current.value)
+      await signup(emailRef.current.value,passwordRef.current.value)
       history.push('/D')
     } catch{
       setError('failed to create an account')

@@ -15,20 +15,23 @@ import { Bookings } from "./components/Bookings";
 import Rooms from "./components/Rooms";
 import Forgetpassword from "./components/Forgetpassword";
 import Register from "./components/Register";
+
 function App() {
+  
   return (
     <AuthProvider>
     <BrowserRouter>
       <div className="App">
-        {/* <Header /> */}
-        <Switch>
+      <Switch>
         <Route exact path="/">
         <SignIn/>
         
         </Route>
-        <Route exact path="/D">
+        {/* <Header /> */}
+        
+        {/* <Route exact path="/D">
         <Header/>
-        </Route>
+        </Route> */}
         <Route exact path="/Dashboard">
         <Dashboard/>
         </Route>

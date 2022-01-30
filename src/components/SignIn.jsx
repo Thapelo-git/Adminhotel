@@ -20,8 +20,8 @@ function SignIn() {
     try{
       setError('')
       setLoading(true)
-      login(emailRef.current.value,passwordRef.current.value)
-      history.push('/D')
+      await login(emailRef.current.value,passwordRef.current.value)
+      history.push('/MyAccount')
     } catch{
       setError('failed to sign in')
     }
@@ -48,6 +48,9 @@ function SignIn() {
               </Form.Group>
               <Button className='w-100' type="submit">Log In</Button>
             </Form>
+            <div className='w-100 text-center mt-3'>
+              <Link to="/forgetpassword">forgot Password?</Link>
+            </div>
           </Card.Body>
         </Card>
         <div className='w-100 text-center mt-2'>
