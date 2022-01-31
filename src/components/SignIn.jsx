@@ -21,7 +21,7 @@ function SignIn() {
       setError('')
       setLoading(true)
       await login(emailRef.current.value,passwordRef.current.value)
-      history.push('/MyAccount')
+      history.push('/Dashboard')
     } catch{
       setError('failed to sign in')
     }
