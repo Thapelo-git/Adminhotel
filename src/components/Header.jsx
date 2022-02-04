@@ -62,7 +62,8 @@ const Header = () =>{
 )
                 })}
                 <hr/>
-                <Link to='/' className='nav-text ' onClick={handleLogout}>
+                {/* onClick={handleLogout} */}
+                <Link className='nav-text ' onClick={handleLogout}>
                         <IoIcons.IoIosLogOut/>
                         <span>Log Out</span>
                     </Link>

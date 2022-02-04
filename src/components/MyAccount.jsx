@@ -1,5 +1,5 @@
 import React,{useRef, useState} from 'react'
-import { Link,useHistory } from 'react-router-dom'
+import { Link,useHistory, } from 'react-router-dom'
 import './Stylling.css'
 import profile_pic from '../Images/profile_pic.png'
 import personal_information from '../Images/personal_information.png'

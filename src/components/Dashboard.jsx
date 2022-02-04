@@ -31,7 +31,7 @@ function Dashboard() {
         
           // <div className="container my-5">
       <div className="row">
-        <div className="col-md-10 mx-auto col-12 card shadow-lg border-0 p-4">
+        <div className="col-md-7 mx-auto col-12 card shadow-lg border-0 p-4">
           <div>
             <h1 className="display-4 text-center">Add Hotel </h1>
           </div>

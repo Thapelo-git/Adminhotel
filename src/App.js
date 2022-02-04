@@ -18,20 +18,38 @@ import Rooms from "./components/Rooms";
 import Forgetpassword from "./components/Forgetpassword";
 import Register from "./components/Register";
 
+import { useAuth } from '../src/contexts/AuthContext'
+import { auth } from './firebase';
+
 function App() {
   const user = true;
-  
+
+  auth.onAuthStateChanged((user)=>{
+    if(user){
+       user=true
+       console.log(user)
+    }else{
+     
+       user=false
+    }
+});
+  // const {currentUser}= useAuth()
+  console.log(auth.currentUser,"user")
+  console.log(useAuth,"user")
+
+ 
+
   return (
     <AuthProvider>
       <BrowserRouter>
         <div className="App">
           <Switch>
-            {
-              !user ? (
+            
+             {
+              !auth.currentUser ? ( 
                 <>
                   <Route exact path="/">
                     <SignIn />
-
                   </Route>
                   <Route exact path="/Register">
                     <Register />
@@ -40,8 +58,10 @@ function App() {
                     <Forgetpassword />
                   </Route>
 
+                  
+
                 </>
-              ) : (
+                 ) : (   
                 <>
                   <Header />
                   <Route exact path="/Dashboard">
@@ -58,9 +78,10 @@ function App() {
                   </Route>
                   <Route exact path="/Rooms">
                     <Rooms />
-                  </Route></>
-              )
-            }
+                  </Route>
+                  </>
+                 )
+            }   
 
 
 
