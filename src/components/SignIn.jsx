@@ -1,4 +1,4 @@
-import React,{useRef,useState} from 'react'
+import React,{useRef,useState,useEffect} from 'react'
 import { Link,useHistory } from 'react-router-dom'
 import './Stylling.css'
 import profile_pic from '../Images/profile_pic.png'
@@ -6,6 +6,7 @@ import personal_information from '../Images/personal_information.png'
 import On_the_office from '../Images/On_the_office.png'
 import {Button,Card, Form,Container,Alert} from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
+import { auth } from '../firebase'
 function SignIn() {
   const emailRef=useRef()
   const passwordRef=useRef()
@@ -14,6 +15,14 @@ function SignIn() {
   const [loading,setLoading]=useState(false)
   const history = useHistory()
 
+//   useEffect(()=>{
+//     auth.onAuthStateChanged(user=>{
+//        if(user){
+//          history.push('/Dashboard')
+//        } 
+//     })
+    
+// },[])
   async function  handleSubmit (e){
     e.preventDefault()
     
@@ -23,7 +32,7 @@ function SignIn() {
       await login(emailRef.current.value,passwordRef.current.value)
       history.push('/Dashboard')
     } catch{
-      setError('failed to sign in')
+      setError('failed to sign in check Email/Password')
     }
     setLoading(false)
   }

@@ -17,27 +17,27 @@ import { Bookings } from "./components/Bookings";
 import Rooms from "./components/Rooms";
 import Forgetpassword from "./components/Forgetpassword";
 import Register from "./components/Register";
-
+import { useState } from "react";
 import { useAuth } from '../src/contexts/AuthContext'
 import { auth } from './firebase';
 
 function App() {
-  const user = true;
-
+  // const signedin = false;
+  const [signedin,setSignedin]=useState(false);
   auth.onAuthStateChanged((user)=>{
     if(user){
-       user=true
-       console.log(user)
+      setSignedin(true);
+       console.log(user, 'dfghjj')
     }else{
      
-       user=false
+      setSignedin(false);
     }
 });
   // const {currentUser}= useAuth()
-  console.log(auth.currentUser,"user")
-  console.log(useAuth,"user")
+  // console.log(auth.currentUser,"user")
+  // console.log(useAuth,"user")
 
- 
+ // !auth.currentUser ? ( 
 
   return (
     <AuthProvider>
@@ -46,9 +46,10 @@ function App() {
           <Switch>
             
              {
-              !auth.currentUser ? ( 
+              !signedin ? ( 
                 <>
-                  <Route exact path="/">
+                 
+                <Route exact path="/">
                     <SignIn />
                   </Route>
                   <Route exact path="/Register">
@@ -57,13 +58,15 @@ function App() {
                   <Route exact path="/Forgetpassword">
                     <Forgetpassword />
                   </Route>
+              
+                 
 
                   
 
                 </>
                  ) : (   
                 <>
-                  <Header />
+                    <Header />
                   <Route exact path="/Dashboard">
                     <Dashboard />
                   </Route>
