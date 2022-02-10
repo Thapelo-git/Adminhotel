@@ -9,6 +9,9 @@ import { useAuth } from '../contexts/AuthContext'
 
 
 function Register() {
+  const [Phonenumber, setPhonenumber] = useState("");
+    const [Firstname, setFirstname] = useState("");
+    const [Lastname, setLastname] = useState("");
   const emailRef=useRef()
   const passwordRef=useRef()
   const passwordConfirmRef=useRef()
@@ -17,7 +20,7 @@ function Register() {
   const [loading,setLoading]=useState(false)
   const history = useHistory()
 
-  async function  handleSubmit (e){
+  const handleSubmit= async (e)=>{
     e.preventDefault()
     if(passwordRef.current.value !== passwordConfirmRef.current.value){
       return setError('password do not match')
