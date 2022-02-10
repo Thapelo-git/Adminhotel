@@ -15,22 +15,21 @@ function Dashboard() {
 
  
     return (
-      <div className="container my-5">
-           <div className="row">
+      <div className="container my-9">
+           <h4 className="fw-bold p-4 text-secondary header">WELCOME BACK</h4>
+        <h6 className="fw-bold p-4 name">{Firstname}</h6>
+           {/* <div className="row">
         <div 
-        className="col-md-20 mx-auto col-12 card shadow-lg border-0 p-8">
-         {/* <div>
-            <h1 className="display-4 text-center">Add Hotel </h1>
-          </div> */}
+        className="col-md-20  col-12 card shadow-lg border-0 p-8">
+         
       <div className="notification text-end p-4">
           <i class="bi bi-bell-fill not-icon text-white"></i>
     </div>
-        <h4 className="fw-bold p-4 text-secondary header">WELCOME BACK</h4>
-        <h6 className="fw-bold p-4 name">{Firstname}</h6>
+     
         
       <hr/>
       </div>
-      </div>
+      </div> */}
       </div>
  
     

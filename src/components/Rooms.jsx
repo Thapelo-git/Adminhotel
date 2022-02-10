@@ -1,7 +1,12 @@
 import React,{useState}  from 'react'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import ImageUploading from 'react-images-uploading';
+import { auth ,db} from '../firebase'
+import { Link,useHistory } from 'react-router-dom'
+import { v4 } from "uuid";
 function Rooms() {
+  const history = useHistory()
+  const uid = v4();
   const [name, setName] = useState("");
   const [type, settype] = useState("");
   const [price, setprice] = useState(0);
@@ -17,6 +22,75 @@ function Rooms() {
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
+  const addRoomToFirebase = () => {
+    if (
+      name &&
+      type &&
+      price &&
+      size &&
+      capacity &&
+      // wifi &&
+      // pool &&
+      // food &&
+      // gym &&
+      image1
+    //  set(ref(db, `hotels/${uid}`),
+    ) {db.ref('/hotels').child(uid).set(
+       {
+        sys: {
+          id: uid,
+        },
+        
+          name,
+          // slug: uid.toString(),
+          type,
+          price,
+          size,
+          capacity,
+          wifi,
+          pool,
+          food,
+          gym,
+          // featured: false,
+          // description,
+          // extras: extras.split(","),
+          images: [
+            {
+              url: image1,
+              
+            },
+            // {
+            //   fields: {
+            //     file: {
+            //       url: image2,
+            //     },
+            //   },
+            // },
+            // {
+         
+          ],
+        
+      }).then(() => {
+        alert("Room Added!");
+        setName("");
+        settype("");
+        setcapacity(0);
+        
+        setpool(false);
+        setwifi(false);
+        setfood(false);
+        setgym(false);
+        setprice(0);
+        setsize(0);
+        setImage1("");
+        
+
+        history.push('/Rooms');
+      });
+    } else {
+      return alert("Please fill all required fields.");
+    }
+  };
   const [images, setImages] = React.useState([]);
     const maxNumber = 69;
   
@@ -36,21 +110,12 @@ function Rooms() {
           <div className="col-md-12 col-12 my-auto">
             <div className="col-md-12 col-12 float-right">
               <form>
-              <div class="mb-3 row">
-  <label for="staticEmail" class="col-sm-2 col-form-label">Email</label>
-  <div class="col-sm-10">
-    <input type="text" readonly class="form-control-plaintext" id="staticEmail" value="email@example.com"/>
-  </div>
-</div>
-<div class="mb-3 row">
-  <label for="inputPassword" class="col-sm-2 col-form-label">Password</label>
-  <div class="col-sm-10">
-    <input type="password" class="form-control" id="inputPassword"/>
-  </div>
-</div>
+        
                 <div className="form-group">
-                  <label htmlFor="name">Hotel Name</label>
-                  <input
+                <div class="mb-3 row">
+                <label htmlFor="name" class="col-sm-4 col-form-label">Hotel Name</label>
+  <div class="col-sm-8">
+  <input
                     type="text"
                     className="form-control"
                     value={name}
@@ -59,7 +124,12 @@ function Rooms() {
                     placeholder="Hotel name."
                     required
                   />
-                  <label htmlFor="type">Address</label>
+  </div>
+</div>
+                  
+<div class="mb-3 row">
+                  <label htmlFor="type" class="col-sm-4 col-form-label">Address</label>
+                  <div class="col-sm-8">
                   <input
                     type="text"
                     className="form-control"
@@ -69,8 +139,11 @@ function Rooms() {
                     placeholder="Address"
                     required
                   />
-
-                  <label htmlFor="price">Price</label>
+            </div>
+            </div>
+            <div class="mb-3 row">
+                  <label htmlFor="price" class="col-sm-4 col-form-label">Price</label>
+                  <div class="col-sm-8">
                   <input
                     type="number"
                     value={price}
@@ -80,7 +153,11 @@ function Rooms() {
                     id="price"
                     placeholder="Room price"
                   />
-                  <label htmlFor="size">Room Type</label>
+                  </div>
+                  </div>
+                  <div class="mb-3 row">
+                  <label htmlFor="size" class="col-sm-4 col-form-label">Room Type</label>
+                  <div class="col-sm-8">
                   <input
                     type="number"
                     className="form-control"
@@ -90,7 +167,11 @@ function Rooms() {
                     id="size"
                     placeholder="Room Size"
                   />
-                  <label htmlFor="capacity">Capacity</label>
+                  </div>
+                  </div>
+                  <div class="mb-3 row">
+                  <label htmlFor="capacity" class="col-sm-4 col-form-label">Capacity</label>
+                  <div class="col-sm-8">
                   <input
                     type="number"
                     value={capacity}
@@ -100,20 +181,24 @@ function Rooms() {
                     id="capacity"
                     placeholder="Capacitiy"
                   />
+                  </div>
+                  </div>
                   <div className="row">
                   <div className="col">
                   <div className="custom-control custom-checkbox my-1">
                     <input
                       type="checkbox"
-                      className="custom-control-input"
+                      // className="custom-control-input"
+                      
                       checked={pool}
                       onChange={() => setpool(!pool)}
                       name="pool"
                       id="pool"
                     />
+                    
                     <label
                       htmlFor="pool"
-                      className="custom-control-label"
+                      className="custom-control-label col-sm-5"
                     >
                          pool
                     </label>
@@ -129,7 +214,7 @@ function Rooms() {
                       onChange={() => setwifi(!wifi)}
                       id="wifi"
                     />
-                    <label htmlFor="wifi" className="custom-control-label">
+                    <label htmlFor="wifi" className="custom-control-label col-sm-5">
                          wifi
                     </label>
                   </div>
@@ -144,7 +229,7 @@ function Rooms() {
                       onChange={() => setfood(!food)}
                       id="food"
                     />
-                    <label htmlFor="food" className="custom-control-label">
+                    <label htmlFor="food" className="custom-control-label col-sm-5">
                        food
                     </label>
                   </div>
@@ -159,13 +244,13 @@ function Rooms() {
                       onChange={() => setgym(!gym)}
                       id="gym"
                     />
-                    <label htmlFor="gym" className="custom-control-label">
+                    <label htmlFor="gym" className="custom-control-label col-sm-5">
                         gym
                     </label>
                   </div>
                   </div>
                   </div>
-                  <label htmlFor="description">Description</label>
+                  {/* <label htmlFor="description">Description</label>
                   <textarea
                     className="form-control"
                     value={description}
@@ -183,7 +268,7 @@ function Rooms() {
                     id="extras"
                     placeholder="Separated by comma ( , )"
                     rows="3"
-                  ></textarea>
+                  ></textarea> */}
 
                   <label htmlFor="img1">Image 1</label>
                   <input
@@ -195,7 +280,7 @@ function Rooms() {
                     placeholder="Image 1 URL"
                     required
                   />
-                  <label htmlFor="img2">Image 2</label>
+                  {/* <label htmlFor="img2">Image 2</label>
                   <input
                     type="text"
                     className="form-control"
@@ -226,7 +311,7 @@ function Rooms() {
                     id="img4"
                     placeholder="Image 4 URL"
                     required
-                  />
+                  /> */}
                 </div>
 
                 <div className="form-group form-check">
@@ -286,7 +371,7 @@ function Rooms() {
               </form>
               <button
                 className="btn btn-block btn-outline-primary"
-              
+                onClick={addRoomToFirebase}
               >
                 ADD Hotel
               </button>
