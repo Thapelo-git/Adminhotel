@@ -6,12 +6,12 @@ import personal_information from '../Images/personal_information.png'
 import personal_info from '../Images/personal_info.png'
 import {Button,Card, Form,Container,Alert} from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
-
+import { db } from '../firebase'
 
 function Register() {
   const [Phonenumber, setPhonenumber] = useState("");
     const [Firstname, setFirstname] = useState("");
-    const [Lastname, setLastname] = useState("");
+
   const emailRef=useRef()
   const passwordRef=useRef()
   const passwordConfirmRef=useRef()
@@ -29,6 +29,17 @@ function Register() {
       setError('')
       setLoading(true)
       await signup(emailRef.current.value,passwordRef.current.value)
+      .then(res=>{
+        const user={
+          Firstname: Firstname,
+                        
+                        emailRef: emailRef.current.value,
+                        Phonenumber: Phonenumber,
+                        uid: res.user.uid
+        }
+        db.ref('/admin').child(res.user.uid).set(user)
+        
+      })
       history.push('/Dashboard')
     } catch{
       setError('failed to create an account')
@@ -40,13 +51,49 @@ function Register() {
         <Container
     className='d-flex align-items-center justify-content-center'
     style={{minHeight:"100vh"}}>
+      <div className='w-100' style={{maxWidth:"700px"}}>
          <Card>
           <Card.Body>
             <h2 className='text-center mb-4'>Sign Up</h2>
             
             {error && <Alert variant="danger">{error}</Alert>}
             <Form onSubmit={handleSubmit}>
-              <Form.Group id='email'>
+            <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-4 col-form-label">First Name</label>
+    <div class="col-sm-8">
+      <input type="text" onChange={(e) => setFirstname(e.target.value)} required
+        class="form-control" id="staticEmail" placeholder="First Name"/>
+    </div>
+    </div>
+    <div class="mb-3 row">
+    <label  class="col-sm-4 col-form-label">Phone Number</label>
+    <div class="col-sm-8">
+      <input type="text" onChange={(e) => setPhonenumber(e.target.value)} required
+        class="form-control" id="staticEmail" placeholder="Phone Number"/>
+    </div>
+    </div>
+            <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-4 col-form-label">Email</label>
+    <div class="col-sm-8">
+      <input type="email" ref={emailRef} required
+        class="form-control" id="staticEmail" placeholder="email@example.com"/>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-4 col-form-label">Password</label>
+    <div class="col-sm-8">
+      <input type="password" ref={passwordRef} required
+        class="form-control"  placeholder="password"/>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label for="staticEmail" class="col-sm-4 col-form-label">Confirm Password</label>
+    <div class="col-sm-8">
+      <input type="password" ref={passwordConfirmRef} required
+        class="form-control" id="staticEmail" placeholder="Confirm Password"/>
+    </div>
+  </div>
+              {/* <Form.Group id='email'>
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" ref={emailRef} required/>
               </Form.Group>
@@ -57,13 +104,21 @@ function Register() {
               <Form.Group id='password-confirm'>
                 <Form.Label> Confirm Password</Form.Label>
                 <Form.Control type="password" ref={passwordConfirmRef} required/>
-              </Form.Group>
+              </Form.Group> */}
               <Button disabled={loading} className='w-100' type="submit">Sign Up</Button>
             </Form>
           </Card.Body>
+          <div class="mb-3 row">
+          <div className='w-100 text-center mt-2'>
+          Already have an account? 
+        </div>
+    <div class="col-sm-6">
+    <Link to="/" >Sign In</Link>
+    </div>
+    </div>
+          
         </Card>
-        <div className='w-100 text-center mt-2'>
-          Already have an account? <Link to="/">Sign In</Link>
+        
         </div>
         </Container>
             {/* <div className='container'>

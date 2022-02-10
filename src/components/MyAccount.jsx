@@ -1,4 +1,4 @@
-import React,{useRef, useState} from 'react'
+import React,{useRef, useState,useEffect} from 'react'
 import { Link,useHistory, } from 'react-router-dom'
 import './Stylling.css'
 import profile_pic from '../Images/profile_pic.png'
@@ -6,9 +6,11 @@ import personal_information from '../Images/personal_information.png'
 import personal_info from '../Images/personal_info.png'
 import {Button,Card, Form,Container,Alert} from 'react-bootstrap'
 import { useAuth } from '../contexts/AuthContext'
-
+import { auth ,db} from '../firebase'
 
 function MyAccount() {
+  const [Firstname,setFirstname]=useState('')
+    const [Phonenumber,setPhonenumber]=useState('')
   const emailRef=useRef()
   const passwordRef=useRef()
   const passwordConfirmRef=useRef()
@@ -16,6 +18,16 @@ function MyAccount() {
   const [error,setError]=useState('')
   const [loading,setLoading]=useState(false)
   const history = useHistory()
+  const user = auth.currentUser.uid
+  useEffect(()=>{
+    db.ref(`/admin/`+ user).on('value',snap=>{
+      
+      setFirstname(snap.val() && snap.val().Firstname);
+  setPhonenumber(snap.val().Phonenumber)
+
+    })
+    
+  },[])
 
    const  handleSubmit= (e)=>{
     e.preventDefault()
@@ -47,7 +59,7 @@ function MyAccount() {
        <Container
     className='d-flex align-items-center justify-content-center'
     style={{minHeight:"100vh"}}>
-      <div className='w-100' style={{maxWidth:"400px"}}>
+      <div className='w-100' style={{maxWidth:"500px"}}>
          <Card>
           <Card.Body>
             <h2 className='text-center mb-4'>Update Profile</h2>
@@ -55,6 +67,16 @@ function MyAccount() {
             {error && <Alert variant="danger">{error}</Alert>}
             
             <Form onSubmit={handleSubmit}>
+            <Form.Group id='text'>
+                <Form.Label>First Name</Form.Label>
+                <Form.Control type="text"  required 
+               defaultValue={Firstname} />
+              </Form.Group>
+              <Form.Group id='text'>
+                <Form.Label>Phone Number</Form.Label>
+                <Form.Control type="text"  required 
+               defaultValue={Phonenumber} />
+              </Form.Group>
               <Form.Group id='email'>
                 <Form.Label>Email</Form.Label>
                 <Form.Control type="email" ref={emailRef} required 

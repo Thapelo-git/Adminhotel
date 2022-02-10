@@ -15,14 +15,7 @@ function SignIn() {
   const [loading,setLoading]=useState(false)
   const history = useHistory()
 
-//   useEffect(()=>{
-//     auth.onAuthStateChanged(user=>{
-//        if(user){
-//          history.push('/Dashboard')
-//        } 
-//     })
-    
-// },[])
+
   const  handleSubmit = async (e)=>{
     e.preventDefault()
     
@@ -30,6 +23,15 @@ function SignIn() {
       setError('')
       setLoading(true)
       await login(emailRef.current.value,passwordRef.current.value)
+      .then((res)=>{
+        try {
+              
+          localStorage.setItem("user", res.user.uid)
+      } catch (e) {
+        // saving error
+        console.log('no data')
+      }
+      })
       history.push('/Dashboard')
     } catch{
       setError('failed to sign in check Email/Password')
