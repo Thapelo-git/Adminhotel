@@ -9,24 +9,24 @@ export function useAuth(){
 export function AuthProvider({children}) {
     const [currentUser,setCurrentUser]=useState()
     const [loading,setLoading]=useState(true)
-    function signup(email,password){
+    const signup=(email,password)=>{
         return auth.createUserWithEmailAndPassword(email,password)
     }
 
-    function login(email,password){
+    const login=(email,password)=>{
         return auth.signInWithEmailAndPassword(email,password)
     }
-    function logOut(){
+    const logOut=()=>{
         return auth.signOut()
     }
-    function resetPassword(email){
+    const resetPassword=(email)=>{
         return auth.sendPasswordResetEmail(email)
     }
-    function updateEmail(email){
+    const updateEmail=(email)=>{
         return currentUser.updateEmail(email)
     }
 
-    function updatePassword(password){
+    const updatePassword=(password)=>{
         currentUser.updatePassword(password)
     }
 

@@ -17,7 +17,7 @@ function MyAccount() {
   const [loading,setLoading]=useState(false)
   const history = useHistory()
 
-   function  handleSubmit (e){
+   const  handleSubmit= (e)=>{
     e.preventDefault()
     if(passwordRef.current.value !== passwordConfirmRef.current.value){
       return setError('password do not match')

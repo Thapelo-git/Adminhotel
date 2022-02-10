@@ -20,7 +20,7 @@ const Header = () =>{
     const showSidebar =()=>setSidebar(!sidebar);
     const [error,setError]=useState('')
     const history=useHistory()
-   async function handleLogout (){
+   const handleLogout = async()=>{
         try{
             setError('')
 
