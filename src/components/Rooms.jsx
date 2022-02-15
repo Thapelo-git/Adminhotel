@@ -4,6 +4,7 @@ import ImageUploading from 'react-images-uploading';
 import { auth ,db} from '../firebase'
 import { Link,useHistory } from 'react-router-dom'
 import { v4 } from "uuid";
+import { storage } from '../firebase';
 function Rooms() {
   const history = useHistory()
   const uid = v4();
@@ -22,6 +23,8 @@ function Rooms() {
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
+  const [image, setImage] = useState(null);
+  const [url, setUrl] = useState();
   const addRoomToFirebase = () => {
     if (
       name &&
@@ -51,9 +54,11 @@ function Rooms() {
           pool,
           food,
           gym,
+          url,
           // featured: false,
           // description,
           // extras: extras.split(","),
+          hotelimage:image2,
           images: [
             {
               url: image1,
@@ -91,6 +96,38 @@ function Rooms() {
       return alert("Please fill all required fields.");
     }
   };
+  const handleChange = e => {
+    if (e.target.files[0]) {
+      setImage(e.target.files[0]);
+    }
+  };
+  const [progress, setProgress] = useState(0);
+  const handleUpload = () => {
+    const uploadTask = storage.ref(`images/${image.name}`).put(image)
+      ;
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(image.name)
+          .getDownloadURL()
+          .then(url => {
+            setUrl(url);
+          });
+      }
+    );
+  };
+
   const [images, setImages] = React.useState([]);
     const maxNumber = 69;
   
@@ -280,7 +317,6 @@ function Rooms() {
                     placeholder="Image 1 URL"
                     required
                   />
-                  {/* <label htmlFor="img2">Image 2</label>
                   <input
                     type="text"
                     className="form-control"
@@ -290,6 +326,13 @@ function Rooms() {
                     placeholder="Image 2 URL"
                     required
                   />
+                  <input name="url" onChange={handleChange} style={{width:'50%'}} type="file" class="form-control" />
+              <button className="btn btn-success" onClick={handleUpload}>Upload</button>
+              <progress value={progress} max="1000" />
+              <br />
+              {url}
+              <img src={url || "http://via.placeholder.com/300"} alt="firebase-image" />
+                  {/* <label htmlFor="img2">Image 2</label>
 
                   <label htmlFor="img3">Image 3</label>
                   <input
@@ -315,7 +358,7 @@ function Rooms() {
                 </div>
 
                 <div className="form-group form-check">
-                <ImageUploading
+                {/* <ImageUploading
       multiple
       value={images}
       onChange={onChange}
@@ -366,7 +409,7 @@ function Rooms() {
         </div>
         
       )}
-    </ImageUploading>
+    </ImageUploading> */}
                 </div>
               </form>
               <button
