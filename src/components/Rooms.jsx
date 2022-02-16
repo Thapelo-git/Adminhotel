@@ -5,6 +5,12 @@ import { auth ,db} from '../firebase'
 import { Link,useHistory } from 'react-router-dom'
 import { v4 } from "uuid";
 import { storage } from '../firebase';
+import Button from '@mui/material/Button';
+import Dialog from '@mui/material/Dialog';
+import DialogActions from '@mui/material/DialogActions';
+import DialogContent from '@mui/material/DialogContent';
+import DialogContentText from '@mui/material/DialogContentText';
+import DialogTitle from '@mui/material/DialogTitle';
 function Rooms() {
   const history = useHistory()
   const uid = v4();
@@ -12,7 +18,7 @@ function Rooms() {
   const [type, settype] = useState("");
   const [price, setprice] = useState(0);
   const [size, setsize] = useState(0);
-  const [capacity, setcapacity] = useState(1);
+  const [location, setlocation] = useState(1);
   const [wifi, setwifi] = useState(false);
   const [pool, setpool] = useState(false);
   const [food, setfood] = useState(false);
@@ -24,6 +30,17 @@ function Rooms() {
   const [image3, setImage3] = useState("");
   const [image4, setImage4] = useState("");
   const [image, setImage] = useState(null);
+  const [open, setOpen] = React.useState(false);
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+  // const [beds, setBeds]  = useState();
+  // const [bedType , setBedType] = useState();
+  // const [desc , setDesc] = useState();
+  // const [name, setName] =useState();
   const [url, setUrl] = useState();
   const addRoomToFirebase = () => {
     if (
@@ -31,12 +48,12 @@ function Rooms() {
       type &&
       price &&
       size &&
-      capacity &&
+      location 
       // wifi &&
       // pool &&
       // food &&
       // gym &&
-      image1
+      // image1
     //  set(ref(db, `hotels/${uid}`),
     ) {db.ref('/hotels').child(uid).set(
        {
@@ -49,7 +66,7 @@ function Rooms() {
           type,
           price,
           size,
-          capacity,
+          location,
           wifi,
           pool,
           food,
@@ -58,12 +75,12 @@ function Rooms() {
           // featured: false,
           // description,
           // extras: extras.split(","),
-          hotelimage:image2,
-          images: [
-            {
-              url: image1,
+          // hotelimage:image2,
+          // images: [
+          //   {
+          //     url: image1,
               
-            },
+          //   },
             // {
             //   fields: {
             //     file: {
@@ -73,13 +90,13 @@ function Rooms() {
             // },
             // {
          
-          ],
+          // ],
         
       }).then(() => {
         alert("Room Added!");
         setName("");
         settype("");
-        setcapacity(0);
+        setlocation('');
         
         setpool(false);
         setwifi(false);
@@ -87,7 +104,7 @@ function Rooms() {
         setgym(false);
         setprice(0);
         setsize(0);
-        setImage1("");
+        // setImage1("");
         
 
         history.push('/Rooms');
@@ -193,7 +210,7 @@ function Rooms() {
                   </div>
                   </div>
                   <div class="mb-3 row">
-                  <label htmlFor="size" class="col-sm-4 col-form-label">Room Type</label>
+                  <label htmlFor="size" class="col-sm-4 col-form-label">Number of Room </label>
                   <div class="col-sm-8">
                   <input
                     type="number"
@@ -207,16 +224,16 @@ function Rooms() {
                   </div>
                   </div>
                   <div class="mb-3 row">
-                  <label htmlFor="capacity" class="col-sm-4 col-form-label">Capacity</label>
+                  <label htmlFor="location" class="col-sm-4 col-form-label">location</label>
                   <div class="col-sm-8">
                   <input
-                    type="number"
-                    value={capacity}
-                    onChange={(e) => setcapacity(e.target.value)}
+                    type="text"
+                    value={location}
+                    onChange={(e) => setlocation(e.target.value)}
                     className="form-control"
                     required
-                    id="capacity"
-                    placeholder="Capacitiy"
+                    id="location"
+                    placeholder="location"
                   />
                   </div>
                   </div>
@@ -307,7 +324,7 @@ function Rooms() {
                     rows="3"
                   ></textarea> */}
 
-                  <label htmlFor="img1">Image 1</label>
+                  {/* <label htmlFor="img1">Image 1</label>
                   <input
                     type="text"
                     value={image1}
@@ -325,7 +342,7 @@ function Rooms() {
                     id="img2"
                     placeholder="Image 2 URL"
                     required
-                  />
+                  /> */}
                   <input name="url" onChange={handleChange} style={{width:'50%'}} type="file" class="form-control" />
               <button className="btn btn-success" onClick={handleUpload}>Upload</button>
               <progress value={progress} max="1000" />
@@ -418,6 +435,56 @@ function Rooms() {
               >
                 ADD Hotel
               </button>
+        
+              <button className="bg-info" onClick={handleClickOpen}> Add New Room </button>
+              <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        style={{alignItems: 'center'}}
+      >
+        <DialogTitle style={{ color: '#00BFFF', borderBottom: "#00BFFF", boderWidth: 1 }} id="alert-dialog-title">
+          Add Room
+        </DialogTitle>
+        <DialogContent>
+        <div class=" mb-3">
+          {/* onSubmit = {Room} */}
+            <form >
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Name</label>
+              <input  name ="name"  type="text" style={{width:'80%'}} class="form-control" />
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Desc</label>
+              <input name ="desc"  type="text" style={{width:'80%'}} class="form-control" />
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Bed Type</label>
+              <input name ="bedType"  type="text" style={{width:'80%'}} class="form-control" />
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Number Of beds </label>
+              <input name ="beds"  type="text" style={{width:'80%'}} class="form-control" />
+              
+              <label style={{ color: '#00BFFF' }}>UpLoad Profile Picture</label>
+              {/* onChange={handleChange} */}
+              <input name="url"  style={{width:'50%'}} type="file" class="form-control" />
+              {/* <button className="btn btn-success" onClick={handleUpload}>Upload</button>
+              <progress value={progress} max="1000" />
+              <br />
+              <img src={url || "http://via.placeholder.com/300"} alt="firebase-image"/> */}
+             
+          
+            <button type="submit" className="bg-info" > Add Room </button>
+            </form>
+            </div>
+
+        <DialogContentText style={{width:'50%'}} id="alert-dialog-description">
+            Add rooms
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>CANCEL</Button>
+          <Button onClick={handleClose} autoFocus>
+            ADD
+          </Button>
+        </DialogActions>
+      </Dialog>
+
             </div>
           </div>
         </div>
