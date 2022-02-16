@@ -82,6 +82,9 @@ function App() {
                   <Route exact path="/Rooms">
                     <Rooms />
                   </Route>
+                  <Route exact path="/update/:id">
+                    <Rooms />
+                  </Route>
                   </>
                  )
             }   

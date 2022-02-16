@@ -28,8 +28,9 @@ function Rooms() {
   const [image1, setImage1] = useState("");
   const [image2, setImage2] = useState("");
   const [image3, setImage3] = useState("");
-  const [image4, setImage4] = useState("");
+  
   const [image, setImage] = useState(null);
+  const [roomimage, setRoomimage] = useState(null);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,10 +38,11 @@ function Rooms() {
   const handleClose = () => {
     setOpen(false);
   };
-  // const [beds, setBeds]  = useState();
-  // const [bedType , setBedType] = useState();
-  // const [desc , setDesc] = useState();
-  // const [name, setName] =useState();
+  const [beds, setBeds]  = useState(0);
+  const [bedType , setBedType] = useState('');
+  const [desc , setDesc] = useState();
+  const [roomname, setRoomname] =useState('');
+  const [roomurl, setroomurl] = useState("");
   const [url, setUrl] = useState();
   const addRoomToFirebase = () => {
     if (
@@ -49,6 +51,7 @@ function Rooms() {
       price &&
       size &&
       location 
+      //roomname && roomurl && bedType && beds
       // wifi &&
       // pool &&
       // food &&
@@ -72,6 +75,12 @@ function Rooms() {
           food,
           gym,
           url,
+          room:[{
+            roomname:roomname,roomurl:roomurl,
+            bedType:bedType,beds:beds
+          }]
+          
+         
           // featured: false,
           // description,
           // extras: extras.split(","),
@@ -107,7 +116,7 @@ function Rooms() {
         // setImage1("");
         
 
-        history.push('/Rooms');
+        history.push('/Dashboard');
       });
     } else {
       return alert("Please fill all required fields.");
@@ -116,6 +125,13 @@ function Rooms() {
   const handleChange = e => {
     if (e.target.files[0]) {
       setImage(e.target.files[0]);
+      
+    }
+  };
+  const handleChangeRoom = e => {
+    if (e.target.files[0]) {
+      setRoomimage(e.target.files[0]);
+      
     }
   };
   const [progress, setProgress] = useState(0);
@@ -140,6 +156,31 @@ function Rooms() {
           .getDownloadURL()
           .then(url => {
             setUrl(url);
+          });
+      }
+    );
+  };
+  const handleUploadRoomimage = () => {
+    const uploadTask = storage.ref(`images/${roomimage.name}`).put(roomimage)
+      ;
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(roomimage.name)
+          .getDownloadURL()
+          .then(url => {
+            setroomurl(url);
           });
       }
     );
@@ -343,6 +384,55 @@ function Rooms() {
                     placeholder="Image 2 URL"
                     required
                   /> */}
+                  <button className="bg-info" onClick={handleClickOpen}> Add New Room </button>
+                  <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        style={{alignItems: 'center'}}
+      >
+        <DialogTitle style={{ color: '#00BFFF', borderBottom: "#00BFFF", boderWidth: 1 }} id="alert-dialog-title">
+          Add Room
+        </DialogTitle>
+        <DialogContent>
+        <div class=" mb-3">
+          {/* onSubmit = {Room} */}
+            {/* <form > */}
+              {/* <label style={{ color: '#00BFFF',fontSize:15 }}>Name</label>
+              <input  name ="name"  type="text" style={{width:'80%'}} class="form-control" /> */}
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Name of room</label>
+              <input  value={roomname}    onChange={(e) => setRoomname(e.target.value)}type="text" style={{width:'80%'}} class="form-control" />
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Bed Type</label>
+              <input  value={bedType}    onChange={(e) => setBedType(e.target.value)} type="text" style={{width:'80%'}} class="form-control" />
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Number Of beds </label>
+              <input  value={beds} type="number"    onChange={(e) => setBeds(e.target.value)} style={{width:'80%'}} class="form-control" />
+              
+              <label style={{ color: '#00BFFF' }}>Room image</label>
+              {/* onChange={handleChange} */}
+              <input name="roomurl" onChange={handleChangeRoom}  style={{width:'50%'}} type="file" class="form-control" />
+              <button className="btn btn-success" onClick={handleUploadRoomimage}>Upload</button>
+              <progress value={progress} max="1000" />
+              <br />
+              <img src={roomurl || "http://via.placeholder.com/300"} alt="firebase-image"/>
+             
+          
+            <button type="submit" className="bg-info" > Add Room </button>
+            {/* </form> */}
+            </div>
+
+        <DialogContentText style={{width:'50%'}} id="alert-dialog-description">
+            Add rooms
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose}>CANCEL</Button>
+          <Button onClick={handleClose} autoFocus>
+            ADD
+          </Button>
+        </DialogActions>
+      </Dialog>
+
                   <input name="url" onChange={handleChange} style={{width:'50%'}} type="file" class="form-control" />
               <button className="btn btn-success" onClick={handleUpload}>Upload</button>
               <progress value={progress} max="1000" />
@@ -436,55 +526,8 @@ function Rooms() {
                 ADD Hotel
               </button>
         
-              <button className="bg-info" onClick={handleClickOpen}> Add New Room </button>
-              <Dialog
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-        style={{alignItems: 'center'}}
-      >
-        <DialogTitle style={{ color: '#00BFFF', borderBottom: "#00BFFF", boderWidth: 1 }} id="alert-dialog-title">
-          Add Room
-        </DialogTitle>
-        <DialogContent>
-        <div class=" mb-3">
-          {/* onSubmit = {Room} */}
-            <form >
-              <label style={{ color: '#00BFFF',fontSize:15 }}>Name</label>
-              <input  name ="name"  type="text" style={{width:'80%'}} class="form-control" />
-              <label style={{ color: '#00BFFF',fontSize:15 }}>Desc</label>
-              <input name ="desc"  type="text" style={{width:'80%'}} class="form-control" />
-              <label style={{ color: '#00BFFF',fontSize:15 }}>Bed Type</label>
-              <input name ="bedType"  type="text" style={{width:'80%'}} class="form-control" />
-              <label style={{ color: '#00BFFF',fontSize:15 }}>Number Of beds </label>
-              <input name ="beds"  type="text" style={{width:'80%'}} class="form-control" />
               
-              <label style={{ color: '#00BFFF' }}>UpLoad Profile Picture</label>
-              {/* onChange={handleChange} */}
-              <input name="url"  style={{width:'50%'}} type="file" class="form-control" />
-              {/* <button className="btn btn-success" onClick={handleUpload}>Upload</button>
-              <progress value={progress} max="1000" />
-              <br />
-              <img src={url || "http://via.placeholder.com/300"} alt="firebase-image"/> */}
-             
-          
-            <button type="submit" className="bg-info" > Add Room </button>
-            </form>
-            </div>
-
-        <DialogContentText style={{width:'50%'}} id="alert-dialog-description">
-            Add rooms
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose}>CANCEL</Button>
-          <Button onClick={handleClose} autoFocus>
-            ADD
-          </Button>
-        </DialogActions>
-      </Dialog>
-
+           
             </div>
           </div>
         </div>
