@@ -31,6 +31,7 @@ function Rooms() {
   
   const [image, setImage] = useState(null);
   const [roomimage, setRoomimage] = useState(null);
+  const [roomimage2, setRoomimage2] = useState(null);
   const [open, setOpen] = React.useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,11 +39,23 @@ function Rooms() {
   const handleClose = () => {
     setOpen(false);
   };
+  const [open2, setOpen2] = React.useState(false);
+  const handleClickOpen2 = () => {
+    setOpen2(true);
+  };
+  const handleClose2 = () => {
+    setOpen2(false);
+  };
   const [beds, setBeds]  = useState(0);
   const [bedType , setBedType] = useState('');
   const [desc , setDesc] = useState();
   const [roomname, setRoomname] =useState('');
   const [roomurl, setroomurl] = useState("");
+  const [beds2, setBeds2]  = useState(0);
+  const [bedType2 , setBedType2] = useState('');
+  
+  const [roomname2, setRoomname2] =useState('');
+  const [roomurl2, setroomurl2] = useState("");
   const [url, setUrl] = useState();
   const addRoomToFirebase = () => {
     if (
@@ -78,28 +91,14 @@ function Rooms() {
           room:[{
             roomname:roomname,roomurl:roomurl,
             bedType:bedType,beds:beds
-          }]
-          
-         
-          // featured: false,
-          // description,
-          // extras: extras.split(","),
-          // hotelimage:image2,
-          // images: [
-          //   {
-          //     url: image1,
-              
-          //   },
-            // {
-            //   fields: {
-            //     file: {
-            //       url: image2,
-            //     },
-            //   },
-            // },
-            // {
-         
-          // ],
+          },
+          {
+            roomname:roomname2,roomurl:roomurl2,
+            bedType:bedType2,beds:beds2
+          }
+        ],
+        
+      
         
       }).then(() => {
         alert("Room Added!");
@@ -131,6 +130,12 @@ function Rooms() {
   const handleChangeRoom = e => {
     if (e.target.files[0]) {
       setRoomimage(e.target.files[0]);
+      
+    }
+  };
+  const handleChangeRoom2 = e => {
+    if (e.target.files[0]) {
+      setRoomimage2(e.target.files[0]);
       
     }
   };
@@ -181,6 +186,31 @@ function Rooms() {
           .getDownloadURL()
           .then(url => {
             setroomurl(url);
+          });
+      }
+    );
+  };
+  const handleUploadRoomimage2 = () => {
+    const uploadTask = storage.ref(`images/${roomimage2.name}`).put(roomimage2)
+      ;
+    uploadTask.on(
+      "state_changed",
+      snapshot => {
+        const progress = Math.round(
+          (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        );
+        setProgress(progress);
+      },
+      error => {
+        console.log(error);
+      },
+      () => {
+        storage
+          .ref("images")
+          .child(roomimage2.name)
+          .getDownloadURL()
+          .then(url => {
+            setroomurl2(url);
           });
       }
     );
@@ -384,6 +414,9 @@ function Rooms() {
                     placeholder="Image 2 URL"
                     required
                   /> */}
+                  <input name="url" onChange={handleChange} style={{width:'50%'}} type="file" class="form-control" />
+              <button className="btn-success" onClick={handleUpload}>Upload</button>
+              <progress value={progress} max="1000" />
                   <button className="bg-info" onClick={handleClickOpen}> Add New Room </button>
                   <Dialog
         open={open}
@@ -399,13 +432,30 @@ function Rooms() {
         <div class=" mb-3">
           {/* onSubmit = {Room} */}
             {/* <form > */}
-              {/* <label style={{ color: '#00BFFF',fontSize:15 }}>Name</label>
-              <input  name ="name"  type="text" style={{width:'80%'}} class="form-control" /> */}
-              <label style={{ color: '#00BFFF',fontSize:15 }}>Name of room</label>
-              <input  value={roomname}    onChange={(e) => setRoomname(e.target.value)}type="text" style={{width:'80%'}} class="form-control" />
-              <label style={{ color: '#00BFFF',fontSize:15 }}>Bed Type</label>
-              <input  value={bedType}    onChange={(e) => setBedType(e.target.value)} type="text" style={{width:'80%'}} class="form-control" />
-              <label style={{ color: '#00BFFF',fontSize:15 }}>Number Of beds </label>
+            <div class="input-group mb-6">
+            <div class="input-group-prepend">
+            <label class="input-group-text" for="gender3">Room Type</label>
+          </div>
+              <select class="custom-select" id="gender3" 
+          value={roomname} onChange={(e) => setRoomname(e.target.value)} >
+            <option selected>Choose...</option>
+            <option  name="Standard Room" >Standard Room</option>
+            <option name="Executive Room" >Executive Room</option>
+          </select>
+          </div>
+          <div class="input-group mb-6 ">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="gender3">Bed Type</label>
+          </div>
+              <select class="custom-select" id="gender3" 
+        value={bedType}  onChange={(e) => setBedType(e.target.value)} >
+            <option selected>Choose...</option>
+            <option  name="2 king beds" >2 king beds</option>
+            <option name="1 Queen bed" >1 Queen bed</option>
+            <option name="1 king bed" >1 king bed</option>
+          </select>
+          </div>
+              <label style={{ color: '#00BFFF',fontSize:15 }}>Room Price </label>
               <input  value={beds} type="number"    onChange={(e) => setBeds(e.target.value)} style={{width:'80%'}} class="form-control" />
               
               <label style={{ color: '#00BFFF' }}>Room image</label>
@@ -433,9 +483,73 @@ function Rooms() {
         </DialogActions>
       </Dialog>
 
-                  <input name="url" onChange={handleChange} style={{width:'50%'}} type="file" class="form-control" />
-              <button className="btn btn-success" onClick={handleUpload}>Upload</button>
+      <button className="bg-info" onClick={handleClickOpen2}> Add second Room </button>
+                  <Dialog
+        open={open2}
+        onClose={handleClose2}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+        style={{alignItems: 'center'}}
+      >
+        <DialogTitle style={{ color: '#00BFFF', borderBottom: "#00BFFF", boderWidth: 1 }} id="alert-dialog-title">
+          Add Room
+        </DialogTitle>
+        <DialogContent>
+        <div class=" mb-3">
+          {/* onSubmit = {Room} */}
+            {/* <form > */}
+            
+              <div class="input-group mb-6">
+            <div class="input-group-prepend">
+            <label class="input-group-text" for="gender3">Room Type</label>
+          </div>
+              <select class="custom-select" id="gender3" 
+          value={roomname2} onChange={(e) => setRoomname2(e.target.value)} >
+            <option selected>Choose...</option>
+            <option  name="Standard Room" >Standard Room</option>
+            <option name="Executive Room" >Executive Room</option>
+          </select>
+          </div>
+          <div class="input-group mb-6 ">
+          <div class="input-group-prepend">
+            <label class="input-group-text" for="gender3">Bed Type</label>
+          </div>
+              <select class="custom-select" id="gender3" 
+        value={bedType2}  onChange={(e) => setBedType2(e.target.value)} >
+            <option selected>Choose...</option>
+            <option  name="2 king beds" >2 king beds</option>
+            <option name="1 Queen bed" >1 Queen bed</option>
+            <option name="1 king bed" >1 king bed</option>
+          </select>
+          </div>
+          <label style={{ color: '#00BFFF' }}>Room Price</label>
+              <input  value={beds2} type="number"    onChange={(e) => setBeds2(e.target.value)} style={{width:'80%'}} class="form-control" />
+              
+              <label style={{ color: '#00BFFF' }}>Room image</label>
+              {/* onChange={handleChange} */}
+              <input name="roomurl" onChange={handleChangeRoom2}  style={{width:'50%'}} type="file" class="form-control" />
+              <button className="btn btn-success" onClick={handleUploadRoomimage2}>Upload</button>
               <progress value={progress} max="1000" />
+              <br />
+              <img src={roomurl2 || "http://via.placeholder.com/300"} alt="firebase-image"/>
+             
+          
+            <button type="submit" className="bg-info" > Add Room </button>
+            {/* </form> */}
+            </div>
+
+        <DialogContentText style={{width:'50%'}} id="alert-dialog-description">
+            Add rooms
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose2}>CANCEL</Button>
+          <Button onClick={handleClose2} autoFocus>
+            ADD
+          </Button>
+        </DialogActions>
+      </Dialog>
+
               <br />
               {url}
               <img src={url || "http://via.placeholder.com/300"} alt="firebase-image" />
