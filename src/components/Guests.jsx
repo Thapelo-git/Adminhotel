@@ -1,6 +1,26 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import {Table} from "react-bootstrap";
+import { auth,db } from '../firebase';
+import {Link,useParams} from 'react-router-dom'
 function Guests() {
+
+
+  const [name,setname]=useState('')
+  const [phonenumber,setPhonenumber]=useState('')
+  const [email,setEmail]=useState('')
+  const [uid,setUid]=useState('')
+  const user = auth.currentUser.uid
+ 
+  const [Guests,setGuests]=useState([])
+  useEffect(()=>{
+    
+    db.ref('/users/').on('value',snap=>{
+      
+      setGuests({...snap.val()});
+    })
+    
+  },[])
+  console.log(Guests)
     return (
         <div>
          <Table
@@ -22,40 +42,20 @@ function Guests() {
             </tr>
           </thead>
           <tbody>
-        
-                <>
-                  <td>1QEDERE7DHG</td>
-                  <td>MOLOBE@GMAIL.COM</td>
-                  <td>Molobe</td>
-                  <td>0745125925</td>
-                  <td></td>
-                  
-                 
-                 
-                
-                </>
+          {Object.keys(Guests).map((id,) => (
                 <tr>
-                  <td>1QEDERE7DHG</td>
-                  <td>MOLOBE@GMAIL.COM</td>
-                  <td>Molobe</td>
-                  <td>08512364</td>
+                  <td>{Guests[id].uid}</td>
+                  <td>{Guests[id].email}</td>
+                  <td>{Guests[id].name}</td>
+                  <td>{Guests[id].phonenumber}</td>
                   <td></td>
                   
-                  
+                 
                  
                 
                 </tr>
-                <tr>
-                  <td>1QEDERE7DHG</td>
-                  <td>MOLOBE@GMAIL.COM</td>
-                  <td>Molobe</td>
-                  <td>0896512123</td>
-                  <td></td>
-                  
+               ))}
                 
-                 
-                
-                </tr>
               
            
           </tbody>

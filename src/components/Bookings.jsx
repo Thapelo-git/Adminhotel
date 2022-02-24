@@ -1,7 +1,7 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
-
+import { auth,db } from '../firebase';
 const StatusTD = styled.td`
   font-weight: bold;
   color: ${(props) => (props.type === "Pending" ? "blue" : "")};
@@ -9,6 +9,16 @@ const StatusTD = styled.td`
   color: ${(props) => (props.type === "Cancelled" ? "red" : "")};
 `;
 export const Bookings = () => {
+  const [Booking,setBooking]=useState([])
+  useEffect(()=>{
+    
+    db.ref('Booking').on('value',snap=>{
+      
+      setBooking({...snap.val()});
+    })
+    
+  },[])
+  console.log(Booking)
     return (
         <div>
             <Table
@@ -21,9 +31,9 @@ export const Bookings = () => {
           <thead>
             <tr>
               <th>ID</th>
-              <th>Email</th>
-              <th>Name</th>
-              <th>Room type</th>
+              <th>CREATED</th>
+              <th>GUESTS</th>
+              <th>Nummber Room </th>
               <th>Start Date</th>
               <th>End Date</th>
               <th>No.Geusts</th>
@@ -32,48 +42,23 @@ export const Bookings = () => {
             </tr>
           </thead>
           <tbody>
-        
-                <>
-                  <td>1QEDERE7DHG</td>
+          {Object.keys(Booking).map((id,booking) => (
+                <tr >
+                  <td>{id}</td>
                   <td>MOLOBE@GMAIL.COM</td>
                   <td>Molobe</td>
                   <td>SINGLE</td>
-                  <td>12-JAN-2022</td>
-                  <td>23-JAN-2022</td>
-                  <td>2</td>
-                  <td>R 5482</td>
-                  <StatusTD type='Pending'>pending</StatusTD>
-                 
-                
-                </>
-                <tr>
-                  <td>1QEDERE7DHG</td>
-                  <td>MOLOBE@GMAIL.COM</td>
-                  <td>Molobe</td>
-                  <td>SINGLE</td>
-                  <td>12-JAN-2022</td>
-                  <td>23-JAN-2022</td>
-                  <td>2</td>
-                  <td>R 5482</td>
-                  <StatusTD type='Cancelled'>Cancelled</StatusTD>
+                  <td>{Booking[id].checkin}</td>
+                  <td>{Booking[id].checkout}</td>
+                  <td>{Booking[id].adultPlus}</td>
+                  <td>R {Booking[id].totPrice}</td>
+                  <StatusTD type={Booking[id].Status}>{Booking[id].Status}</StatusTD>
                  
                 
                 </tr>
-                <tr>
-                  <td>1QEDERE7DHG</td>
-                  <td>MOLOBE@GMAIL.COM</td>
-                  <td>Molobe</td>
-                  <td>SINGLE</td>
-                  <td>12-JAN-2022</td>
-                  <td>23-JAN-2022</td>
-                  <td>2</td>
-                  <td>R 5482</td>
-                  <StatusTD type='Completed'>Completed</StatusTD>
-                 
                 
-                </tr>
-              
-           
+                ))}
+            
           </tbody>
         </Table>
         </div>
