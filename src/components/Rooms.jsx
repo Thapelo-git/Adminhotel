@@ -11,6 +11,7 @@ import DialogActions from '@mui/material/DialogActions';
 import DialogContent from '@mui/material/DialogContent';
 import DialogContentText from '@mui/material/DialogContentText';
 import DialogTitle from '@mui/material/DialogTitle';
+import './Rooms.css'
 function Rooms() {
   const history = useHistory()
   const uid = v4();
@@ -225,10 +226,13 @@ function Rooms() {
       setImages(imageList);
     };
     return (
+      
       <div className="row">
       <div className="col-md-7 mx-auto col-12 card shadow-lg border-0 p-4">
         <div>
-          <h1 className="display-4 text-center">Add Hotel </h1>
+        {url}
+              <img src={url || "https://media.istockphoto.com/vectors/welcome-hotel-services-on-vector-illustration-vector-id1172931964?k=20&m=1172931964&s=612x612&w=0&h=n8tpGi16ZTNU1quhN-GjONLcgVe6xgzJ2-QaD4_MVU4="} alt="firebase-image" />
+          {/* <h1 className="display-4 text-center">Add Hotel </h1> */}
         </div>
 
         <div className="row my-4">
@@ -310,7 +314,7 @@ function Rooms() {
                   </div>
                   <div className="row">
                   <div className="col">
-                  <div className="custom-control custom-checkbox my-1">
+                  <div className="custom-control custom-checkbox my-2">
                     <input
                       type="checkbox"
                       // className="custom-control-input"
@@ -375,49 +379,32 @@ function Rooms() {
                   </div>
                   </div>
                   </div>
-                  {/* <label htmlFor="description">Description</label>
-                  <textarea
-                    className="form-control"
-                    value={description}
-                    onChange={(e) => setdescription(e.target.value)}
-                    id="description"
-                    placeholder="Short description of room."
-                    rows="3"
-                  ></textarea>
-
-                  <label htmlFor="extras">Extras</label>
-                  <textarea
-                    className="form-control"
-                    value={extras}
-                    onChange={(e) => setextras(e.target.value)}
-                    id="extras"
-                    placeholder="Separated by comma ( , )"
-                    rows="3"
-                  ></textarea> */}
-
-                  {/* <label htmlFor="img1">Image 1</label>
-                  <input
-                    type="text"
-                    value={image1}
-                    onChange={(e) => setImage1(e.target.value)}
-                    className="form-control"
-                    id="img1"
-                    placeholder="Image 1 URL"
-                    required
-                  />
-                  <input
-                    type="text"
-                    className="form-control"
-                    value={image2}
-                    onChange={(e) => setImage2(e.target.value)}
-                    id="img2"
-                    placeholder="Image 2 URL"
-                    required
-                  /> */}
+               
                   <input name="url" onChange={handleChange} style={{width:'50%'}} type="file" class="form-control" />
               <button className="btn-success" onClick={handleUpload}>Upload</button>
               <progress value={progress} max="1000" />
-                  <button className="bg-info" onClick={handleClickOpen}> Add New Room </button>
+              <section className="features top mt-4" id="features">
+              <div className="content grid" >
+              <div className="box btn_shadow" onClick={handleClickOpen} >
+                
+                <h2>Standard Room</h2>
+                <p>Add Room</p>
+                <a href="">
+                    <i className="fas fa-arrow-right"></i>
+                </a>
+                </div>
+                <div className="box btn_shadow" onClick={handleClickOpen2} >
+                
+                <h2>Executive Room</h2>
+                <p>Add Room</p>
+                <a href="">
+                    <i className="fas fa-arrow-right"></i>
+                </a>
+                </div>
+                  {/* <button className="bg-info" onClick={handleClickOpen}> Add New Room </button>
+                  <button className="bg-info" onClick={handleClickOpen2}> Add second Room </button> */}
+                  </div>
+                  </section>
                   <Dialog
         open={open}
         onClose={handleClose}
@@ -443,7 +430,7 @@ function Rooms() {
             <option name="Executive Room" >Executive Room</option>
           </select>
           </div>
-          <div class="input-group mb-6 ">
+          <div class="input-group mb-6 mt-4 ">
           <div class="input-group-prepend">
             <label class="input-group-text" for="gender3">Bed Type</label>
           </div>
@@ -461,18 +448,18 @@ function Rooms() {
               <label style={{ color: '#00BFFF' }}>Room image</label>
               {/* onChange={handleChange} */}
               <input name="roomurl" onChange={handleChangeRoom}  style={{width:'50%'}} type="file" class="form-control" />
-              <button className="btn btn-success" onClick={handleUploadRoomimage}>Upload</button>
+              <button className=" btn-success mt-4" onClick={handleUploadRoomimage}>Upload</button>
               <progress value={progress} max="1000" />
               <br />
               <img src={roomurl || "http://via.placeholder.com/300"} alt="firebase-image"/>
              
           
-            <button type="submit" className="bg-info" > Add Room </button>
+            
             {/* </form> */}
             </div>
 
         <DialogContentText style={{width:'50%'}} id="alert-dialog-description">
-            Add rooms
+            ****************************************************************************************************************************************************
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -483,7 +470,7 @@ function Rooms() {
         </DialogActions>
       </Dialog>
 
-      <button className="bg-info" onClick={handleClickOpen2}> Add second Room </button>
+      
                   <Dialog
         open={open2}
         onClose={handleClose2}
@@ -510,7 +497,7 @@ function Rooms() {
             <option name="Executive Room" >Executive Room</option>
           </select>
           </div>
-          <div class="input-group mb-6 ">
+          <div class="input-group mb-6 mt-4">
           <div class="input-group-prepend">
             <label class="input-group-text" for="gender3">Bed Type</label>
           </div>
@@ -528,18 +515,18 @@ function Rooms() {
               <label style={{ color: '#00BFFF' }}>Room image</label>
               {/* onChange={handleChange} */}
               <input name="roomurl" onChange={handleChangeRoom2}  style={{width:'50%'}} type="file" class="form-control" />
-              <button className="btn btn-success" onClick={handleUploadRoomimage2}>Upload</button>
+              <button className=" btn-success" onClick={handleUploadRoomimage2}>Upload</button>
               <progress value={progress} max="1000" />
               <br />
               <img src={roomurl2 || "http://via.placeholder.com/300"} alt="firebase-image"/>
              
           
-            <button type="submit" className="bg-info" > Add Room </button>
+   
             {/* </form> */}
             </div>
 
         <DialogContentText style={{width:'50%'}} id="alert-dialog-description">
-            Add rooms
+           **********************************************************************************************
           </DialogContentText>
         </DialogContent>
         <DialogActions>
@@ -551,8 +538,7 @@ function Rooms() {
       </Dialog>
 
               <br />
-              {url}
-              <img src={url || "http://via.placeholder.com/300"} alt="firebase-image" />
+              
                   {/* <label htmlFor="img2">Image 2</label>
 
                   <label htmlFor="img3">Image 3</label>
@@ -646,6 +632,7 @@ function Rooms() {
           </div>
         </div>
       </div>
+      
     </div>
   
 
