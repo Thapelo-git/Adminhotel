@@ -2,6 +2,7 @@ import React,{useEffect,useState} from 'react'
 import {Table} from "react-bootstrap";
 import { auth,db } from '../firebase';
 import {Link,useParams} from 'react-router-dom'
+import "./Styles/TollgateList.css"
 function Guests() {
 
 
@@ -11,56 +12,41 @@ function Guests() {
   const [uid,setUid]=useState('')
   const user = auth.currentUser.uid
  
-  const [Guests,setGuests]=useState([])
+  const [Tollgate,setTollgate]=useState([])
   useEffect(()=>{
     
-    db.ref('/users/').on('value',snap=>{
+    db.ref('/Tollgate/').on('value',snap=>{
       
-      setGuests({...snap.val()});
+      setTollgate({...snap.val()});
     })
     
   },[])
-  console.log(Guests)
+
     return (
         <div>
-         <Table
-          striped
-          bordered
-          hover
-          size="sm"
-          style={{ marginTop: "80px", width: "90%", margin: "80px auto" }}
-        >
-        
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Email</th>
-              <th>Name</th>
-              <th>Phone No.</th>
-              <th>Action</th>
-              
-            </tr>
-          </thead>
-          <tbody>
-          {Object.keys(Guests).map((id,) => (
-                <tr>
-                  <td>{Guests[id].uid}</td>
-                  <td>{Guests[id].email}</td>
-                  <td>{Guests[id].name}</td>
-                  <td>{Guests[id].phonenumber}</td>
-                  <td></td>
-                  
+          <div className='headings'>
+        <h3>List of Toll Plaze</h3>
+      </div>
+               <div className='users_container'>
+              {
+              // Object.keys(user).length>0?(
+                Object.keys(Tollgate).map((id,index)=>{
+                  return(
+
                  
-                 
-                
-                </tr>
-               ))}
-                
-              
-           
-          </tbody>
-          
-        </Table>
+            <div className='users'>
+            <img src={Tollgate[id].url} className="profile_pic"/>
+            <p>{Tollgate[id].name} </p>
+            <p>{Tollgate[id].Route}</p>
+            <Link to={`ViewToll/${id}`}><i className='fas fa-chevron-right'></i></Link>
+            
+            </div>
+             )
+            })
+          // ):(<h3>No Users</h3>)
+          }
+            </div> 
+     
         </div>
     )
 }

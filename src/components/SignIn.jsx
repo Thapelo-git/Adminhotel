@@ -26,7 +26,7 @@ function SignIn() {
       .then((res)=>{
         try {
               
-          localStorage.setItem("user", res.user.uid)
+          localStorage.setItem("TollgateAdmin", res.user.uid)
       } catch (e) {
         // saving error
         console.log('no data')

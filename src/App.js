@@ -14,12 +14,14 @@ import MyAccount from "./components/MyAccount";
 import Guests from "./components/Guests";
 import { AuthProvider } from '../src/contexts/AuthContext'
 import { Bookings } from "./components/Bookings";
-import Rooms from "./components/Rooms";
+
 import Forgetpassword from "./components/Forgetpassword";
 import Register from "./components/Register";
 import { useState } from "react";
 import { useAuth } from '../src/contexts/AuthContext'
 import { auth } from './firebase';
+import Addprices from "./components/Addprices";
+import ViewToll from "./components/ViewToll";
 
 function App() {
   // const signedin = false;
@@ -79,11 +81,13 @@ function App() {
                   <Route exact path="/Bookings">
                     <Bookings />
                   </Route>
-                  <Route exact path="/Rooms">
-                    <Rooms />
+                  
+                  <Route exact path="/Addprices">
+                    <Addprices/>
                   </Route>
-                  <Route exact path="/update/:id">
-                    <Rooms />
+                 
+                  <Route exact path="/ViewToll">
+                    <ViewToll/>
                   </Route>
                   </>
                  )

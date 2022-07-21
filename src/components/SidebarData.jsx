@@ -12,27 +12,28 @@ export const SidebarData=[
         cName:'nav-text'
     },
     {
-        title:'My Account',
-        path:'/MyAccount',
-        icon:<AiIcons.AiFillProfile/>,
+        title:'Addprices',
+        path:'/Addprices',
+        icon:<FaIcons.FaHome/>,
         cName:'nav-text'
     },
+
     {
-        title:'Guests',
+        title:'Tollgates list',
         path:'/Guests',
         icon:<IoIcons.IoIosPeople/>,
         cName:'nav-text'
     },
     {
-        title:'Bookings',
+        title:'Payments',
         path:'/Bookings',
         icon:<IoIcons.IoIosBed/>,
         cName:'nav-text'
     },
     {
-        title:'Rooms',
-        path:'/Rooms',
-        icon:<FaIcons.FaHome/>,
+        title:'My Account',
+        path:'/MyAccount',
+        icon:<AiIcons.AiFillProfile/>,
         cName:'nav-text'
     },
     // {

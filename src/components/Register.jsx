@@ -37,7 +37,7 @@ function Register() {
                         Phonenumber: Phonenumber,
                         uid: res.user.uid
         }
-        db.ref('/admin').child(res.user.uid).set(user)
+        db.ref('/TollgateAdmin').child(res.user.uid).set(user)
         
       })
       history.push('/Dashboard')
