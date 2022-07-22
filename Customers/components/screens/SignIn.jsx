@@ -52,7 +52,7 @@ const SignIn = ({navigation}) => {
     
     return (
         <SafeAreaView>
-            <View style={styles.imageBackground} >
+            <ImageBackground style={styles.imageBackground} source={require('../images/toll_gate2.jpg')}>
         <View style={styles.container}>
             <Text style={{fontFamily:FONTS.extraBold,fontWeight:'bold',fontSize:30,
         color:COLORS.theme}}>Login</Text>
@@ -132,7 +132,7 @@ const SignIn = ({navigation}) => {
             </KeyboardAwareScrollView>
             )}</Formik>
         </View>
-        </View>
+        </ImageBackground>
         </SafeAreaView>
     )
 }

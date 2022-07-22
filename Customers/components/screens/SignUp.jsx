@@ -61,7 +61,7 @@ const SignUp = ({navigation}) => {
   
     return (
         <SafeAreaView>
-             <ImageBackground style={styles.imageBackground} source={require('../images/hotel.jpg')}>
+             <ImageBackground style={styles.imageBackground} source={require('../images/toll_gate2.jpg')}>
              <View style={styles.container}>
             <Text style={{fontFamily:FONTS.extraBold,fontWeight:'bold',fontSize:30,
         color:COLORS.theme}}>Register</Text>

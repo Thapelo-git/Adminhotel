@@ -153,7 +153,7 @@ const HistoryScreen = () => {
 
         </Text>
         </View> */}
-        <TouchableOpacity onPress={onClick(item.key)} style={{flexDirection:'row'}}>
+        
           <View style={{padding:10}}>
         <Image source={{uri:item.hotelimg}} style={{height:120,width:120,borderRadius:10}}/>
         </View>
@@ -195,7 +195,7 @@ const HistoryScreen = () => {
         </TouchableOpacity>
         </View>
         </View>
-        </TouchableOpacity>
+        
         </ScrollView>
         </View>
         );

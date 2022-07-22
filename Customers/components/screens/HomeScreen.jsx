@@ -15,34 +15,32 @@ const HomeScreen = ({navigation}) => {
     const [location,setLocation]=useState(false)
     const [images,setImage]=useState('')
     const [url,setUrl]=useState('')
-    const [Hotels,setAddHotels]=useState([])
+    const [Tollgate,setTollgate]=useState([])
     const [filteredNear, setFilteredNear] = useState([]);
   const [masterNear, setMasterNear] = useState([]);
     const user = auth.currentUser.uid;
     useEffect(()=>{
-        db.ref('/hotels').on('value',snap=>{
+        db.ref('/Tollgate').on('value',snap=>{
           
-         const Hotels=[]
+         const Tollgate=[]
             snap.forEach(action=>{
                 const key=action.key
                 const data =action.val()
-                Hotels.push({
+                Tollgate.push({
                     key:key,
                     location:data.location,
                     name:data.name,
                     url:data.url,
-                    price:data.price,
-                    size:data.size,
-                    food:data.food,
-                    gym:data.gym,
-                    wifi:data.wifi,
-                    pool:data.pool,
-                    room:data.room,
-                    room2:data.room2
+                   Route:data.Route,
+                   Road:data.Road,
+                   Class1:data.Class1,
+                   Class2:data.Class2,
+                   Class3:data.Class3,
+                   Class4:data.Class4,
                 })
-         setAddHotels(Hotels)
-         setFilteredDataSource(Hotels);
-        setMasterDataSource(Hotels);
+         setTollgate(Tollgate)
+         setFilteredDataSource(Tollgate);
+        setMasterDataSource(Tollgate);
               
             })
         })
@@ -53,45 +51,11 @@ const HomeScreen = ({navigation}) => {
         setEmail(snap.val().email)
           })
 
-          const text='Polokwane 15 bicard'
-          if(text){
-           const newData = Hotels.filter(function(item){
-               const itemData = item.location ? item.location
-               :'';
-              // const textData = text;
-               return itemData.indexOf(text)>-1;
-
-           })
         
-           setFilteredNear(newData);
-           setMasterNear(newData);
-         
-         }
-        //   db.ref('/Booking/').on('value',snap=>{
-          
-        //     const Booking=[]
-        //        snap.forEach(action=>{
-        //            const key=action.key
-        //            const data =action.val()
-        //            Booking.push({
-        //                key:key,
-        //                hotelimg:data.hotelimg,
-        //                totPrice:data.totPrice,
-        //                checkin:data.checkin,
-        //                checkout:data.checkout,
-        //                description:data.description,
-        //                hotelname:data.hotelname,
-        //                Status:data.Status,
-        //                userid:data.userid,
-        //                diff:data.diff
-      
-                       
-        //            })
-        //           })
-        //         })
+       
         
       },[])
-      console.log(Hotels,'polokwane')
+      
       const [searchtext,setSearchtext] = useState('');
       const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
@@ -116,85 +80,23 @@ const HomeScreen = ({navigation}) => {
     
     const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
     const [ selectedHotelIndex,setSelectedHotelIndex] = useState(0);
-    const Btn =[
-        {id:'1',name:'Recomended'},
-        {id:'2',name:'Popular'},
-        {id:'3',name:'Top Ratings'},
-        
-    ]
+ 
+
     
-    const ListBtn =()=>{
-        return <ScrollView horizontal 
-        showsHorizontalScrollIndicator={false} style={styles.btnListContainer}>
-            {Btn.map((category,index)=>(
-                <TouchableOpacity key={index} activeOpacity={0.8}
-                onPress={()=> setSelectedBtnIndex(index)} style={{alignItems:'center',justifyContent:'center'
-                ,}}>
-                <View style={{
-                    backgroundColor:selectedBtnIndex == index
-                    ?COLORS.theme
-                    :COLORS.lightgray,
-                    ...styles.categoryBtn,
-                }}>
-                    <Text style={{
-                        fontSize:15,fontWeight:'bold',
-                        color:selectedBtnIndex == index?COLORS.white :COLORS.theme
-                    }}>{category.name}</Text>
-                </View>
-                </TouchableOpacity>
-            ))}
-        </ScrollView>
-    }
-    
-    const Card =({Hotels,index})=>{
+    const Card =({Tollgate,index})=>{
         return(
-        <TouchableOpacity onPress={()=>navigation.navigate('Hotel Details',{data:Hotels,index:index,
+        <TouchableOpacity onPress={()=>navigation.navigate('Hotel Details',{data:Tollgate,index:index,
         phonenumber:phonenumber})}>
-        {/* <View style={styles.cardContainer}> */}
-        <ImageBackground style={styles.cardImage} source={{uri:Hotels.url}}>
+        <View style={styles.cardContainer}>
+        <Image style={styles.cardImage} source={{uri:Tollgate.url}}/>
             <View style={{height:100,alignItems:'center'}}>
-                {/* <Image source={Hotels._image}
-                style={{flex:1,resizeMode:'contain'}}vb
-                /> */}
-                    <View style={{backgroundColor: 'white',
-opacity: 0.7,width:'90%',height:55,
-        paddingt:10,paddingHorizontal:12,marginTop:120,
-                justifyContent:'flex-start',alignItems:'flex-start'}}>
-                    <View style={{flexDirection:'row'}}>
-                        <Ionicons name='location-sharp' size={16} />
-                    <Text style={{marginHorizontal:10,marginStart:0}}>{Hotels.location}</Text>
-                    </View>
-                    <View style={{flexDirection:'row'}}>
-                        {/* <Ionicons name='star' size={16} color='orange'/> */}
-                    {/* <Text style={{marginHorizontal:10,marginStart:0}}>{Hotels.rating}</Text> */}
-                    </View>
-                    </View>
-                    
-             
-                
+        <Text>{Tollgate.name}</Text>
             </View>
-            </ImageBackground>
-        {/* </View> */}
-        </TouchableOpacity>)
-    }
-    const CardNear =({Hotels})=>{
-        return(
-        <TouchableOpacity onPress={()=>navigation.navigate('Hotel Details',{data:Hotels,phonenumber:phonenumber})}>
-        <View style={styles.cardNearContainer}>
-           
-                <Image source={{uri:Hotels.url}}
-                style={{height:60,width:'100%',borderTopRightRadius:10,borderTopLeftRadius:10}}
-                />
-                   <View style={{paddingVertical:5,paddingHorizontal:10}}>
-                       <Text style={{fontSize:12,fontWeight:'bold'}}>{Hotels.location}</Text>
-                       {/* <View style={{flexDirection:'row'}}>
-                        <Ionicons name='star' size={12} color='orange'/>
-                    <Text style={{marginHorizontal:10,marginStart:0,fontSize:10}}> {Hotels.rating}</Text>
-                    </View> */}
-                    </View> 
+          
         </View>
         </TouchableOpacity>)
     }
+ 
     return (
     <SafeAreaView style={{flex:1 ,backgroundColor:COLORS.white}}>
          <StatusBar
@@ -233,42 +135,23 @@ opacity: 0.7,width:'90%',height:55,
         onChangeText={(text) => searchFilterFunction(text)}/>
         </View>
         </View>
-        <View>
-            <ListBtn/>
-        </View>
-        <View >
-        {/* {Hotels?( */}
+      
+        {/* <View style={styles.discountcard}>
+            <View style={{backgroundColor:"black",height:100,width:100}}></View>
+            <Image style={{height:100,width:100}} source={require('../images/toll_gate4.jpg')}/>
+        </View> */}
+       
+        
             <FlatList
             keyExtractor={(_,key)=>key.toString()}
-            horizontal 
-             showsHorizontalScrollIndicator={false}
+            vertical
+             showsVerticalScrollIndicator={false}
              contentContainerStyle={{ paddingLeft:20}}
             data={filteredDataSource}
-            renderItem={({item,index})=><Card Hotels={item} index={index}/>}
+            renderItem={({item,index})=><Card Tollgate={item} index={index}/>}
             />
-        {/* ):(
-            <Text>No Hotels this side</Text>
-        )} */}
-        {/* {Hotels?( */}
-            <View>
-                <View style={{flexDirection:'row',
-                justifyContent:'space-between',marginHorizontal:20,paddingVertical:20}}>
-                        <Text style={{fontWeight:'bold',color:'grey'}}>Near You</Text>
-                        <Text style={{color:'grey'}}>Show all</Text>
-                </View>
-            <FlatList
-            keyExtractor={(_,key)=>key.toString()}
-            horizontal 
-             showsHorizontalScrollIndicator={false}
-            contentContainerStyle={{paddingLeft:20,}}
-            data={filteredDataSource}
-            renderItem={({item,id})=><CardNear Hotels={item} index={id}/>}
-            />
-            </View>
-        {/* ):(
-            <Text>No Hotels this side</Text>
-        )} */}
-        </View>
+     
+        
         </SafeAreaView>
     )
 }
@@ -312,32 +195,35 @@ const styles = StyleSheet.create({
        height:220, 
     },
     cardContainer:{
-        height:200,
-        width:cardWidth,
+        height:100,
+        width:cardWidth *1.5,
         marginRight:20,
         // marginBottom:20,
-        // marginHorizontal:10,
+        marginVertical:10,
         // marginTop:5,
         borderRadius:15,
         elevation:15,
-        backgroundColor:COLORS.white
-
+        backgroundColor:COLORS.white,
+        flexDirection:'row',alignItems:'center'
+        
     },
-    cardNearContainer:{
-      height:120,
-    //   width:cardWidth/2,
-      borderRadius:15, 
-      backgroundColor:COLORS.white ,
-      elevation:15,
-      width:120,
-      marginHorizontal:10,
-    //   marginLeft:12
-
-    
-    },
+   discountcard:{
+       flexDirection:'row',justifyContent:'space-between',
+    height:100,
+        width:cardWidth*1.5,
+        marginRight:20,
+        // marginBottom:20,
+        marginHorizontal:10,
+        // marginTop:5,
+        borderRadius:15,
+        elevation:15,
+        backgroundColor:COLORS.white,
+        alignItems:'center',
+   },
+   
     cardImage:{
-        height:190,
-        width:width/2,
+        height:100,
+        width:width/3,
         marginRight:20,
         padding:10,
         overflow:'hidden',
