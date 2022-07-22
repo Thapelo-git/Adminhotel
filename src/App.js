@@ -86,7 +86,7 @@ function App() {
                     <Addprices/>
                   </Route>
                  
-                  <Route exact path="/ViewToll">
+                  <Route exact path="/ViewToll/:id">
                     <ViewToll/>
                   </Route>
                   </>

@@ -20,7 +20,7 @@ function MyAccount() {
   const history = useHistory()
   const user = auth.currentUser.uid
   useEffect(()=>{
-    db.ref(`/admin/`+ user).on('value',snap=>{
+    db.ref(`/TollgateAdmin/`+ user).on('value',snap=>{
       
       setFirstname(snap.val() && snap.val().Firstname);
   setPhonenumber(snap.val().Phonenumber)

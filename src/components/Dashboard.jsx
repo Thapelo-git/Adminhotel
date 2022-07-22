@@ -3,6 +3,7 @@ import ImageUploading from 'react-images-uploading';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { auth,db } from '../firebase';
 import {Link,useParams} from 'react-router-dom'
+import "./Styles/Dashboard.css"
 function Dashboard() {
   const [Firstname,setFirstname]=useState('')
   const user = auth.currentUser.uid
@@ -10,50 +11,63 @@ function Dashboard() {
     const uid=currentId;
   useEffect(()=>{
     
-    db.ref(`/admin/`+ user).on('value',snap=>{
+    db.ref(`/TollgateAdmin/`+ user).on('value',snap=>{
       
       setFirstname(snap.val() && snap.val().Firstname);
     })
     
   },[])
-  const [hotels,setHotels]=useState([])
+  const [Tollgate,setTollgate]=useState([])
+  const [Booking,setBooking]=useState([])
   useEffect(()=>{
-    db.ref('hotels').on('value',snap=>{
+    db.ref('Tollgate').on('value',snap=>{
       
-      setHotels({...snap.val(),});
+      setTollgate({...snap.val(),});
+    })
+    db.ref('Booking').on('value',snap=>{
+      
+      setBooking({...snap.val(),});
     })
     
-  },[uid])
+  },[])
 
- 
+var count =0
+var count2 =0
     return (<>
-      <div className="col-md-7 mx-auto col-12 card shadow-lg border-0 p-4">
-           <h4 className="fw-bold p-4 text-secondary header">WELCOME BACK</h4>
+      <div className="col-md-7 mx-auto col-12 w-90 card shadow-lg border-0 p-4">
+      <div className='viewRow'>
+      <h4 className="fw-bold p-4 text-secondary header">WELCOME BACK</h4>
         <h6 className="fw-bold p-4 name">{Firstname}</h6>
+      </div>
+      
         <div className='container mt-3'>
         <div className='row'>
         {
-          Object.keys(hotels).map((id,items)=>
-          
-          
-            <div className='col-md-4'>
-              <div className='card shadow-lg'>
-                <img src={hotels[id].url}/>
-                <div className='card-body'>
-                  <h3>{hotels[id].name}</h3>
-                <Link to={`/update/${id}`}>
-                                <button className="btn btn-info">Update</button>
-                                   </Link>
-                  <button className='btn btn-dark btn-sm'>Edit</button>
-                </div>
-
-              </div>
-            </div>
-
-         
-      
+          Object.keys(Tollgate).map((id,items)=>
+          {count += 1}
+  
           )
         }
+         {
+          Object.keys(Booking).map((id,items)=>
+          {count2 += 1}
+  
+          )
+        }
+        <div className='viewRow'>
+        <div className='box'>
+        <div className='input_column'>
+        <h1>{count}</h1>
+        <p>Toll Gates</p>
+        </div>
+        </div>
+        <div className='box'>
+        <div className='input_column'>
+        <h1>{count2}</h1>
+        <p>Payments</p>
+        </div>
+        </div>
+        </div>
          </div>
      </div>
       </div>
