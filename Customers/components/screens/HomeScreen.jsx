@@ -64,7 +64,7 @@ const HomeScreen = ({navigation}) => {
       const searchFilterFunction =(text)=>{
         if(text){
             const newData = masterDataSource.filter(function(item){
-                const itemData = item.location ? item.location.toUpperCase()
+                const itemData = item.name ? item.name.toUpperCase()
                 :''.toUpperCase();
                 const textData = text.toUpperCase();
                 return itemData.indexOf( textData)>-1;
@@ -90,7 +90,19 @@ const HomeScreen = ({navigation}) => {
         <View style={styles.cardContainer}>
         <Image style={styles.cardImage} source={{uri:Tollgate.url}}/>
             <View style={{height:100,alignItems:'center'}}>
-        <Text>{Tollgate.name}</Text>
+                <View style={{flexDirection:'row', alignItems:'center',justifyContent:'center'}}>
+                <Text style={{fontSize: 18,color:'gray',}}>Name: </Text>
+        <Text style={{fontSize:20,color:'blue',}}>{Tollgate.name}</Text>
+        </View>
+        <View style={{flexDirection:'row', alignItems:'center',justifyContent:'center'}}>
+                <Text style={{fontSize: 18,color:'gray',}}>Route: </Text>
+                <Text style={{fontSize:20,color:'gray',}}>{Tollgate.Route}</Text>
+        </View>
+        <View style={{flexDirection:'row', alignItems:'center',justifyContent:'center'}}>
+                <Text style={{fontSize: 18,color:'gray',}}>Road: </Text>
+                <Text style={{fontSize: 18,color:'gray',}}>{Tollgate.Road}</Text>
+        </View>
+      
             </View>
           
         </View>

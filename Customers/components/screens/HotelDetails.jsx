@@ -21,16 +21,16 @@ import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import Entypo from 'react-native-vector-icons/Entypo'
 // import SlidingUpPanel from "rn-sliding-up-panel";
 import DatePicker from "react-native-datepicker";
-// import Hotels from "../onbording/Hotels";
+
 import moment from 'moment'
 import { auth ,db} from './firebase'
 import MapView, { PROVIDER_GOOGLE ,Marker} from "react-native-maps";
 const screenWidth = Dimensions.get("screen").width;
 const screenHeight = Dimensions.get("screen").height;
 const {height} = Dimensions.get('window')
-const imgContainerHeight = screenHeight * 0.4;
-const sub = imgContainerHeight * 0.2;
-
+const imgContainerHeight = screenHeight * 0.1;
+const imageC = screenHeight * 0.10;
+const container =screenHeight -imageC
 const aminitieSsize=screenHeight*.08
 const itemRef =db.ref('/HotelBooking')
 const HotelDetails = ({ navigation, route }) => {
@@ -40,14 +40,13 @@ const HotelDetails = ({ navigation, route }) => {
     const [wifi,setWifi]=useState(false)
    const [currentkey,setCurrentkey]=useState('')
    const [Phonenumber,setPhonenumber]=useState(route.params.phonenumber)
-   const hotel= [require('../images/bed2.jpg'),require('../images/sitting1.jpg'),
-   require('../images/bathroom1.jpg'),require('../images/balcony4.jpg')]
+ 
   
   let _panel= React.useRef(null)
   let bs=React.createRef();
   let fall = new Animated.Value(1)
   const list = route.params.data;
-  const galary = hotel;
+  
   
 
   const hotelinfor= list
@@ -73,29 +72,7 @@ const HotelDetails = ({ navigation, route }) => {
     );
   };
 
-  const Aminities = ({ aminity }) => {
-    return (
-      <View style={{backgroundColor:'lightgray',marginRight:10,width:aminitieSsize,
-      height:aminitieSsize,justifyContent:'center',alignItems:'center',
-      borderRadius:10}}>
-        <MaterialIcons name={food?"fastfood":"no-food"}/>
-        {/* <MaterialIcons name={gym?"fastfood":"no-food"}/> */}
-        <MaterialIcons name={aminity} size={aminitieSsize/2}/>
-      </View>
-    );
-  };
-  const renderInner=()=>(
-    <Text>hello</Text>
-  )
-  const renderHeader=()=>(
-    <View style={styles.header}>
-      <View style={styles.panelHeader}>
-      <View style={styles.panelHandle}>
-
-      </View>
-      </View>
-    </View>
-  )
+ 
   const BottomSheet =({onCancel,animation})=>{
     const [date,setDate]=useState( new Date())
   
@@ -273,7 +250,7 @@ const HotelDetails = ({ navigation, route }) => {
     <SafeAreaView style={{flex:1}}>
       <View style={styles.imgContaner}>
       
-        <ImageBackground  source={{uri:list.url}}style={{ width: "100%", height: "100%" }} >
+
         <View style={styles.headerContainer} 
             >
                <View style={{backgroundColor: 'white',
@@ -285,9 +262,11 @@ opacity: 0.7,width:30,
              </View>
             <Text style={styles.headerTitle}></Text>
             </View>
-        </ImageBackground>
+            <View style={{width:'100%',justifyContent:'center',alignItems:'center',marginTop:imgContainerHeight}}>
+<Image source={require('../images/classes.jpg')} style={styles.classimage}/>
+</View>
       </View>
-
+      
       <View style={styles.cardBox}>
         
         <View style={{paddingVertical:-5,flexDirection:'row',justifyContent:'space-between'}}>
@@ -306,67 +285,17 @@ opacity: 0.7,width:30,
                     <Text style={{marginHorizontal:10,marginStart:0}}>3.2</Text>
                     </View>
                     </View>
-        <View style={{flext:1}}>
-          
-      <Text style={{fontWeight:'bold',fontSize:15}}>R{list.price}</Text>
-      <Text style={{fontSize:10}}>per night</Text>
-      </View>
+       
       </View>
       <View style={{paddingVertical:20}}>
-      <Text style={{fontSize:15,fontWeight:'bold',top:-15, color:'#032B7A'}}>Amenities</Text>
-        {/* <FlatList
-          keyExtractor={(_, key) => key.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={list.Aminities}
-          renderItem={({ item }) => <Aminities aminity={item} />}
-        /> */}
-        
-        <View style={{flexDirection:'row',top:-10}}>
-
-  <View style={{backgroundColor:'lightgray',marginRight:25,width:aminitieSsize,
-      height:aminitieSsize,justifyContent:'center',alignItems:'center',
-      borderRadius:10}}>
-        
-        <AntDesign  name={list.food?"check":"close"} />
-        <Text>food</Text>
-      </View>
-      <View style={{backgroundColor:'lightgray',marginRight:25,width:aminitieSsize,
-      height:aminitieSsize,justifyContent:'center',alignItems:'center',
-      borderRadius:10}}>
-       
      
-        <AntDesign  name={list.pool?"check":"close"} />
-        <Text>pool</Text>
-      </View>
-       <View style={{backgroundColor:'lightgray',marginRight:25,width:aminitieSsize,
-      height:aminitieSsize,justifyContent:'center',alignItems:'center',
-      borderRadius:10}}>
-       <AntDesign  name={list.wifi?"check":"close"} />
-        <Text>wifi</Text>
-      </View>
-      <View style={{backgroundColor:'lightgray',marginRight:10,width:aminitieSsize,
-      height:aminitieSsize,justifyContent:'center',alignItems:'center',
-      borderRadius:10}}>
-       <AntDesign  name={list.food?"check":"close"} />
-        <Text>TV</Text>
-      </View>
-      
-      </View>
         
-         <Text style={{fontSize:16,fontWeight:'bold',top:-5, color:'#032B7A', marginTop:10}}>Gallery</Text>
-        <FlatList
-          keyExtractor={(_, key) => key.toString()}
-          horizontal
-          showsHorizontalScrollIndicator={false}
-          data={hotel}
-          renderItem={({ item, index }) => (
-            <Imageslist images={item} index={index} />
-          )}
-        />
+    
+        
+        
         
         </View>
-              <View style={{marginLeft:70,top:10,}}>
+              <View style={{justifyContent:'center',alignItems:'center',width:'100%'}}>
         <Flatbutton  text='Check Availability'style={{top:10,}} 
         onPress={()=>{toggleAnimation()}}/>
 </View>
@@ -417,20 +346,30 @@ export default HotelDetails;
 
 const styles = StyleSheet.create({
   cardBox: {
-    paddingTop: 30,
-    borderTopRightRadius: 40,
-    borderTopLeftRadius: 40,
+    // paddingTop: 30,
+    height:'100%',
     padding: 20,
-    marginTop: imgContainerHeight - sub,
+    marginTop:screenHeight *0.2,
     backgroundColor: "white",
-    flex:1,
+    // flex:1,
 
+  },
+  classimage:{
+    width:300,
+    height:90,
+    marginTop: imgContainerHeight ,
+    
+
+    position:'absolute'
   },
   imgContaner: {
     width: screenWidth,
     height: imgContainerHeight,
     position: "absolute",
     top: 0,
+    backgroundColor:'black',
+    borderBottomLeftRadius:20,
+    borderBottomRightRadius:20,
   },
   headerContainer:{
     top:10,
