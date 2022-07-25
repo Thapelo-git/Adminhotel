@@ -22,6 +22,8 @@ import { useAuth } from '../src/contexts/AuthContext'
 import { auth } from './firebase';
 import Addprices from "./components/Addprices";
 import ViewToll from "./components/ViewToll";
+import { AddToll } from "./components/AddToll";
+import { Classes } from "./components/Classes";
 
 function App() {
   // const signedin = false;
@@ -75,15 +77,15 @@ function App() {
                   <Route exact path="/MyAccount">
                     <MyAccount />
                   </Route>
-                  <Route exact path="/Guests">
-                    <Guests />
+                  <Route exact path="/AddToll">
+                    <AddToll/>
                   </Route>
                   <Route exact path="/Bookings">
                     <Bookings />
                   </Route>
                   
-                  <Route exact path="/Addprices">
-                    <Addprices/>
+                  <Route exact path="/Classes">
+                    <Classes/>
                   </Route>
                  
                   <Route exact path="/ViewToll/:id">

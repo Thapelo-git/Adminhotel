@@ -63,29 +63,26 @@ function getCreditCardToken(creditCardData){
 
 const PaymentScreen = ({navigation,route}) => {
   const hotelinfor=route.params.hotelinfor
-  // const hotelimg=hotelinfor.url
+ 
   const hotelname=hotelinfor.name
   
-  const diff=route.params.diff
-  // const checkin=route.params.checkin
-  // const checkout=route.params.checkout
  const  adultPlus=route.params.adultPlus
  const roomnumber=route.params.roomnumber
  const totPrice=route.params.totPrice
  const room=route.params.room
  const roomT=route.params.roomT
 
- const [checkin,setCheckin]=useState(route.params.checkin)
- const [checkout,setCheckout]=useState(route.params.checkout)
+ const [price,setPrice]=useState(route.params.price)
+ const [Classes,setClasses]=useState(route.params.Classes)
   const [hotelimg,setHotelimg]=useState(hotelinfor.url)
   const [Phonenumber,setPhonenumber]=useState(route.params.Phonenumber)
   // const Phonenumber=route.params.Phonenumber
  const [Status,setStatus]=useState('Pending')
- const [description,setDescription]=useState('Successfully paid booking')
- const [statement,setStatement]=useState('Successfully paid booking   '+checkin+' to  '+checkout+''+hotelname+'   '+diff+'nights')
+ const [description,setDescription]=useState('Successfully paid')
+ 
  const datetoday=moment(new Date()).format('YYYY/MM/DD')
   const [CardInput, setCardInput] = React.useState({})
-  const userid= auth.currentUser.uid
+  
   const addBooking=()=>{
         
     const userid= auth.currentUser.uid
@@ -94,7 +91,7 @@ const PaymentScreen = ({navigation,route}) => {
     db.ref('Booking').push({
         userid,Status,
         description,hotelname,
-        diff,checkin,checkout,adultPlus,roomnumber,totPrice,roomT,hotelimg,
+       hotelimg,price,Classes,
         datetoday
    
     })
@@ -141,7 +138,7 @@ const PaymentScreen = ({navigation,route}) => {
         // Alert.alert(
         //   "Payment Successfully"
         // )
-        alert("Payment Successfully");
+        alert("Payment Successful");
         //onComposeSms()
         
       }

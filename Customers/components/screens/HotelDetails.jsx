@@ -8,6 +8,8 @@ import {
   Image,
   ScrollView,
   FlatList,
+  Alert,
+  Picker,
   ImageBackground,ToastAndroid,
   Dimensions,ImageBackgroud,Animated,Pressable,TextInput
 } from "react-native";
@@ -34,11 +36,7 @@ const container =screenHeight -imageC
 const aminitieSsize=screenHeight*.08
 const itemRef =db.ref('/HotelBooking')
 const HotelDetails = ({ navigation, route }) => {
-  // const [food,setFood]=useState(false)
-    const [gym,setgym]=useState(false)
-    const [pool,setPool]=useState(false)
-    const [wifi,setWifi]=useState(false)
-   const [currentkey,setCurrentkey]=useState('')
+  
    const [Phonenumber,setPhonenumber]=useState(route.params.phonenumber)
  
   
@@ -51,26 +49,41 @@ const HotelDetails = ({ navigation, route }) => {
 
   const hotelinfor= list
   const location = list._location
+ 
   
-  
+  // const addBooking = () => {
+  //   if (
+    
+  //     location == '' ||
+  //     Description == '' ||
+  //     date == '' ||
+     
+  //     time==''
+  //   ) {
+  //     Alert.alert("Error", "Enter all the fields", [
+  //       {
+  //         text: "ok",
+  //       },
+  //     ]);
+  //   } else {
+  //     db.ref('BookEvent').push({
+  //       Status:'Pending',
+  //       events,
+  //       location,
+  //       Description,
+  //       date,
+  //       price,
+  //       time
+  //      ,name,email
+  //     })
+  //     setDescription('')
+  //     setFee('')
+  //     setLocation('')
+  //     setTime('')
+  //     navigation.navigate('bookingSc')
+  //   }
+  // };
 
-  const Imageslist = ({ images, index }) => {
-    return (
-      <View style={{ marginRight: 20 ,}}>
-       
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("GalleryScreen", {
-              galary:galary,
-              index: index,
-            })
-          }
-        >
-          <Image source={images} style={{ height: 80, width: 80,borderRadius:20 }} />
-        </TouchableOpacity>
-      </View>
-    );
-  };
 
  
   const BottomSheet =({onCancel,animation})=>{
@@ -246,8 +259,41 @@ const HotelDetails = ({ navigation, route }) => {
     }).start()
     setAnimationValue(val)
   }
+  const [Classes, setClasses] = useState("");
+  const [ClassType, setClassType] = useState([]);
+  const [TollClass, setTollClass] = useState([]);
+    useEffect(()=>{
+        
+            db.ref('/TollClasses/').on('value',snap=>{
+              let item = [];
+              const a_ =snap.val();
+              for (let x in a_){ 
+                item.push({Price:a_[x].Price,key:x,TollClass:a_[x].TollClass})
+              }
+            
+              setTollClass(item)
+              
+            })
+         
+      
+    },[])
+   
+  const FilterFunction =(text)=>{
+    if(text){
+        const newData = TollClass.filter(function(item){
+            const itemData = item.TollClass? item.TollClass.toUpperCase()
+            :''.toUpperCase();
+            const textData = text.toUpperCase();
+            return itemData.indexOf( textData)>-1;
+
+        })
+        setClassType(newData)
+        setClasses(text)
+    }
+}
+  var  price=0  
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={{flex:1,backgroundColor:'white'}}>
       <View style={styles.imgContaner}>
       
 
@@ -271,14 +317,30 @@ opacity: 0.7,width:30,
         
         <View style={{paddingVertical:-5,flexDirection:'row',justifyContent:'space-between'}}>
           <View>
-      <Text
+            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+            <Text style={{color:'gray',fontSize:17}}>Name     </Text>
+            <Text
           style={{color:'#032B7A',fontWeight:'bold',fontSize:20, marginBottom:5}}
           >{list.name}</Text>
+            </View>
+            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+            <Text style={{color:'gray',fontSize:17}}>Route     </Text>
+            <Text
+          style={{color:'#032B7A',fontWeight:'bold',fontSize:20, marginBottom:5}}
+          >{list.Route}</Text>
+            </View>
+            <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center'}}>
+            <Text style={{color:'gray',fontSize:17}}>Road     </Text>
+            <Text
+          style={{color:'#032B7A',fontWeight:'bold',fontSize:20, marginBottom:5}}
+          >{list.Road}</Text>
+            </View>
         <TouchableOpacity onPress={()=>navigation.navigate('MapScreen')} style={{flexDirection:'row'}}>
           <MaterialIcons name='location-pin' size={20}/>
       <Text style={{marginBottom:5, color:'gray'}}>{list.location}</Text>
       </TouchableOpacity>
       <View style={{flexDirection:'row'}}>
+        <Text style={{color:'gray',fontSize:17}}>Ratings</Text>
                         <Ionicons name='star' size={16} color='orange'/>
                         <Ionicons name='star' size={16} color='orange'/>
                         {/* <Ionicons name='star-half-sharp' size={16} color='orange'/> */}
@@ -289,15 +351,60 @@ opacity: 0.7,width:30,
       </View>
       <View style={{paddingVertical:20}}>
      
-        
+      <Text style={styles.titles}>Select Vehicle Class</Text>
+              
+              <Picker
+                selectedValue={Classes}
+                onValueChange={(value,id) => {FilterFunction(value)}}
+              >
+                  <Picker.Item label="select" value="" />
+                <Picker.Item label="Class 1" value="ClassOne" />
+                <Picker.Item label="Class 2" value="ClassTwo" />
+                <Picker.Item label="Class 3" value="ClassThree" />
+                <Picker.Item label="Class 4" value="ClassFour" />
+              </Picker>
+
+              <Text style={styles.titles}>Fees </Text>
+            {
+                ClassType.map((element,index)=>(
+
+                <>
+               
+                  {/* <Text>{element.selector}</Text> */}
+                  <Text style={{color:'#000',fontWeight:'bold'}}>Price for {element.TollClass} = R {price=element.Price}</Text>
+                
+                  <TextInput
+                    placeholder="R00.00"
+                    keyboardType="numeric"
+                    value={element.Price}
+                  // onChangeText={ setFee(element.Price)}
+                    style={{
+                      padding: 10,
+                      backgroundColor: "gainsboro",
+                      borderRadius: 10,
+                      borderWidth: 1,
+                    }}
+                  />
+                      </>
+              
+                ))
+            
+            }
+            
     
         
         
         
         </View>
+        
               <View style={{justifyContent:'center',alignItems:'center',width:'100%'}}>
-        <Flatbutton  text='Check Availability'style={{top:10,}} 
-        onPress={()=>{toggleAnimation()}}/>
+        <Flatbutton  text='Pay'style={{top:10,}} 
+      onPress={()=>navigation.navigate('PaymentScreen',{
+        hotelinfor:hotelinfor,
+        price:price,Classes:Classes,
+        Phonenumber:Phonenumber,
+        
+      })} />
 </View>
         {/* <SlidingUpPanel
          ref={c=>(_panel=c)}
@@ -361,6 +468,11 @@ const styles = StyleSheet.create({
     
 
     position:'absolute'
+  },
+  titles: {
+    fontWeight: "bold",
+    fontSize: 16,
+    color:'#333'
   },
   imgContaner: {
     width: screenWidth,

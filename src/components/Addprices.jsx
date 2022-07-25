@@ -2,16 +2,22 @@ import React,{useState,useEffect} from 'react'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { db, } from '../firebase';
 import { storage } from '../firebase';
+
 import "./Styles/Addprices.css"
 function Addprices() {
     let navigate =useHistory()
     const values={
         name:'',Route:'',Road:'',
-        Class1:'',Class2:'',
-        Class3:'',Class4:''
-      
+   
       }
-    
+      const [Tollgates,setTollgates]=useState([])
+      useEffect(()=>{
+        db.ref('TollClasses').on('value',(snapshot)=>{
+          setTollgates({
+            ...snapshot.val(),
+          })
+        })
+      },[])
       const [url, setUrl] = useState();
       const [image,setImage]=useState(null)
       const handleImgChange=e=>{
@@ -47,10 +53,7 @@ function Addprices() {
       };
       const [initialState,setState]=useState(values)
       const {name,Route,Road,
-      Class1,Class2,
-      Class3,Class4
-    
-    
+
     }=initialState
      
       const handleInputChange=(e)=>{
@@ -64,11 +67,13 @@ function Addprices() {
         e.preventDefault();
         
             db.ref('Tollgate').push({name,Route,Road,
-            Class1,Class2,
-            Class3,Class4,
-          url})
-          navigate.push('Guests')
+              url})
+              
+      
     }
+  
+    
+  
   return (
     <>
     <div className='Add_cover'>
@@ -117,37 +122,8 @@ function Addprices() {
           
         </div>
       
-        <div className='headings'>
-        <h3>Class Vehicle Prices</h3>
-      </div>
-      <div className='input_row'>
-          <div className='input_column'>
-          <label>Class 1</label>
-          <input name='Class1' type='number' className='input_infor' required="required" 
-            onChange={handleInputChange} value={Class1} />
-         <label>Price for light Vehicles</label>
-          </div>
-          <div className='input_column'>
-          <label>Class 2</label>
-          <input name='Class2' type='number' className='input_infor' required="required" 
-            onChange={handleInputChange} value={Class2} />
-           <label>Medium heavy vehicles</label>
-          </div>
-          <div className='input_column'>
-          <label>Class 3</label>
-            <input name='Class3' type='number' className='input_infor' required="required"
-            onChange={handleInputChange} value={Class3}/>
-             <label>Large heavy vehicles</label>
-          </div>
-          <div className='input_column'>
-          <label>Class 4</label>
-            <input name='Class4' type='number' className='input_infor' required="required" 
-            onChange={handleInputChange} value={Class4}/>
-             <label>Extra large heavy vehicles</label>
-          </div>
-        </div>
-       
-
+        
+     
 
         <div className='headings'>
           <button type='submit' className='button'><label className='button_Lable'>Submit</label></button>

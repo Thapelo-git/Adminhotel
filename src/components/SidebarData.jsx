@@ -13,14 +13,14 @@ export const SidebarData=[
     },
     {
         title:'Addprices',
-        path:'/Addprices',
+        path:'/Classes',
         icon:<FaIcons.FaHome/>,
         cName:'nav-text'
     },
 
     {
-        title:'Tollgates list',
-        path:'/Guests',
+        title:'Tollgates ',
+        path:'/AddToll',
         icon:<IoIcons.IoIosPeople/>,
         cName:'nav-text'
     },

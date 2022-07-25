@@ -63,35 +63,22 @@ const HistoryScreen = () => {
 
             })
             const text='Cancelled'
-            // if(text){
-            //   const Data = userinfor.filter(function(item){
-            //     const itemData = item.Status ? item.Status
-            //     :'';
-            //     const textData = text;
-            //     return itemData.indexOf( textData)>-1;
-
-            // })
-            // setCancelled(Data)
-            
-            // }
+            const Completed='Completed'
+            if(text || Completed){
               const newData = userinfor.filter(function(item){
-                // return(
-                //   item.Status === text ||
-                //   moment(moment().add(0, 'days')).isAfter(item.checkout) 
-                
-                  
-                // )
-                  const itemData =  moment(moment().add(0, 'days')).isAfter(item.checkout)?
-         
-    (  item.checkout)
-                  :   ( '')
-                  
-                  return itemData;
-  
-              })
-              setBooking(newData)
+                const itemData = item.Status ? item.Status
+                :'';
+                const textData = (text || Completed);
+                return itemData.indexOf( textData)>-1;
+
+            })
+          
+            setBooking(newData)
               setFilteredDataSource(newData);
              setMasterDataSource(newData);
+            }
+             
+              
              
             }
           
@@ -102,7 +89,7 @@ const HistoryScreen = () => {
   },[])
   
   const handleDelete=(key)=>{
-    Alert.alert('Confirm','Are you sure?',[
+    Alert.alert('Confirm','Are you sure you want to delete?',[
       {text:'Yes',
      onPress:()=>db.ref('Booking').child(key).remove(),
     },
@@ -143,16 +130,10 @@ const HistoryScreen = () => {
           // Flat List Item
           <View style={{padding:5}}>
           <ScrollView>
-          {/* <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
+          <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
            
-        <Text
-          style={{color:'#032B7A'}}
-          onPress={() => getItem(item)}>
-            
-            {item.hotelname.toUpperCase()}
-
-        </Text>
-        </View> */}
+       
+        
         
           <View style={{padding:10}}>
         <Image source={{uri:item.hotelimg}} style={{height:120,width:120,borderRadius:10}}/>
@@ -168,19 +149,16 @@ const HistoryScreen = () => {
         </Text>
      
         </View>
-          <View style={{flexDirection:'row',alignItems:'center',justifyContent:'center'}}>
-            
-          <Text>{item.checkin}  -  {item.checkout}</Text>
-        </View>
+         
+        <Text>Payment ID:</Text>
+          <Text>{item.key}</Text>
         {
         item.description == 'Cancelled'?(
           <Text style={{color:'red'}}>{item.description}</Text>
-        ):(<Text>{item.description}</Text>)
+        ):(<Text style={{color:'green'}}>{item.description}</Text>)
       }
-        {/* <Text>{item.description}</Text> */}
-     
-            
-        <Text>Price  {item.totPrice}</Text>
+       
+   
         
         <View style={{flexDirection:'row',alignItems:'stretch',justifyContent:'space-between'}}>
         <Text
@@ -195,7 +173,7 @@ const HistoryScreen = () => {
         </TouchableOpacity>
         </View>
         </View>
-        
+        </View>
         </ScrollView>
         </View>
         );
@@ -240,7 +218,7 @@ const HistoryScreen = () => {
         <Ionicons name="search" size={24}/>
         <TextInput 
         style={{fontSize:18,flex:1,marginLeft:10}}
-        placeholder="Looking for previews hotel?"
+        placeholder="Looking for previews payment?"
         onChangeText={(text) => searchFilterFunction(text)}
         />
         {/* <TouchableOpacity onPress={(text) => searchFilterFunction('')}>

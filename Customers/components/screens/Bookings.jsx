@@ -42,14 +42,13 @@ const Bookings = () => {
              Booking.push({
                  key:key,
                  hotelimg:data.hotelimg,
-                 totPrice:data.totPrice,
-                 checkin:data.checkin,
-                 checkout:data.checkout,
+                 price:data.price,
+                Classes:data.Classes,
                  description:data.description,
                  hotelname:data.hotelname,
                  Status:data.Status,
                  userid:data.userid,
-                 diff:data.diff
+                 
 
                  
              })
@@ -95,9 +94,9 @@ const Bookings = () => {
    
 const day=moment(new Date()).format('YYYY/MM/DD')
     const updateBooking = (key, status) => {
-      Alert.alert('Confirm','your booking will be cancelled?',[
+      Alert.alert('Confirm','Your payment will be cancelled?',[
         {text:'Yes',
-       onPress:()=>db.ref('Booking').child(key).update({Status:status,description:status,checkout:day})
+       onPress:()=>db.ref('Booking').child(key).update({Status:status,description:status})
        .then(()=>db.ref('BookEvent').once('value'))
        .then(snapshot=>snapshot.val())
        .catch(error => ({
@@ -138,7 +137,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
           </View>
           <View style={{flexDirection:'row'}}>
             <View style={{padding:10}}>
-          <Image source={{uri:item.hotelimg}} style={{height:120,width:120,borderRadius:10}}/>
+          <Image source={{uri:item.hotelimg}} style={{height:120,width:100,borderRadius:10}}/>
           </View>
           <View>
             <Text></Text>
@@ -151,18 +150,19 @@ const day=moment(new Date()).format('YYYY/MM/DD')
               {item.hotelname}
 
           </Text>
-          <Text >{item.diff} nights</Text>
+          <Text >Payment ID:{item.key}</Text>
             <View style={{flexDirection:'row'}}>
           
-          <Text>{item.checkin}  -  {item.checkout}</Text>
+          <Text>You paid for {item.Classes} </Text>
           </View>
-          <Text>{item.description}</Text>
+          <Text>Price R {item.price}</Text>
+          <Text style={{color:'green'}}>{item.description}</Text>
        {/* backgroundColor:'#AA0303', style={{flexDirection:'row',justifyContent:'space-between',alignItems:'flex-end',}}*/}
             <View > 
-          <Text>Price  {item.totPrice}</Text>
+          
           <View style={{flexDirection:'row',alignItems:'flex-end',justifyContent:'flex-end'}}>
-          <TouchableOpacity style={{height:30,width:70,justifyContent:'center',
-          alignItems:'center',}}  onPress={()=>updateBooking(item.key,'Cancelled',item.checkout)}>
+          <TouchableOpacity style={{height:30,width:70,justifyContent:'center',borderColor:'red',
+          alignItems:'center',borderWidth:0.5}}  onPress={()=>updateBooking(item.key,'Cancelled',item.checkout)}>
           <Text style={{color:'red'}}>Cancel</Text>
           </TouchableOpacity>
           </View>
@@ -214,7 +214,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
         <Ionicons name="search" size={24}/>
         <TextInput 
         style={{fontSize:18,flex:1,marginLeft:10}}
-        placeholder="Looking for previews hotel?"
+        placeholder="Looking for your payments?"
         onChangeText={(text) => searchFilterFunction(text)}
         />
         {/* <TouchableOpacity onPress={(text) => searchFilterFunction('')}>

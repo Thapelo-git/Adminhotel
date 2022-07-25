@@ -43,13 +43,12 @@ export const Bookings = () => {
         >
           <thead>
             <tr>
-              <th>ID</th>
-              <th>CREATED</th>
-              <th>GUESTS</th>
-              <th>Nummber Room </th>
-              <th>Start Date</th>
-              <th>End Date</th>
-              <th>No.Geusts</th>
+              <th>Payment ID</th>
+              <th>Date created</th>
+              
+              <th>Tollgate name </th>
+              
+              <th>Class choosen</th>
               <th>Price</th>
               <th>Status</th>
             </tr>
@@ -58,13 +57,10 @@ export const Bookings = () => {
           {Object.keys(Booking).map((id,booking) => (
                 <tr >
                   <td>{id}</td>
-                  <td>MOLOBE@GMAIL.COM</td>
-                  <td>Molobe</td>
-                  <td>SINGLE</td>
-                  <td>{Booking[id].checkin}</td>
-                  <td>{Booking[id].checkout}</td>
-                  <td>{Booking[id].adultPlus}</td>
-                  <td>R {Booking[id].totPrice}</td>
+                  <td>{Booking[id].datetoday}</td>
+                  <td>{Booking[id].hotelname}</td>
+                  <td>{Booking[id].Classes}</td>
+                  <td>R {Booking[id].price}</td>
                   <StatusTD type={Booking[id].Status}>{Booking[id].Status}</StatusTD>
                   {Booking[id].Status === "Pending" ? (
                     <>
