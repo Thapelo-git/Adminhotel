@@ -53,10 +53,10 @@ const TabScreen = () => {
            
             <Tab.Screen name="Bookings" component={Bookings}
             options={{
-                tabBarLabel:'Bookings',
+                tabBarLabel:'Payments',
                 tarBarColor:COLORS.theme,
                 tabBarIcon:({color}) =>
-            <Icon name="bed" color={color} size={26}/>}}/>
+                <Icon name="ios-wallet" color={color} size={26}/>}}/>
             <Tab.Screen name="ProfileScreen" component={ProfileScreen}
             options={{
                 tabBarLabel:'Profile',

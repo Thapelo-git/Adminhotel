@@ -44,13 +44,9 @@ const HistoryScreen = () => {
                  
              })
             })
-    // db.ref('/users/'+ user).on('value',snap=>{
-    //   setBooking(snap.val().Booking)
-     
-    //  })
    
             console.log(user)
-            // moment(checkin).isBefore(checkout)
+            
            
              if(user){
                const userinfor = Booking.filter(function(item){
@@ -62,21 +58,22 @@ const HistoryScreen = () => {
                 return itemData.indexOf( textData)>-1;
 
             })
-            const text='Cancelled'
-            const Completed='Completed'
-            if(text || Completed){
-              const newData = userinfor.filter(function(item){
-                const itemData = item.Status ? item.Status
-                :'';
-                const textData = (text || Completed);
-                return itemData.indexOf( textData)>-1;
+            setBooking(userinfor)
+              setFilteredDataSource(userinfor);
+             setMasterDataSource(userinfor);
+            // const text='Cancelled'
+            // const Completed='Completed'
+            // if(text && Completed){
+            //   const newData = userinfor.filter(function(item){
+            //     const itemData = item.Status ? item.Status
+            //     :'';
+            //     const textData = (text && Completed);
+            //     return itemData.indexOf( textData)>-1;
 
-            })
+            // })
           
-            setBooking(newData)
-              setFilteredDataSource(newData);
-             setMasterDataSource(newData);
-            }
+            
+            // }
              
               
              
@@ -124,11 +121,18 @@ const HistoryScreen = () => {
             setSearchtext(text)
         }
     }
+    var Status='Pending'
     const ItemView = ({item}) => {
       
         return (
           // Flat List Item
+         
           <View style={{padding:5}}>
+       {
+        item.Status != 'Pending'?(
+          <>
+          
+      
           <ScrollView>
           <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
            
@@ -155,7 +159,7 @@ const HistoryScreen = () => {
         {
         item.description == 'Cancelled'?(
           <Text style={{color:'red'}}>{item.description}</Text>
-        ):(<Text style={{color:'green'}}>{item.description}</Text>)
+        ):(<Text style={{color:'green'}}>{item.Status}</Text>)
       }
        
    
@@ -175,6 +179,10 @@ const HistoryScreen = () => {
         </View>
         </View>
         </ScrollView>
+        </>
+        ):(<></>)
+      }
+        
         </View>
         );
       };

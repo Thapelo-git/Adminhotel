@@ -203,7 +203,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
      
            /> */}
            <View style={styles.header}>
-                <Text style={{color:'#fff'}}>My Bookings</Text>
+                <Text style={{color:'#fff'}}>My Payments</Text>
                 </View>
            <View style={{
             marginTop:20,
