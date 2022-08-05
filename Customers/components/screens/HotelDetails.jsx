@@ -51,38 +51,6 @@ const HotelDetails = ({ navigation, route }) => {
   const location = list._location
  
   
-  // const addBooking = () => {
-  //   if (
-    
-  //     location == '' ||
-  //     Description == '' ||
-  //     date == '' ||
-     
-  //     time==''
-  //   ) {
-  //     Alert.alert("Error", "Enter all the fields", [
-  //       {
-  //         text: "ok",
-  //       },
-  //     ]);
-  //   } else {
-  //     db.ref('BookEvent').push({
-  //       Status:'Pending',
-  //       events,
-  //       location,
-  //       Description,
-  //       date,
-  //       price,
-  //       time
-  //      ,name,email
-  //     })
-  //     setDescription('')
-  //     setFee('')
-  //     setLocation('')
-  //     setTime('')
-  //     navigation.navigate('bookingSc')
-  //   }
-  // };
 
 
  
@@ -262,6 +230,7 @@ const HotelDetails = ({ navigation, route }) => {
   const [Classes, setClasses] = useState("");
   const [ClassType, setClassType] = useState([]);
   const [TollClass, setTollClass] = useState([]);
+  const [Vehicles, setVehicles] = useState([]);
     useEffect(()=>{
         
             db.ref('/TollClasses/').on('value',snap=>{
@@ -272,6 +241,17 @@ const HotelDetails = ({ navigation, route }) => {
               }
             
               setTollClass(item)
+              
+            })
+            db.ref('/Vehicle/').on('value',snap=>{
+              let item = [];
+              const a_ =snap.val();
+              for (let x in a_){ 
+                item.push({NoPlate:a_[x].NoPlate,key:x,RegisNumber:a_[x].RegisNumber,
+                  VehicleName:a_[x].VehicleName,vehicleType:a_[x].vehicleType})
+              }
+            
+              setVehicles(item)
               
             })
          
@@ -292,7 +272,7 @@ const HotelDetails = ({ navigation, route }) => {
     }
 }
   var  price=0 
-  const [NoPlate,setNoplate]=useState() 
+  
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'white'}}>
       <View style={styles.imgContaner}>
@@ -340,40 +320,7 @@ opacity: 0.7,width:30,
           <MaterialIcons name='location-pin' size={20}/>
       <Text style={{marginBottom:5, color:'gray'}}>{list.location}</Text>
       </TouchableOpacity>
-      <View
-                      style={{
-                        flexDirection: "row",
-                        alignItems: "center",
-                        borderColor: "rgba(0,0,0,.2)",
-                        borderWidth: 1,
-                        height: 60,
-                        borderRadius: 15,
-                        paddingHorizontal: 5,
-                        marginVertical: 10
-                      }}
-                    >
-                      <View
-                        style={{
-                          justifyContent: "center",
-                          alignItems: "center",
-                          justifyContent:'center',
-                          backgroundColor: "#DEEDF0",
-                          width: 40,
-                          height: 40,
-                          borderRadius: 10
-                        }}
-                      >
-                        <Feather name="user" size={22}
- 
-                      style={{marginRight:10}}/></View>
-                       <TextInput
-                        style={styles.input}
-                      value={NoPlate}
-                        placeholder="Name"
-                        onChangeText={(text) => setNoplate(text)}
-                        // onChangeText={(text) => FilterFunction(text)}
-                      />
-                    </View>
+   
                     </View>
        
       </View>
