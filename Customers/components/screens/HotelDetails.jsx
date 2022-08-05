@@ -291,7 +291,8 @@ const HotelDetails = ({ navigation, route }) => {
         setClasses(text)
     }
 }
-  var  price=0  
+  var  price=0 
+  const [NoPlate,setNoplate]=useState() 
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'white'}}>
       <View style={styles.imgContaner}>
@@ -339,12 +340,39 @@ opacity: 0.7,width:30,
           <MaterialIcons name='location-pin' size={20}/>
       <Text style={{marginBottom:5, color:'gray'}}>{list.location}</Text>
       </TouchableOpacity>
-      <View style={{flexDirection:'row'}}>
-        <Text style={{color:'gray',fontSize:17}}>Ratings</Text>
-                        <Ionicons name='star' size={16} color='orange'/>
-                        <Ionicons name='star' size={16} color='orange'/>
-                        {/* <Ionicons name='star-half-sharp' size={16} color='orange'/> */}
-                    <Text style={{marginHorizontal:10,marginStart:0}}>3.2</Text>
+      <View
+                      style={{
+                        flexDirection: "row",
+                        alignItems: "center",
+                        borderColor: "rgba(0,0,0,.2)",
+                        borderWidth: 1,
+                        height: 60,
+                        borderRadius: 15,
+                        paddingHorizontal: 5,
+                        marginVertical: 10
+                      }}
+                    >
+                      <View
+                        style={{
+                          justifyContent: "center",
+                          alignItems: "center",
+                          justifyContent:'center',
+                          backgroundColor: "#DEEDF0",
+                          width: 40,
+                          height: 40,
+                          borderRadius: 10
+                        }}
+                      >
+                        <Feather name="user" size={22}
+ 
+                      style={{marginRight:10}}/></View>
+                       <TextInput
+                        style={styles.input}
+                      value={NoPlate}
+                        placeholder="Name"
+                        onChangeText={(text) => setNoplate(text)}
+                        // onChangeText={(text) => FilterFunction(text)}
+                      />
                     </View>
                     </View>
        

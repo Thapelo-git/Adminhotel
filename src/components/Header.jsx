@@ -44,7 +44,7 @@ const Header = () =>{
             <ul className='nav-menu-items' onClick={showSidebar}>
                 <li className='navbar-toggle'>
                     <Link to='/Dashboard' className='menu-bars'>
-                        {/* <AiIcons.AiOutlineClose/> */}
+                        <AiIcons.AiOutlineClose/>
                     </Link>
                 </li>
                 <img src={profile_pic} className='profilepic'/>

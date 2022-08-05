@@ -24,6 +24,7 @@ import Addprices from "./components/Addprices";
 import ViewToll from "./components/ViewToll";
 import { AddToll } from "./components/AddToll";
 import { Classes } from "./components/Classes";
+import Welcome from "./components/Welcome";
 
 function App() {
   // const signedin = false;
@@ -52,8 +53,10 @@ function App() {
              {
               !signedin ? ( 
                 <>
-                 
-                <Route exact path="/">
+                 <Route exact path="/">
+                    <Welcome/>
+                  </Route>
+                <Route exact path="/login">
                     <SignIn />
                   </Route>
                   <Route exact path="/Register">

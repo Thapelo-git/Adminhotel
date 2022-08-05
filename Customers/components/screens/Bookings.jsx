@@ -200,11 +200,11 @@ const day=moment(new Date()).format('YYYY/MM/DD')
            onClear={(text) => searchFilterFunction('')}
            value={searchtext}
            round
-     
+     https://dribbble.com/shots/18357823-Parking-Mobile-app
            /> */}
-           <View style={styles.header}>
+           {/* <View style={styles.header}>
                 <Text style={{color:'#fff'}}>My Payments</Text>
-                </View>
+                </View> */}
            <View style={{
             marginTop:20,
             flexDirection:'row',
@@ -228,9 +228,9 @@ const day=moment(new Date()).format('YYYY/MM/DD')
           ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
         />
-         <Cancellation
+         {/* <Cancellation
      onCancel={()=>{toggleAnimation()}}
-     animation={showAnimation}/>
+     animation={showAnimation}/> */}
         </View>
     )
 }

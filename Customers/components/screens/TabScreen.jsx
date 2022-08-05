@@ -14,6 +14,8 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HotelDetails from './HotelDetails';
 import GalleryScreen from './GalleryScreen';
 import SearchScreen from './SearchScreen';
+import PayHistory from './PayHistory';
+import AddVehicle from './AddVehicle';
 const Tab = createMaterialBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 function combineHotel(){
@@ -44,14 +46,14 @@ const TabScreen = () => {
                 tarBarColor:COLORS.theme,
                 tabBarIcon:({color}) =>
             <Icon name="ios-home" color={color} size={26}/>}}/>
-            <Tab.Screen name="HistoryScreen" component={HistoryScreen}
+            <Tab.Screen name="HistoryScreen" component={AddVehicle}
             options={{
-                tabBarLabel:'History',
+                tabBarLabel:'Add-Vehicle',
                 tarBarColor:COLORS.theme,
                 tabBarIcon:({color}) =>
-            <FontAwesome name="history" color={color} size={26}/>}}/>
+            <FontAwesome name="plus" color={color} size={26}/>}}/>
            
-            <Tab.Screen name="Bookings" component={Bookings}
+            <Tab.Screen name="Bookings" component={PayHistory}
             options={{
                 tabBarLabel:'Payments',
                 tarBarColor:COLORS.theme,

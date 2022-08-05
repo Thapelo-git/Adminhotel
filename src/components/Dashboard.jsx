@@ -34,10 +34,10 @@ function Dashboard() {
 var count =0
 var count2 =0
     return (<>
-      <div className="col-md-7 mx-auto col-12 w-90 card shadow-lg border-0 p-4">
+ 
       <div className='viewRow'>
-      <h4 className="fw-bold p-4 text-secondary header">WELCOME BACK</h4>
-        <h6 className="fw-bold p-4 name">{Firstname}</h6>
+      <h4 >WELCOME BACK</h4>
+        <h6 >{Firstname}</h6>
       </div>
       
         <div className='container mt-3'>
@@ -70,7 +70,7 @@ var count2 =0
         </div>
          </div>
      </div>
-      </div>
+
       </>
      )
 }

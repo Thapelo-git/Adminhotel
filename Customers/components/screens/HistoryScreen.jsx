@@ -214,9 +214,9 @@ const HistoryScreen = () => {
            round
      
            /> */}
-            <View style={styles.header}>
+            {/* <View style={styles.header}>
                 <Text style={{color:'#fff'}}>My History</Text>
-                </View>
+                </View> */}
            <View style={{
             marginTop:20,
             flexDirection:'row',

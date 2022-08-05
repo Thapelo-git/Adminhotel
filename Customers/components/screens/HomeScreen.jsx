@@ -1,6 +1,6 @@
 import React, { useState ,useEffect} from 'react'
 import { SafeAreaView, StyleSheet, Text, View ,Image, TextInput, TouchableOpacity,
-     FlatList, Dimensions,ImageBackground,StatusBar } from 'react-native'
+     FlatList, Dimensions,ImageBackground,StatusBar ,Picker,} from 'react-native'
 import { COLORS } from '../styles/Colors'
 import { ScrollView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -78,10 +78,23 @@ const HomeScreen = ({navigation}) => {
         }
     }
     
-    const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
-    const [ selectedHotelIndex,setSelectedHotelIndex] = useState(0);
- 
-
+    const [ Route,setRoute] = useState([]);
+    const [RouteContainer,setRouteContainer]=useState('')
+    const [ Road,setRoad] = useState([]);
+    const [RoadContainer,setRoadContainer]=useState('')
+    const FilterFunction =(text)=>{
+        if(text){
+            const newData = masterDataSource.filter(function(item){
+                const itemData = item.Route? item.Route.toUpperCase()
+                :''.toUpperCase();
+                const textData = text.toUpperCase();
+                return itemData.indexOf( textData)>-1;
+    
+            })
+            setRoute(newData)
+            setRouteContainer(text)
+        }
+    }
     
     const Card =({Tollgate,index})=>{
         return(
@@ -147,10 +160,10 @@ const HomeScreen = ({navigation}) => {
         onChangeText={(text) => searchFilterFunction(text)}/>
         </View>
         </View>
-      
-        {/* <View style={styles.discountcard}>
-            <View style={{backgroundColor:"black",height:100,width:100}}></View>
-            <Image style={{height:100,width:100}} source={require('../images/toll_gate4.jpg')}/>
+{/*       
+        <View style={styles.discountcard}>
+
+        
         </View> */}
        
         
@@ -220,16 +233,17 @@ const styles = StyleSheet.create({
         
     },
    discountcard:{
-       flexDirection:'row',justifyContent:'space-between',
-    height:100,
-        width:cardWidth*1.5,
-        marginRight:20,
-        // marginBottom:20,
-        marginHorizontal:10,
-        // marginTop:5,
-        borderRadius:15,
-        elevation:15,
-        backgroundColor:COLORS.white,
+       flexDirection:'row',justifyContent:'center',
+       width:'100%',
+    height:110,
+        // width:cardWidth*1.5,
+        // marginRight:20,
+      
+        // marginHorizontal:10,
+        
+        // borderRadius:15,
+        // elevation:15,
+        // backgroundColor:COLORS.white,
         alignItems:'center',
    },
    
