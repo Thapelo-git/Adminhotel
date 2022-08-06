@@ -76,7 +76,8 @@ const PaymentScreen = ({navigation,route}) => {
  const [Classes,setClasses]=useState(route.params.Classes)
   const [hotelimg,setHotelimg]=useState(hotelinfor.url)
   const [Phonenumber,setPhonenumber]=useState(route.params.Phonenumber)
-  // const Phonenumber=route.params.Phonenumber
+  const NoPlate=route.params.NoPlate
+  const VehicleName=route.params.VehicleName
  const [Status,setStatus]=useState('Pending')
  const [description,setDescription]=useState('Successfully paid')
  
@@ -92,7 +93,7 @@ const PaymentScreen = ({navigation,route}) => {
         userid,Status,
         description,hotelname,
        hotelimg,price,Classes,
-        datetoday
+        datetoday,VehicleName,NoPlate
    
     })
     navigation.navigate('PaySucc')

@@ -4,7 +4,8 @@ import { SafeAreaView, StyleSheet, Text, View ,Image, TextInput, TouchableOpacit
 import { COLORS } from '../styles/Colors'
 import { ScrollView } from 'react-native'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-// import Hotels from '../onbording/Hotels'
+// import Hotels from '../onbording/Hotels'10205409
+//https://dribbble.com/shots/15942307-Fashion-Store-Mobile-Version
 import { auth ,db} from './firebase'
 const {width}=Dimensions.get("screen")
 const cardWidth =width/1.8

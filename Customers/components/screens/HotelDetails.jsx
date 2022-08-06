@@ -254,8 +254,6 @@ const HotelDetails = ({ navigation, route }) => {
               setVehicles(item)
               
             })
-         
-      
     },[])
    
   const FilterFunction =(text)=>{
@@ -272,7 +270,31 @@ const HotelDetails = ({ navigation, route }) => {
     }
 }
   var  price=0 
-  
+  const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
+  const  [VehicleName,setVehicleName]=useState()
+  const  [NoPlate,setNoPlate]=useState()
+  const markcategory=(key,VehicleName,NoPlate)=>{
+    setSelectedBtnIndex(key)
+    setVehicleName(VehicleName)
+    setNoPlate(NoPlate)
+    
+   }
+  const Aminities =({category,index})=>{
+    return(
+        <TouchableOpacity key={index} activeOpacity={0.8}
+        onPress={()=> markcategory(index,category.VehicleName,category.NoPlate)} 
+        
+        >
+            <View style={{backgroundColor:'white',marginRight:25,width:aminitieSsize,
+height:aminitieSsize,justifyContent:'center',alignItems:'center',
+borderRadius:10,borderWidth:2,borderColor:selectedBtnIndex == index?('blue'):('#fff')}}>
+    {/* <Image source={category.image_} style={styles.classimage}/> */}
+    <Text>{category.VehicleName}</Text>
+</View>
+
+        </TouchableOpacity>
+    )
+}
   return (
     <SafeAreaView style={{flex:1,backgroundColor:'white'}}>
       <View style={styles.imgContaner}>
@@ -320,7 +342,20 @@ opacity: 0.7,width:30,
           <MaterialIcons name='location-pin' size={20}/>
       <Text style={{marginBottom:5, color:'gray'}}>{list.location}</Text>
       </TouchableOpacity>
+      <Text>Your Transportation</Text>
+          <View style={{flexDirection:'row',top:10}}>
+
+          <FlatList
+            keyExtractor={(_,key)=>key.toString()}
+            horizontal
+             showsHorizontalScrollIndicator={false}
+             contentContainerStyle={{ paddingLeft:20}}
+            data={Vehicles}
+            renderItem={({item,index})=><Aminities category={item} index={index}/>}
+            />
+ 
    
+    </View>
                     </View>
        
       </View>
@@ -378,43 +413,10 @@ opacity: 0.7,width:30,
         hotelinfor:hotelinfor,
         price:price,Classes:Classes,
         Phonenumber:Phonenumber,
-        
+        NoPlate:NoPlate,VehicleName:VehicleName,
       })} />
 </View>
-        {/* <SlidingUpPanel
-         ref={c=>(_panel=c)}
-        draggableRange={{top:700,bottom:120}}
-        showBackdrop={false}
-        snappingPoints={[200]}
-        height={900}
-        friction={0.7}
-        >
-          <View
-          style={{flex:1,
-          backgroundColor:"transparent"}}>
-            <View
-            style={{height:60,backgroundColor:"transparent",marginLeft:-180,
-            alignItems:"center",
-            justifyContent:'center'}}>
-              <Feather name='arrow-up' size={30}/>
-              <Text style={{fontWeight:'bold'}}> Location Swipe up</Text>
-            </View>
-            <View style={{flex:1,
-            backgroundColor:"#fff",alignItems:'center',justifyContent:'center'}}>
-                <MapView
-                style={styles.map}
-                provider={PROVIDER_GOOGLE}
-              //  initialRegion={list.coordinates}
-              region={list.coordinates}
-              >
-                  <Marker coordinate={list.coordinates}
-                  />
-               
-                </MapView>
-            </View>
-          </View>
-
-        </SlidingUpPanel> */}
+   
     
      <BottomSheet
      onCancel={()=>{toggleAnimation()}}
