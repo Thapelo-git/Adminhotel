@@ -37,12 +37,24 @@ const RouteN1 = ({navigation}) => {
                   Class2: data.Class2,
                   Class3: data.Class3,
                   Class4: data.Class4,
-              })
-              setTollgate(Tollgate)
-              setFilteredDataSource(Tollgate);
-              setMasterDataSource(Tollgate);
+              })})
+              let text ='N1'
+              if(text){
+                const Tollinfor = Tollgate.filter(function(item){
+                 const itemData = item.Route?
+        
+   (  item.Route)
+                 :   ( '') 
+                 const textData = text;
+                 return itemData.indexOf( textData)>-1;
+ 
+             })
+             
+              setTollgate(Tollinfor)
+              setFilteredDataSource(Tollinfor);
+              setMasterDataSource(Tollinfor);
 
-          })
+          }
       })
      
 

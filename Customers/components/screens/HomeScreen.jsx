@@ -90,12 +90,13 @@ const HomeScreen = ({ navigation }) => {
     const bottomopen = useRef()
     const [modalopen,setModalopen]=useState(false)
     const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
-    const [ selectedHotelIndex,setSelectedHotelIndex] = useState(0);
+    
     const Btn =[
         {id:'1',name:'N1'},
         {id:'2',name:'N2'},
         {id:'3',name:'N3'},
-        
+        {id:'4',name:'N4'},
+        {id:'5',name:'N5'},{id:'6',name:'N6'},{id:'7',name:'N7'},
     ]
     const ListBtn =()=>{
         return <ScrollView horizontal 
@@ -164,13 +165,16 @@ const HomeScreen = ({ navigation }) => {
                   
                 </TouchableOpacity>
             </View>
+            <Text style={{marginLeft:-10}}>Choose your Route</Text>
             <View>
                 
             <ListBtn/>
         </View>
           <SearchScreen bottomopen={bottomopen} navigation={navigation}/>
-
-     <RouteN1 navigation={navigation}/>
+{
+   selectedBtnIndex === 0?(<RouteN1 navigation={navigation}/>):null 
+}
+     
 
 
         </SafeAreaView>
@@ -197,15 +201,15 @@ const styles = StyleSheet.create({
     },
     btnListContainer: {
         marginLeft: -10,
-
-        paddingHorizontal: 20,
+        
+        paddingHorizontal: 10,
         paddingVertical: 30,
         // alignItems:'center'
     },
     categoryBtn: {
         height: 45,
-        width: 120,
-        borderRadius: 30,
+        width: 80,
+        borderRadius: 5,
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 5,
