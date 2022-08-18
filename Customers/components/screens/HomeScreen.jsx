@@ -92,11 +92,10 @@ const HomeScreen = ({ navigation }) => {
     const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
     
     const Btn =[
-        {id:'1',name:'N1'},
-        {id:'2',name:'N2'},
-        {id:'3',name:'N3'},
-        {id:'4',name:'N4'},
-        {id:'5',name:'N5'},{id:'6',name:'N6'},{id:'7',name:'N7'},
+        {id:'1',name:'N1'},{id:'2',name:'N2'}, {id:'3',name:'N3'},
+        {id:'4',name:'N4'},{id:'5',name:'N5'},{id:'6',name:'N6'},
+        {id:'8',name:'N8'},{id:'9',name:'N9'},{id:'10',name:'N10'},
+        {id:'11',name:'N11'},{id:'12',name:'N12'},{id:'13',name:'N13'}
     ]
     const ListBtn =()=>{
         return <ScrollView horizontal 
