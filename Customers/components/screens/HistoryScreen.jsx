@@ -10,7 +10,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Cancellation from './Cancellation.jsx';
+import Cancellation from './RouteN1.jsx';
 import moment from 'moment'
 
 const HistoryScreen = () => {

@@ -56,7 +56,7 @@ export default function App({navigation}) {
         <Stack.Navigator >
             {/* <Stack.Screen name="Event" options = {{headerShown :false}} component={SmsScreen} /> */}
          <Stack.Screen name="HomeTap" options = {{headerShown :false}} component={TabScreen} />
-      <Stack.Screen name="Hotel Details" options = {{headerShown :false}} component={HotelDetails} />
+      <Stack.Screen name="HotelDetails" options = {{headerShown :false}} component={HotelDetails} />
       <Stack.Screen name="Homescreen" options = {{headerShown :false}} component={HomeScreen} />
       <Stack.Screen name="GalleryScreen" options = {{headerShown :false}} component={GalleryScreen} />
       <Stack.Screen name="Notification"  component={Notification} />

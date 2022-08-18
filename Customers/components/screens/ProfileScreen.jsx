@@ -5,6 +5,7 @@ import ListItem from 'react-native-elements'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Entypo from 'react-native-vector-icons/Entypo'
+//https://www.marcusoft.net/2021/05/uploading-pictures-to-firebase-in-react-native.html
 import { auth,db } from './firebase';
 const ProfileScreen = ({navigation}) => {
     const [name,setName]=useState('')

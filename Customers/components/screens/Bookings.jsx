@@ -10,7 +10,7 @@ import { db,auth } from './firebase.jsx';
 import Entypo from 'react-native-vector-icons/Entypo'
 import { } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Cancellation from './Cancellation.jsx';
+import Cancellation from './RouteN1.jsx';
 import moment from 'moment';
 const Bookings = () => {
   const [animationValue,setAnimationValue]=useState(-1000)

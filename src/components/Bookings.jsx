@@ -2,7 +2,11 @@ import React,{useState,useEffect} from 'react'
 import Table from "react-bootstrap/Table";
 import styled from "styled-components";
 import { auth,db } from '../firebase';
-import {FaCheckCircle,FaTimesCircle} from 'react-icons/fa'
+import { Pagination } from '@mui/material';
+import PaginationItem from '@mui/material/PaginationItem';
+//https://dribbble.com/shots/18904774-Online-Auction-App
+//https://dribbble.com/shots/17571451-Baby-Diary-App-Concept
+import {FaCheckCircle,FaTimesCircle,} from 'react-icons/fa'
 const StatusTD = styled.td`
   font-weight: bold;
   color: ${(props) => (props.type === "Pending" ? "blue" : "")};
@@ -34,7 +38,18 @@ export const Bookings = () => {
   console.log(Booking)
     return (
         <div>
-            <Table
+          <Pagination
+  count={10}
+
+  onLoadedData={Booking}
+  renderItem={(item) => (
+    <PaginationItem
+      // components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+      {...item}
+    />
+  )}
+/>
+            {/* <Table
           striped
           bordered
           hover
@@ -85,7 +100,7 @@ export const Bookings = () => {
                 ))}
             
           </tbody>
-        </Table>
+        </Table> */}
         </div>
     )
 }
