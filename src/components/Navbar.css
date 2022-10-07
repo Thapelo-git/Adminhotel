@@ -13,7 +13,7 @@
 .nav-menu{
     background:#4A1DD6 ;
     width: 250px;
-    height: 100vh;
+    height: 100vh; 
     display: flex;
     justify-content: center;
     position: fixed;
