@@ -80,7 +80,7 @@ const markcategory=(key,vehicleType)=>{
    }
    const Vehicle =[
     {id:'1',image_:require('../images/PayPal.jpg')},
-    
+    {id:'1',image_:require('../images/Mastercard2.jpg')}
   ]
    const Aminities =({category,index})=>{
     return(
@@ -89,7 +89,7 @@ const markcategory=(key,vehicleType)=>{
         
         >
             <View style={{backgroundColor:'white',marginRight:25,width:110,
-height:50,justifyContent:'center',alignItems:'center',
+height:70,justifyContent:'center',alignItems:'center',
 borderRadius:10,borderWidth:2,borderColor:selectedBtnIndex == index?('blue'):('#fff')}}>
     <Image source={category.image_} style={styles.classimage}/>
    
@@ -201,8 +201,10 @@ borderRadius:10,borderWidth:2,borderColor:selectedBtnIndex == index?('blue'):('#
 
 
 </View>
+<View style={{width:'100%',justifyContent:'center',alignItems:'center',padding:10}}>
 <Flatbutton text='Pay' style={{ top: 10, }}
             onPress={() => addBooking()} />
+            </View>
            </View>
            </ScrollView> )}</Formik>
  
@@ -257,7 +259,7 @@ const styles = StyleSheet.create({
             backgroundColor:'#eee'
         },
         classimage:{
-            height:30,
-            width:80
+            height:60,
+            width:100
         },
 })
