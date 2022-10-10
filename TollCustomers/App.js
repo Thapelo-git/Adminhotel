@@ -14,6 +14,8 @@ import PaymentScreen from './components/screens/PaymentScreen';
 import ComfirmPay from './components/screens/ComfirmPay';
 import Creditcard from './components/screens/Creditcard';
 import PaySucc from './components/screens/PaySucc';
+import ProfileScreen from './components/screens/ProfileScreen';
+import EditProfile from './components/screens/EditProfile';
 
 const Stack =createStackNavigator()
 export default function App({navigation}) {
@@ -33,6 +35,8 @@ export default function App({navigation}) {
       <Stack.Screen name='PaymentScreen' options={{headerShown:false}} component={PaymentScreen}/>
       <Stack.Screen name='Creditcard' options={{headerShown:false}} component={Creditcard}/>
       <Stack.Screen name='PaySucc' options={{headerShown:false}} component={PaySucc}/>
+      <Stack.Screen name='ProfileScreen' options={{headerShown:false}} component={ProfileScreen}/>
+      <Stack.Screen name='EditProfile' options={{headerShown:false}} component={EditProfile}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

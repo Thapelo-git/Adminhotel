@@ -42,7 +42,7 @@ const ProfileScreen = ({navigation}) => {
         <View style={styles.header}>
         {/* <Ionicons name='chevron-back' size={20}/> */}
         <Text></Text>
-                 <Text style={{fontSize:20}}>Profile</Text>
+                 <Text style={{fontSize:20}}></Text>
                 
              <TouchableOpacity onPress={()=>navigation.navigate('EditProfile',{
                    email:email,name:name,phonenumber:phonenumber,uid:uid
@@ -90,7 +90,7 @@ const ProfileScreen = ({navigation}) => {
         </View>
         </View> */}
         <View style={{top:30}}>
-        <TouchableOpacity onPress={()=>navigation.navigate('Notification'
+        {/* <TouchableOpacity onPress={()=>navigation.navigate('Notification'
             )} style={styles.pagelist}>
         
             <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
@@ -99,19 +99,18 @@ const ProfileScreen = ({navigation}) => {
             </View>
             
             <Icon name="chevron-right" size={15}  />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
        
        
         
-        <TouchableOpacity onPress={()=>navigation.navigate('Creditcard'
-            )}  style={styles.pagelist}>
+        {/* <TouchableOpacity   style={styles.pagelist}>
             <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
             <Icon name="credit-card-alt" size={15}  /> 
             <Text>     My Cards</Text>
             </View>
             
             <Icon name="chevron-right" size={15}  />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
        
         
         <View style={styles.pagelist}>
@@ -154,8 +153,9 @@ const styles = StyleSheet.create({
         // borderWidth:1,
         borderRadius:10,
         height:110,
-        top:20,
-        left:130
+        justifyContent:'center',
+        alignItems:'center',
+        width:'100%'
         
     },
     pagelist:{

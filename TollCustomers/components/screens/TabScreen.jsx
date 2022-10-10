@@ -6,7 +6,7 @@ import HomeScreen from './HomeScreen';
 import Icon from 'react-native-vector-icons/Ionicons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import PayHistory from './PayHistory';
-
+import ProfileScreen from './ProfileScreen';
 // import ProfileScreen from './ProfileScreen';
 // import PayHistory from './PayHistory';
 // import AddVehicle from './AddVehicle';
@@ -37,12 +37,12 @@ const TabScreen = () => {
                 tarBarColor:'#4A1DD6',
                 tabBarIcon:({color}) =>
                 <Icon name="ios-wallet" color={color} size={26}/>}}/>
-           {/*   <Tab.Screen name="ProfileScreen" component={ProfileScreen}
+             <Tab.Screen name="ProfileScreen" component={ProfileScreen}
             options={{
                 tabBarLabel:'Profile',
                 tarBarColor:'#4A1DD6',
                 tabBarIcon:({color}) =>
-            <FontAwesome name="user" color={color} size={26}/>}}/>*/}
+            <FontAwesome name="user" color={color} size={26}/>}}/>
         </Tab.Navigator> 
     )
 }

@@ -2,16 +2,16 @@ import React,{useState} from 'react'
 import { StyleSheet, Text, View ,StatusBar,SafeAreaView,TextInput,Image,
     TouchableOpacity} from 'react-native'
 import Feather from 'react-native-vector-icons/Feather'
-import { COLORS } from '../styles/Colors'
-import Flatbutton from '../../../Tollplaz/components/styles/button'
+
+import Flatbutton from '../styles/button'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { FONTS } from '../styles/Font'
+
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
-import * as ImagePicker from 'expo-image-picker';
-import { db,auth } from './firebase'
+
+// import * as ImagePicker from 'expo-image-picker';
+import { auth,db } from './firebase'
 import { storage } from './firebase'
 
 
@@ -36,74 +36,74 @@ const EditProfile = ({navigation,route}) => {
         password:yup.string().required().min(6),
         confirmpassword:yup.string().required().min(6).oneOf([yup.ref('password'),null],'password does not match')
     })
-    let openImagePickerAsync = async () => {
-        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    // let openImagePickerAsync = async () => {
+    //     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
     
-        if (permissionResult.granted === false) {
-          alert("Permission to access camera roll is required!");
-          return;
-        }
+    //     if (permissionResult.granted === false) {
+    //       alert("Permission to access camera roll is required!");
+    //       return;
+    //     }
     
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
-        if (pickerResult.cancelled === true) {
-            return;
-          }
+    //     let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    //     if (pickerResult.cancelled === true) {
+    //         return;
+    //       }
       
-          setSelectedImage({ localUri: pickerResult.uri });
-      }
+    //       setSelectedImage({ localUri: pickerResult.uri });
+    //   }
       const [url,setUrl]=useState()
       const [progress, setProgress] = useState(0);
-      const handleUpload = () => {
-        const uploadTask = storage.ref(`images/${selectedImage.name}`).put(selectedImage)
-          ;
-        uploadTask.on(
-          "state_changed",
-          snapshot => {
-            const progress = Math.round(
-              (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-            );
-            setProgress(progress);
-          },
-          error => {
-            console.log(error);
-          },
-          () => {
-            storage
-              .ref("images")
-              .child(selectedImage.name)
-              .getDownloadURL()
-              .then(url => {
-                setUrl(url);
-              });
-          }
-        );
-      };
-      const uploadImage = async () => {
-        const { uri } = selectedImage;
-        const filename = uri.substring(uri.lastIndexOf('/') + 1);
-        const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
+      // const handleUpload = () => {
+      //   const uploadTask = storage.ref(`images/${selectedImage.name}`).put(selectedImage)
+      //     ;
+      //   uploadTask.on(
+      //     "state_changed",
+      //     snapshot => {
+      //       const progress = Math.round(
+      //         (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+      //       );
+      //       setProgress(progress);
+      //     },
+      //     error => {
+      //       console.log(error);
+      //     },
+      //     () => {
+      //       storage
+      //         .ref("images")
+      //         .child(selectedImage.name)
+      //         .getDownloadURL()
+      //         .then(url => {
+      //           setUrl(url);
+      //         });
+      //     }
+      //   );
+      // };
+      // const uploadImage = async () => {
+      //   const { uri } = selectedImage;
+      //   const filename = uri.substring(uri.lastIndexOf('/') + 1);
+      //   const uploadUri = Platform.OS === 'ios' ? uri.replace('file://', '') : uri;
         
-        const task = storage
-          .ref(filename)
-          .putFile(uploadUri);
-        // set progress state
-        // task.on('state_changed', snapshot => {
-        //   setTransferred(
-        //     Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000
-        //   );
-        // });
-        try {
-          await task;
-        } catch (e) {
-          console.error(e);
-        }
+      //   const task = storage
+      //     .ref(filename)
+      //     .putFile(uploadUri);
+      //   // set progress state
+      //   // task.on('state_changed', snapshot => {
+      //   //   setTransferred(
+      //   //     Math.round(snapshot.bytesTransferred / snapshot.totalBytes) * 10000
+      //   //   );
+      //   // });
+      //   try {
+      //     await task;
+      //   } catch (e) {
+      //     console.error(e);
+      //   }
         
-        Alert.alert(
-          'Photo uploaded!',
-          'Your photo has been uploaded to Firebase Cloud Storage!'
-        );
-        setImage(null);
-      };
+      //   Alert.alert(
+      //     'Photo uploaded!',
+      //     'Your photo has been uploaded to Firebase Cloud Storage!'
+      //   );
+      //   setImage(null);
+      // };
       const editprofile=()=>{
         // itemRef.child(uid).update({name,email,phonenumber})
       
@@ -146,7 +146,7 @@ const EditProfile = ({navigation,route}) => {
             <Text style={styles.headerTitle}></Text>
             </View>
             <View style={{marginLeft:120}}>
-                {
+                {/* {
                    selectedImage?(<Image
               source={{ uri: selectedImage.localUri }}
               style={{height:120,width:120,borderRadius:60,}}
@@ -155,14 +155,14 @@ const EditProfile = ({navigation,route}) => {
                     <Image source={{ uri: 'https://image.shutterstock.com/image-vector/male-avatar-profile-picture-use-600w-193292033.jpg'}}
                     style={{height:120,width:120,borderRadius:60,}}/>
                    ) 
-                }
-            {/* <Image source={{ uri: 'https://image.shutterstock.com/image-vector/male-avatar-profile-picture-use-600w-193292033.jpg'}}
+                } */}
+            <Image source={{ uri: 'https://image.shutterstock.com/image-vector/male-avatar-profile-picture-use-600w-193292033.jpg'}}
                 style={{height:120,width:120,borderRadius:60,}}/>
-                https://aboutreact.com/react-native-firebase-in-app-messaging/ */}
-                <TouchableOpacity style={{marginLeft:90,marginTop:-20}}
+               {/*  https://aboutreact.com/react-native-firebase-in-app-messaging/ */}
+                {/* <TouchableOpacity style={{marginLeft:90,marginTop:-20}}
                mode="contained" onPress={openImagePickerAsync}>
                 <FontAwesome name='camera' size={29} color='grey'/>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
             </View>
            
             <View style={{padding:20}}>
@@ -172,7 +172,7 @@ const EditProfile = ({navigation,route}) => {
         >
 
         {(props)=>(
-         <KeyboardAwareScrollView
+         <View
            >
                            <View style={styles.inputContainer}>
         <View style={styles.inputIconView}>
@@ -230,7 +230,7 @@ const EditProfile = ({navigation,route}) => {
         
         </View>
         <Text style={{color:'red',marginTop:-15}}>{props.touched.email && props.errors.email}</Text>
-        <View style={styles.inputContainer}>
+        {/* <View style={styles.inputContainer}>
         <View style={styles.inputIconView}>
             <Icon name='lock'
             style={{color:'#fff',textAlign:'center',
@@ -275,14 +275,14 @@ const EditProfile = ({navigation,route}) => {
            onPress={()=>setPasswordShow(!isPasswordShow)} />
             </View>
         </View>
-        <Text style={{color:'red',marginTop:-15}}>{props.touched.confirmpassword && props.errors.confirmpassword}</Text>
+        <Text style={{color:'red',marginTop:-15}}>{props.touched.confirmpassword && props.errors.confirmpassword}</Text> */}
         
         <View style={{marginTop:20,alignItems:'center',justifyContent:'center'}}>
             {/* onPress={()=>{uploadImage()}} */}
             <Flatbutton text='UPDATE' onPress={editprofile()}  />
       
             </View>
-            </KeyboardAwareScrollView>
+            </View>
             )}</Formik>
         </View>
         </SafeAreaView>
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
         
          flex:0.8,
         paddingLeft:10,
-        fontFamily:FONTS.Regular,
+        
     },
     inputContainer:{
         borderRadius:30,
@@ -335,8 +335,5 @@ const styles = StyleSheet.create({
     accountText:{
         // marginLeft:-30,
     },
-    signupText:{
-        color:COLORS.theme,
-        // marginRight:40,
-    }
+    
 })
