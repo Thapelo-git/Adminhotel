@@ -3,7 +3,7 @@ import { StyleSheet, Text, View ,TouchableOpacity} from 'react-native'
 
 const Flatbutton = ({text,onPress,style,disable}) => {
     return (
-        <TouchableOpacity onPress={onPress} style={style} >
+        <TouchableOpacity onPress={onPress} style={style} disabled={disable} >
             <View style={styles.buttonstyle}>
             <Text style={styles.buttonText}>{text}</Text>
             </View>

@@ -199,6 +199,8 @@ const HotelDetails = ({ navigation, route }) => {
         </View>
 
       </TouchableOpacity>
+     
+      
             <View style={{ flexDirection: 'row', top: 10 }}>
            
               <FlatList
@@ -263,16 +265,47 @@ const HotelDetails = ({ navigation, route }) => {
 
 
         </View>
-
-        <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+        {
+        VehicleName==null ?(
+          <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+          <Flatbutton text='Pay' style={{ top: 10, }} disable={true}
+            onPress={() => navigation.navigate('Creditcard', {
+              hotelinfor: hotelinfor,
+              price: price, Classes: Classes,
+              Phonenumber: Phonenumber,
+              NoPlate: NoPlate, VehicleName: VehicleName,
+            })} />
+            <Text style={{color:'red',paddingTop:20}}>select VehicleName</Text>
+        </View>
+        ):(<>
+          {
+            Classes == ""?(
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
+              <Flatbutton text='Pay' style={{ top: 10, }} disable={true}
+                onPress={() => navigation.navigate('Creditcard', {
+                  hotelinfor: hotelinfor,
+                  price: price, Classes: Classes,
+                  Phonenumber: Phonenumber,
+                  NoPlate: NoPlate, VehicleName: VehicleName,
+                })} />
+                <Text style={{color:'red',paddingTop:20}}>select Vehicle Class</Text>
+            </View>
+            ):(
+              <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Flatbutton text='Pay' style={{ top: 10, }}
-            onPress={() => navigation.navigate('PaymentScreen', {
+            onPress={() => navigation.navigate('Creditcard', {
               hotelinfor: hotelinfor,
               price: price, Classes: Classes,
               Phonenumber: Phonenumber,
               NoPlate: NoPlate, VehicleName: VehicleName,
             })} />
         </View>
+            )
+          }
+          
+        </>)
+      }
+      
 
 
         {/* <BottomSheet

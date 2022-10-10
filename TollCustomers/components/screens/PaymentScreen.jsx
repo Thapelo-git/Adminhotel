@@ -10,7 +10,9 @@ import {
 } from 'react-native';
 import { db,auth } from './firebase'
 
-import { CreditCardInput } from "react-native-credit-card-input";
+//https://dribbble.com/shots/18944714-Online-Course-Mobile-App
+// import { CreditCardInput } from 'react-native-credit-card-input';
+
 import { Secret_key, STRIPE_PUBLISHABLE_KEY } from './keys';
 import moment from 'moment';
 // create a component

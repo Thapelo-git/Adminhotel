@@ -1,17 +1,28 @@
 import React,{useState,useEffect} from 'react'
 import { SafeAreaView, StyleSheet, Text, View,Dimensions,TextInput,Image,
-   Button, TouchableOpacity,Alert, ScrollView } from 'react-native'
+   Button, TouchableOpacity,Alert, ScrollView ,FlatList} from 'react-native'
     import { Formik } from 'formik'
     import * as yup from 'yup'
 import { db,auth } from './firebase'
-import * as SMS from 'expo-sms';
-
+import moment from 'moment'
+import Flatbutton from '../styles/button'
 const screenwidth=Dimensions.get('screen').width
 const Creditcard = ({navigation,route}) => {
-    const [name,setName]=useState('')
-    const [email,setEmail]=useState('')
+    const hotelinfor=route.params.hotelinfor
+ 
+    const hotelname=hotelinfor.name
+ const [price,setPrice]=useState(route.params.price)
+ const [Classes,setClasses]=useState(route.params.Classes)
+  const [hotelimg,setHotelimg]=useState(hotelinfor.url)
+  const [Phonenumber,setPhonenumber]=useState(route.params.Phonenumber)
+  const NoPlate=route.params.NoPlate
+  const VehicleName=route.params.VehicleName
+ const [Status,setStatus]=useState('Pending')
+ const [description,setDescription]=useState('Successfully paid')
+ 
+ const datetoday=moment(new Date()).format('YYYY/MM/DD')
     
-   const datetoday=new Date()
+   
     const user = auth.currentUser.uid;
     const ReviewSchem=yup.object({
         cardNumber:yup.string().required().min(16).max(16),
@@ -23,15 +34,30 @@ const Creditcard = ({navigation,route}) => {
     const addCard=(data)=>{
         const {cardName,cardNumber,CVV,Expiry} = data
         const userid= auth.currentUser.uid
-        db.ref(`/users`).child(userid).update({
-            cardName:cardName,cardNumber:cardNumber,CVV:CVV,Expiry:Expiry
+        db.ref(`/UserCards`).push({
+            cardName:cardName,cardNumber:cardNumber,CVV:CVV,Expiry:Expiry,
+            userId:userid,
           })
     }
-
+    const addBooking=()=>{
+        
+        const userid= auth.currentUser.uid
+    
+        
+        db.ref('TollPayment').push({
+            userid,Status,
+            description,hotelname,
+           hotelimg,price,Classes,
+            datetoday,VehicleName,NoPlate
+       
+        })
+        navigation.navigate('PaySucc')
+    
+    }
    
    // const [Phonenumber,setPhonenumber]=useState(route.params.Phonenumber)
     // const Phonenumber=route.params.Phonenumber
-   const [Status,setStatus]=useState('Pending')
+   
    const [cardName,setCardName]=useState('')
    const [cardNumber,setCardNumber]=useState('')
    const [CVV,setCVV]=useState('')
@@ -48,20 +74,30 @@ const Creditcard = ({navigation,route}) => {
   
 }) 
 //   },[])
-// const con =[]
-// con.push(description,checkin,checkout)
-// const onComposeSms = async () => {
-//     // smsServiceAvailable &&
-//     if ( Phonenumber && statement) {
-//         try{
-//             await SMS.sendSMSAsync(Phonenumber.toString(), statement);
-//         }catch{(e)=>
-//             console.log(e)
-//         }
-     
-//     }
-//   };
+const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
+const markcategory=(key,vehicleType)=>{
+    setSelectedBtnIndex(key)
+   }
+   const Vehicle =[
+    {id:'1',image_:require('../images/PayPal.jpg')},
     
+  ]
+   const Aminities =({category,index})=>{
+    return(
+        <TouchableOpacity key={index} activeOpacity={0.8}
+        onPress={()=> markcategory(index,category.vehicleType,)} 
+        
+        >
+            <View style={{backgroundColor:'white',marginRight:25,width:110,
+height:50,justifyContent:'center',alignItems:'center',
+borderRadius:10,borderWidth:2,borderColor:selectedBtnIndex == index?('blue'):('#fff')}}>
+    <Image source={category.image_} style={styles.classimage}/>
+   
+</View>
+
+        </TouchableOpacity>
+    )
+}
     return (
         <SafeAreaView>
             
@@ -69,7 +105,7 @@ const Creditcard = ({navigation,route}) => {
                 <Text style={{color:'#fff'}}>My Cards</Text>
                 </View>
         <View style={styles.container}>
-        <View style={styles.card}>
+        {/* <View style={styles.card}>
         <Image source={require('../images/MasterCard.png')}
                 style={{height:40,width:80,position:'absolute',top:20,right:20}}/>
                 <View style={{position:'absolute',bottom:10,left:0,right:0,paddingHorizontal:20}}>
@@ -79,7 +115,7 @@ const Creditcard = ({navigation,route}) => {
                     <Text>{Expiry}</Text>
                     </View>
                 </View>
-        </View> 
+        </View>  */}
         <Formik
         initialValues={{cardNumber:'',cardName:'',CVV:'',Expiry:''}}
         validationSchema={ReviewSchem}
@@ -94,7 +130,8 @@ const Creditcard = ({navigation,route}) => {
                <Text>Card Number</Text>
                <TextInput
                placeholder='number'
-          
+               style={styles.inputs}
+                
                keyboardType='numeric'
                onChangeText={props.handleChange('cardNumber')}
              value={props.values.cardNumber}
@@ -107,7 +144,7 @@ const Creditcard = ({navigation,route}) => {
                onChangeText={props.handleChange('cardName')}
                value={props.values.cardName}
                onBlur={props.handleBlur('cardName')}
-               
+               style={styles.inputs}
                />
                 <Text style={{color:'red',marginTop:-15,paddingVertical:10}}>{props.touched.cardName && props.errors.cardName}</Text>
                <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
@@ -122,7 +159,7 @@ const Creditcard = ({navigation,route}) => {
                onChangeText={props.handleChange('Expiry')}
                value={props.values.Expiry}
                onBlur={props.handleBlur('Expiry')}
-               
+               style={styles.inputs}
                />
                  <Text style={{color:'red',marginTop:-15,paddingVertical:10}}>{props.touched.Expiry && props.errors.Expiry}</Text>
                  </View>
@@ -130,7 +167,7 @@ const Creditcard = ({navigation,route}) => {
                <TextInput
                placeholder='CVV'
                keyboardType='numeric'
-               
+               style={styles.inputs}
                onChangeText={props.handleChange('CVV')}
                value={props.values.CVV}
                onBlur={props.handleBlur('CVV')}
@@ -138,33 +175,39 @@ const Creditcard = ({navigation,route}) => {
                <Text style={{color:'red',marginTop:-15,paddingVertical:10}}>{props.touched.CVV && props.errors.CVV}</Text>
                </View>
                    </View>
-                   {/* <TextInput
-    style={styles.input}
-    value={Phonenumber}
-    onChangeText={text => setPhonenumber(text)}
-    keyboardType='number-pad'
-    placeholder='Enter phone number here'
-  /> */}
+        
                    <View style={{flexDirection:'row',justifyContent:'center',alignItems:'center',paddingLeft:50}}>
                        <Button 
                        title='Add Card'
                        onPress={props.handleSubmit}/>
                            
-{/*                        
-                       <Button
-    title='Pay Booking'
-    onPress={addBooking}
-    // disabled={!smsServiceAvailable}
-  /> */}
+
                        {/* <TouchableOpacity onPress={addBooking()}>
                        <Text>Add Card</Text>
                        </TouchableOpacity> */}
                    </View>
-                   
+                   <Text>Save card details for future payment</Text>
+                   <Text>Other Payments Method</Text>
+        <View style={{flexDirection:'row',top:10}}>
+
+<FlatList
+  keyExtractor={(_,key)=>key.toString()}
+  horizontal
+   showsHorizontalScrollIndicator={false}
+   contentContainerStyle={{ paddingLeft:20}}
+  data={Vehicle}
+  renderItem={({item,index})=><Aminities category={item} index={index}/>}
+  />
+
+
+</View>
+<Flatbutton text='Pay' style={{ top: 10, }}
+            onPress={() => addBooking()} />
            </View>
            </ScrollView> )}</Formik>
+ 
         </View>
-        
+      
         </SafeAreaView>
     )
 }
@@ -205,5 +248,16 @@ const styles = StyleSheet.create({
             margin: 12,
             borderWidth: 1,
             paddingHorizontal: 10
-          }
+          },
+          inputs:{
+            borderBottomColor:'black',
+            height:40,
+             flex:0.8,
+            paddingLeft:10,
+            backgroundColor:'#eee'
+        },
+        classimage:{
+            height:30,
+            width:80
+        },
 })

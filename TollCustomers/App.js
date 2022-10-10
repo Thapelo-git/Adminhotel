@@ -12,6 +12,8 @@ import AddVehicle from './components/screens/AddVehicle';
 import PaymentScreen from './components/screens/PaymentScreen';
 
 import ComfirmPay from './components/screens/ComfirmPay';
+import Creditcard from './components/screens/Creditcard';
+import PaySucc from './components/screens/PaySucc';
 
 const Stack =createStackNavigator()
 export default function App({navigation}) {
@@ -29,7 +31,8 @@ export default function App({navigation}) {
       <Stack.Screen name='AddVehicle' options={{headerShown:false}} component={AddVehicle}/>
       <Stack.Screen name='ComfirmPay' options={{headerShown:false}} component={ComfirmPay}/>
       <Stack.Screen name='PaymentScreen' options={{headerShown:false}} component={PaymentScreen}/>
-
+      <Stack.Screen name='Creditcard' options={{headerShown:false}} component={Creditcard}/>
+      <Stack.Screen name='PaySucc' options={{headerShown:false}} component={PaySucc}/>
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -1,16 +1,14 @@
 import React,{useState,useEffect,useRef} from 'react'
 import { StyleSheet, Text, View,FlatList,TextInput, Image, ScrollView ,
-  Animated, TouchableOpacity ,Alert} from 'react-native'
-import { SearchBar } from 'react-native-elements';
+  Animated, TouchableOpacity ,Alert,ImageBackground} from 'react-native'
 
-import NearHotels from '../onbording/NearHotels.jsx';
-import { COLORS } from '../styles/Colors'
+
 import { db,auth } from './firebase.jsx';
 import Entypo from 'react-native-vector-icons/Entypo'
 import { } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
-import Cancellation from './RouteN1.jsx';
+
 import moment from 'moment'
 
 const HistoryScreen = () => {
@@ -24,7 +22,7 @@ const HistoryScreen = () => {
   useEffect(()=>{
     
     
-    db.ref('/Booking/').on('value',snap=>{
+    db.ref('/TollPayment/').on('value',snap=>{
           
       const Booking=[]
          snap.forEach(action=>{
@@ -40,7 +38,7 @@ const HistoryScreen = () => {
                  hotelname:data.hotelname,
                  Status:data.Status,
                  userid:data.userid,
-
+                 NoPlate:data.NoPlate,
                  
              })
             })
@@ -134,50 +132,83 @@ const HistoryScreen = () => {
           
       
           <ScrollView>
-          <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'center'}}>
-           
-       
-        
-        
-          <View style={{padding:10}}>
-        <Image source={{uri:item.hotelimg}} style={{height:120,width:120,borderRadius:10}}/>
-        </View>
-        <View style={{marginTop:20,}}>
-        <View style={{flexDirection:'row',alignItems:'stretch',justifyContent:'space-between'}}>
-        <Text
-          style={{color:'#032B7A',fontWeight:'bold',fontSize:20}}
-          onPress={() => getItem(item)}>
+          <View style={{padding:60,width:'100%',height:250,
+           justifyContent:'center',alignItems:'center'}}>
+          <ImageBackground source={require('../images/ticket1.jpg')}
+           style={{height:220,width:'100%',justifyContent:'center',alignItems:'center',
+           padding:10}}>
+            {/* <Text style={{color:"#fff"}}>Ticket ID{item.key}</Text> */}
+            <View style={{justifyContent:'flex-start',alignItems:'flex-start',width:'100%'}}>
             
-            {item.hotelname}
+            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'flex-end',}}>
+            <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Tollgate Name
+          </Text>
+            <Text  style={{color:'#fff',}}>  {item.hotelname} </Text>
+            </View>
+            <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'stretch',}}>
+            <View>
+            <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Class No:   
+          </Text>
+            <Text  style={{color:'#fff',}}>  {item.Classes} </Text>
+            </View>
+            <View>
 
-        </Text>
-     
-        </View>
-         
-        <Text>Payment ID:</Text>
-          <Text>{item.key}</Text>
-        {
+            </View>
+            <View>
+            <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Price:
+          </Text>
+            <Text  style={{color:'#fff',}}>  {item.price} </Text>
+            </View>
+            <View>
+              
+            </View>
+            </View>
+            </View>
+
+           <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Number Plate:
+          </Text>
+            <Text  style={{color:'#fff',}}>  {item.NoPlate} </Text>
+   
+          <View style={{width:'100%',}}><Text style={{color:'#fff'}}> - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
+          <Image style={{height:40,width:120}} source={require('../images/Barcode.jpg')}/>
+          
+          <Text style={{color:"#fff"}}>{item.key}</Text>
+          <Text style={{color:"#fff"}}>Ticket ID</Text>
+          </ImageBackground>
+          <View style={{alignItems:'center'}}>
+        
+          <View style={{alignItems:'center',justifyContent:'center',width:'100%',flexDirection:'row'}}>
+          <View style={{height:30,width:70,justifyContent:'center',borderColor:'red',
+          alignItems:'center',borderWidth:0.5}}  >
+           {
         item.description == 'Cancelled'?(
           <Text style={{color:'red'}}>{item.description}</Text>
         ):(<Text style={{color:'green'}}>{item.Status}</Text>)
       }
+          </View>
+          <TouchableOpacity onPress={()=>handleDelete(item.key)}>
+        <MaterialIcons name='delete' size={25} color='red'/>
+        </TouchableOpacity>
+          </View>
+          </View>
+          </View>
+       
        
    
         
-        <View style={{flexDirection:'row',alignItems:'stretch',justifyContent:'space-between'}}>
-        <Text
-          style={{color:'#032B7A',fontWeight:'bold'}}
-          onPress={() => getItem(item)}>
-            
-            
-
-        </Text>
-        <TouchableOpacity onPress={()=>handleDelete(item.key)}>
-        <MaterialIcons name='delete' size={25} color='red'/>
-        </TouchableOpacity>
-        </View>
-        </View>
-        </View>
+        
         </ScrollView>
         </>
         ):(<></>)
@@ -252,7 +283,7 @@ const styles = StyleSheet.create({
     height:50,
     borderRadius:10,
     flexDirection:'row',
-    backgroundColor:COLORS.lightgray,
+    backgroundColor:'#eee',
     alignItems:'center',
     paddingHorizontal:20, 
 },header: {

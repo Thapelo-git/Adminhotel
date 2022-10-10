@@ -1,16 +1,15 @@
 
 import React,{useState,useEffect,useRef} from 'react'
 import { StyleSheet, Text, View,FlatList,TextInput, Image, ScrollView ,
-  Animated, TouchableOpacity,Alert} from 'react-native'
-import { SearchBar } from 'react-native-elements';
-import Hotels from '../onbording/Hotels.jsx'
-import NearHotels from '../onbording/NearHotels.jsx';
-import { COLORS } from '../styles/Colors'
+  Animated, TouchableOpacity,Alert, ImageBackground} from 'react-native'
+
+
+
 import { db,auth } from './firebase.jsx';
 import Entypo from 'react-native-vector-icons/Entypo'
 import { } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import Cancellation from './RouteN1.jsx';
+
 import moment from 'moment';
 const Bookings = () => {
   const [animationValue,setAnimationValue]=useState(-1000)
@@ -33,7 +32,7 @@ const Bookings = () => {
   useEffect(()=>{
     
     
-    db.ref('/Booking/').on('value',snap=>{
+    db.ref('/TollPayment/').on('value',snap=>{
           
       const Booking=[]
          snap.forEach(action=>{
@@ -48,7 +47,7 @@ const Bookings = () => {
                  hotelname:data.hotelname,
                  Status:data.Status,
                  userid:data.userid,
-                 
+                 NoPlate:data.NoPlate,
 
                  
              })
@@ -94,10 +93,10 @@ const Bookings = () => {
    
 const day=moment(new Date()).format('YYYY/MM/DD')
     const updateBooking = (key, status) => {
-      Alert.alert('Confirm','Your payment will be cancelled?',[
+      Alert.alert('Confirm','1. Cancellation of payment must be done at least 2 hours before arrival ,there will be no refund ,2.Please note all refund upon cancellation will be added  to wallet balance  and can be used another time',[
         {text:'Yes',
-       onPress:()=>db.ref('Booking').child(key).update({Status:status,description:status})
-       .then(()=>db.ref('BookEvent').once('value'))
+       onPress:()=>db.ref('TollPayment').child(key).update({Status:status,description:status})
+       .then(()=>db.ref('TollPayment').once('value'))
        .then(snapshot=>snapshot.val())
        .catch(error => ({
          errorCode: error.code,
@@ -128,48 +127,86 @@ const day=moment(new Date()).format('YYYY/MM/DD')
     }
     const ItemView = ({item}) => {
         return (
-          // Flat List Item
-          <View >
-            <ScrollView>
-            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
-              <Text></Text>
-
-          </View>
-          <View style={{flexDirection:'row'}}>
-            <View style={{padding:10}}>
-          <Image source={{uri:item.hotelimg}} style={{height:120,width:100,borderRadius:10}}/>
-          </View>
-          <View>
-            <Text></Text>
-          </View>
-          <View style={{marginTop:5}}>
-          <Text
-            style={{color:'#032B7A',fontWeight:'bold',fontSize:20}}
-            onPress={() => getItem(item)}>
-              
-              {item.hotelname}
-
+           // Flat List Item
+           <View style={{padding:60,width:'100%',height:250,
+           justifyContent:'center',alignItems:'center'}}>
+          <ImageBackground source={require('../images/ticket1.jpg')}
+           style={{height:220,width:'100%',justifyContent:'center',alignItems:'center',
+           padding:10}}>
+            {/* <Text style={{color:"#fff"}}>Ticket ID{item.key}</Text> */}
+            <View style={{justifyContent:'flex-start',alignItems:'flex-start',width:'100%'}}>
+            
+            <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'flex-end',}}>
+            <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Tollgate Name
           </Text>
-          <Text >Payment ID:{item.key}</Text>
-            <View style={{flexDirection:'row'}}>
+            <Text  style={{color:'#fff',}}>  {item.hotelname} </Text>
+            </View>
+            <View style={{flexDirection:'row',justifyContent:'space-around',alignItems:'stretch',}}>
+            <View>
+            <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Class No:   
+          </Text>
+            <Text  style={{color:'#fff',}}>  {item.Classes} </Text>
+            </View>
+            <View>
+
+            </View>
+            <View>
+            <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Price:
+          </Text>
+            <Text  style={{color:'#fff',}}>  {item.price} </Text>
+            </View>
+            <View>
+              
+            </View>
+            </View>
+            </View>
+
+           <Text
+            style={{color:'#fff',fontWeight:'bold',}}
+            >  
+              Number Plate:
+          </Text>
+            <Text  style={{color:'#fff',}}>  {item.NoPlate} </Text>
+   
+          <View style={{width:'100%',}}><Text style={{color:'#fff'}}> - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
+          <Image style={{height:40,width:120}} source={require('../images/Barcode.jpg')}/>
           
-          <Text>You paid for {item.Classes} </Text>
-          </View>
-          <Text>Price R {item.price}</Text>
-          <Text style={{color:'green'}}>{item.description}</Text>
-       {/* backgroundColor:'#AA0303', style={{flexDirection:'row',justifyContent:'space-between',alignItems:'flex-end',}}*/}
-            <View > 
-          
-          <View style={{flexDirection:'row',alignItems:'flex-end',justifyContent:'flex-end'}}>
+          <Text style={{color:"#fff"}}>{item.key}</Text>
+          <Text style={{color:"#fff"}}>Ticket ID</Text>
+          </ImageBackground>
+          <View style={{alignItems:'center'}}>
+          {/* <Text
+            style={{fontWeight:'bold',}}
+            >  
+              Information
+          </Text>
+          <Text  > 1. Cancellation of
+             payment must
+             be done at least 2 hours before 
+            arrival ,there will be no refund
+          </Text>
+          <Text  >2. Please note all 
+            refund upon 
+            cancellation will be added 
+            to wallet balance 
+            and can be used another time
+          </Text> */}
+          <View style={{alignItems:'center',justifyContent:'center',width:'100%'}}>
           <TouchableOpacity style={{height:30,width:70,justifyContent:'center',borderColor:'red',
           alignItems:'center',borderWidth:0.5}}  onPress={()=>updateBooking(item.key,'Cancelled',item.checkout)}>
           <Text style={{color:'red'}}>Cancel</Text>
           </TouchableOpacity>
           </View>
-          </View> 
           </View>
-          </View>
-          </ScrollView>
           </View>
         );
       };
@@ -222,12 +259,15 @@ const day=moment(new Date()).format('YYYY/MM/DD')
        </TouchableOpacity> */}
         </View>
         </View>
+        <View style={{padding:10,width:'100%'}}>
            <FlatList
           data={filteredDataSource}
+          showsVerticalScrollIndicator
           keyExtractor={(item, index) => index.toString()}
           ItemSeparatorComponent={ItemSeparatorView}
           renderItem={ItemView}
         />
+        </View>
          {/* <Cancellation
      onCancel={()=>{toggleAnimation()}}
      animation={showAnimation}/> */}
@@ -243,7 +283,7 @@ const styles = StyleSheet.create({
     height:50,
     borderRadius:10,
     flexDirection:'row',
-    backgroundColor:COLORS.lightgray,
+    backgroundColor:'#eee',
     alignItems:'center',
     paddingHorizontal:20, 
 },
