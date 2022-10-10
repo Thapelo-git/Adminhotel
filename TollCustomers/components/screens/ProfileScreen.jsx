@@ -29,8 +29,7 @@ const ProfileScreen = ({navigation}) => {
 
     const onSignout =()=>{
         
-        auth
-        .signOut()
+        auth.signOut()
         
     }
     return (
@@ -121,7 +120,7 @@ const ProfileScreen = ({navigation}) => {
             <Icon name="chevron-right" size={15}  />
         </View>
         
-            <TouchableOpacity  onPress={()=>onSignout() } style={styles.pagelist}>
+            <TouchableOpacity  onPress={()=>onSignout()} style={styles.pagelist}>
             <View style={{flexDirection:'row',justifyContent:'space-between',alignItems:'center'}}>
             <Entypo name="log-out" size={15}  /> 
             <Text>     Log Out</Text>

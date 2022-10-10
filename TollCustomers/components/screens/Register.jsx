@@ -7,6 +7,7 @@ import * as yup from 'yup'
 import { Formik } from 'formik'
 import Flatbutton from '../styles/button';
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { auth,db } from './firebase';
 const Register = ({navigation}) => {
     const [isPasswordShow,setPasswordShow]=useState(false)
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -17,40 +18,40 @@ const Register = ({navigation}) => {
         password:yup.string().required().min(6),
         confirmpassword:yup.string().required().min(6).oneOf([yup.ref('password'),null],'password does not match')
     })
-//     const addUser= async (data)=>{
-//         try{
-//           const {uid,email,password,name,phonenumber} =data
-//   await auth.createUserWithEmailAndPassword(
-//       email.trim().toLowerCase(),password
-//     ).then(res =>{
+    const addUser= async (data)=>{
+        try{
+          const {uid,email,password,name,phonenumber} =data
+  await auth.createUserWithEmailAndPassword(
+      email.trim().toLowerCase(),password
+    ).then(res =>{
        
-//           db.ref(`/users`).child(res.user.uid).set({
-//             name:name,
-//             email:email.trim().toLowerCase(),
-//             phonenumber:phonenumber,
-//             uid:res.user.uid
-//           })
-//           res.user.sendEmailVerification()
-//           })
-//         }
-//         catch(error){
-//           if(error.code === 'auth/email-already-in-use'){
-//             Alert.alert(
-//               'That email address is already inuse'
-//             )
-//           }
-//           if(error.code === 'auth/invalid-email'){
-//             Alert.alert(
-//               'That email address is invalid'
-//             )
-//           }
-//           else{
-//             Alert.alert(error.code)
-//           }
+          db.ref(`/users`).child(res.user.uid).set({
+            name:name,
+            email:email.trim().toLowerCase(),
+            phonenumber:phonenumber,
+            uid:res.user.uid
+          })
+          res.user.sendEmailVerification()
+          })
+        }
+        catch(error){
+          if(error.code === 'auth/email-already-in-use'){
+            Alert.alert(
+              'That email address is already inuse'
+            )
+          }
+          if(error.code === 'auth/invalid-email'){
+            Alert.alert(
+              'That email address is invalid'
+            )
+          }
+          else{
+            Alert.alert(error.code)
+          }
           
-//         }
+        }
         
-//       }
+      }
   
   return (
     <SafeAreaView style={styles.container}>

@@ -1,15 +1,15 @@
 import React,{useState} from 'react'
-import { SafeAreaView, StyleSheet,Alert,ToastAndroid , Text, View,ImageBackground ,TextInput} from 'react-native'
-import { COLORS } from '../styles/Colors'
-import Flatbutton from '../../../Tollplaz/components/styles/button'
+import { SafeAreaView, StyleSheet,Alert,ToastAndroid ,ScrollView, Text, View,ImageBackground ,TextInput} from 'react-native'
+
+import Flatbutton from '../styles/button'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import { FONTS } from '../styles/Font'
+
 import { Formik } from 'formik'
 import * as yup from 'yup'
-import { db,auth } from './firebase'
-import { useAuth } from '../../contexts/AuthContext'
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
+import { auth,db } from './firebase'
+
+// import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 const SignUp = ({navigation}) => {
     const [isPasswordShow,setPasswordShow]=useState(false)
     const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/
@@ -62,7 +62,7 @@ const SignUp = ({navigation}) => {
         <SafeAreaView>
              <ImageBackground style={styles.imageBackground} source={require('../images/toll_gate2.jpg')}>
              <View style={styles.container}>
-            <Text style={{fontFamily:FONTS.extraBold,fontWeight:'bold',fontSize:30,
+            <Text style={{fontWeight:'bold',fontSize:30,
         color:'#4A1DD6'}}>Register</Text>
         <Formik
         initialValues={{name:'',phonenumber:'',email:'',password:'',confirmpassword:''}}
@@ -74,7 +74,7 @@ const SignUp = ({navigation}) => {
         >
 
         {(props)=>(
-         <KeyboardAwareScrollView
+         <ScrollView
              style={styles.innerContainer}>
                            <View style={styles.inputContainer}>
         <View style={styles.inputIconView}>
@@ -184,7 +184,7 @@ const SignUp = ({navigation}) => {
                onPress={()=>navigation.navigate('SignIn')}>Sign In</Text>
             </View>
             </View>
-            </KeyboardAwareScrollView>
+            </ScrollView>
             )}</Formik>
         </View>
         </ImageBackground>
@@ -252,8 +252,8 @@ const styles = StyleSheet.create({
     accountText:{
         // marginLeft:-30,
     },
-    signupText:{
-        color:COLORS.theme,
-        marginRight:40,
-    }
+    // signupText:{
+    //     color:COLORS.theme,
+    //     marginRight:40,
+    // }
 })
