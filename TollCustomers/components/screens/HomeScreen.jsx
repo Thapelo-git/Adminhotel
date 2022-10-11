@@ -70,8 +70,7 @@ const HomeScreen = ({ navigation }) => {
 
     const [Route, setRoute] = useState([]);
     const [RouteContainer, setRouteContainer] = useState('')
-    const [Road, setRoad] = useState([]);
-
+ 
     const FilterFunction = (text) => {
         if (text) {
             const newData = masterDataSource.filter(function (item) {
@@ -186,10 +185,6 @@ const HomeScreen = ({ navigation }) => {
                 data={Route}
                 renderItem={({ item, index }) => <Card Tollgate={item} index={index} />}
             />
-
-
-
-
 
 
 </View>

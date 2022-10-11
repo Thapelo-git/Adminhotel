@@ -93,7 +93,7 @@ const Bookings = () => {
    
 const day=moment(new Date()).format('YYYY/MM/DD')
     const updateBooking = (key, status) => {
-      Alert.alert('Confirm','1. Cancellation of payment must be done at least 2 hours before arrival ,there will be no refund ,2.Please note all refund upon cancellation will be added  to wallet balance  and can be used another time',[
+      Alert.alert('Confirm','Are you sure you want to cancel?',[
         {text:'Yes',
        onPress:()=>db.ref('TollPayment').child(key).update({Status:status,description:status})
        .then(()=>db.ref('TollPayment').once('value'))
@@ -128,11 +128,11 @@ const day=moment(new Date()).format('YYYY/MM/DD')
     const ItemView = ({item}) => {
         return (
            // Flat List Item
-           <View style={{padding:60,width:'100%',height:250,
+           <View style={{width:230,height:380,margin: 20,
            justifyContent:'center',alignItems:'center'}}>
           <ImageBackground source={require('../images/ticket1.jpg')}
-           style={{height:220,width:'100%',justifyContent:'center',alignItems:'center',
-           padding:10}}>
+           style={{height:220,width:220,justifyContent:'center',alignItems:'center',
+           margin:10}}>
             {/* <Text style={{color:"#fff"}}>Ticket ID{item.key}</Text> */}
             <View style={{justifyContent:'flex-start',alignItems:'flex-start',width:'100%'}}>
             
@@ -177,14 +177,14 @@ const day=moment(new Date()).format('YYYY/MM/DD')
           </Text>
             <Text  style={{color:'#fff',}}>  {item.NoPlate} </Text>
    
-          <View style={{width:'100%',}}><Text style={{color:'#fff'}}> - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
+          <View style={{width:'100%',}}><Text style={{color:'#fff'}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
           <Image style={{height:40,width:120}} source={require('../images/Barcode.jpg')}/>
           
           <Text style={{color:"#fff"}}>{item.key}</Text>
           <Text style={{color:"#fff"}}>Ticket ID</Text>
           </ImageBackground>
           <View style={{alignItems:'center'}}>
-          {/* <Text
+          <Text
             style={{fontWeight:'bold',}}
             >  
               Information
@@ -199,7 +199,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
             cancellation will be added 
             to wallet balance 
             and can be used another time
-          </Text> */}
+          </Text>
           <View style={{alignItems:'center',justifyContent:'center',width:'100%'}}>
           <TouchableOpacity style={{height:30,width:70,justifyContent:'center',borderColor:'red',
           alignItems:'center',borderWidth:0.5}}  onPress={()=>updateBooking(item.key,'Cancelled',item.checkout)}>
@@ -259,15 +259,16 @@ const day=moment(new Date()).format('YYYY/MM/DD')
        </TouchableOpacity> */}
         </View>
         </View>
-        <View style={{padding:10,width:'100%'}}>
+        {/* <View style={{padding:10,width:'100%'}}> */}
            <FlatList
           data={filteredDataSource}
-          showsVerticalScrollIndicator
+          horizontal
           keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={ItemSeparatorView}
+          contentContainerStyle={{ paddingLeft: 20 }}
+     
           renderItem={ItemView}
         />
-        </View>
+        {/* </View> */}
          {/* <Cancellation
      onCancel={()=>{toggleAnimation()}}
      animation={showAnimation}/> */}
