@@ -17,16 +17,27 @@ export const Bookings = () => {
   const [Booking,setBooking]=useState([])
   useEffect(()=>{
     
-    db.ref('Booking').on('value',snap=>{
+    db.ref('TollPayment').on('value',snap=>{
       
       setBooking({...snap.val()});
     })
     
   },[])
+       {/* <Pagination
+  count={10}
+
+  onLoadedData={Booking}
+  renderItem={(item) => (
+    <PaginationItem
+      // components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+      {...item}
+    />
+  )}
+/> */}
   const updateBooking = (index, status) => {
 
-    db.ref('Booking').child(index).update({Status:status})
-    .then(()=>db.ref('Booking').once('value'))
+    db.ref('TollPayment').child(index).update({Status:status})
+    .then(()=>db.ref('TollPayment').once('value'))
     .then(snapshot=>snapshot.val())
     .catch(error => ({
       errorCode: error.code,
@@ -37,18 +48,52 @@ export const Bookings = () => {
   };
   console.log(Booking)
     return (
-        <div>
-          <Pagination
-  count={10}
-
-  onLoadedData={Booking}
-  renderItem={(item) => (
-    <PaginationItem
-      // components={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
-      {...item}
-    />
-  )}
-/>
+        <div className='container'>
+          <div className='heading'>
+            <h4>Payments</h4>
+          </div>
+        <div className='content grid'>
+        {Object.keys(Booking).map((id,booking) => (
+          <div className='box btn_shadow'>
+                <tr >
+                  {/* <p>Ticket ID</p> */}
+                  <p>{id}</p>
+                  <div className='viewRow'>
+                  <td>{Booking[id].datetoday}</td>
+                  <td>{Booking[id].hotelname}</td>
+                  </div>
+                  <div className='viewRow'>
+                  <td>{Booking[id].Classes}</td>
+                  <td>R {Booking[id].price}</td>
+                  </div>
+                  <div className='viewRow'>
+                  <td>No Plate {Booking[id].NoPlate}</td>
+                  <td>{Booking[id].VehicleName}</td>
+                  </div>
+                  <StatusTD type={Booking[id].Status}>{Booking[id].Status}</StatusTD>
+                  {Booking[id].Status === "Pending" ? (
+                    <>
+                      <td style={{ textAlign: "center" }}>
+                        <FaCheckCircle
+                          color="green"
+                          style={{
+                            cursor: "pointer",
+                            fontSize: "20px",
+                          }}
+                          onClick={() => updateBooking(id, "Completed")}
+                        />
+                      </td>
+                     
+                    </>
+                  ) : (
+                    <></>
+                  )}
+                
+                </tr>
+                </div>
+                ))}
+                
+        </div>
             {/* <Table
           striped
           bordered

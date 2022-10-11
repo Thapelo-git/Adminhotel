@@ -1,8 +1,8 @@
 .box{
     width: 180px;
     height: 200px;
-    background: linear-gradient(145deg,#edf057,#ffffff);
-    box-shadow: 4px 4px 8px #f7c336,4px -4px 8px #ffffff;
+    background: linear-gradient(145deg,#5957f0,#ffffff);
+    box-shadow: 4px 4px 8px #4336f7,4px -4px 8px #ffffff;
     display: flex;
     flex-direction: row;
     justify-content:space-around;

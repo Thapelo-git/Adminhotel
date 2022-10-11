@@ -24,7 +24,7 @@ function Dashboard() {
       
       setTollgate({...snap.val(),});
     })
-    db.ref('Booking').on('value',snap=>{
+    db.ref('TollPayment').on('value',snap=>{
       
       setBooking({...snap.val(),});
     })
