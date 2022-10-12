@@ -155,7 +155,7 @@ const HomeScreen = ({ navigation }) => {
 
                     <View
                         style={{ fontSize: 18, flex: 1, marginLeft: 10 }}
-                        ><Text>Where to go</Text></View>
+                        ><Text>Search by Name</Text></View>
                        
                   
                 </TouchableOpacity>

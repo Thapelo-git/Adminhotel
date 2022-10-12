@@ -20,11 +20,7 @@ const EditProfile = ({navigation,route}) => {
   const [email,setEmail]=useState(route.params.email)
   const [phonenumber,setphonenumber]=useState(route.params.phonenumber)
   const [uid,setUid]=useState(route.params.uid)
-  
-  
-    
-    
-    
+
     const user = auth.currentUser.uid;
     const itemRef= db.ref(`/users/`)
     const [selectedImage, setSelectedImage] = useState(null);
@@ -114,17 +110,12 @@ const EditProfile = ({navigation,route}) => {
     //           source={{ uri: selectedImage.localUri }}
     //           style={{height:120,width:120,borderRadius:60,}}
     //         />
-             
-           
-             
-            
-        
  
     //       </View>
     //     );
     //   }
     db.ref('users').child(uid).update({name,email,phonenumber})
-        .then(()=>db.ref('societyUser').once('value'))
+        .then(()=>db.ref('users').once('value'))
         .then(snapshot=>snapshot.val())
         .catch(error => ({
           errorCode: error.code,
