@@ -124,15 +124,15 @@ const HistoryScreen = () => {
       
         return (
           // Flat List Item
-         
-          <View style={{padding:5}}>
+         <>
+          
        {
         item.Status != 'Pending'?(
           <>
           
       
           <ScrollView>
-          <View style={{padding:60,width:'100%',height:250,
+          <View style={{width:230,height:380,margin: 20,
            justifyContent:'center',alignItems:'center'}}>
           <ImageBackground source={require('../images/ticket1.jpg')}
            style={{height:220,width:'100%',justifyContent:'center',alignItems:'center',
@@ -213,8 +213,8 @@ const HistoryScreen = () => {
         </>
         ):(<></>)
       }
-        
-        </View>
+        </>
+      
         );
       };
     
@@ -266,9 +266,10 @@ const HistoryScreen = () => {
         </View>
         </View>
            <FlatList
+           horizontal
           data={filteredDataSource}
           keyExtractor={(item, index) => index.toString()}
-          ItemSeparatorComponent={ItemSeparatorView}
+          
           renderItem={ItemView}
         />
         </View>

@@ -194,12 +194,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
              be done at least 2 hours before 
             arrival ,there will be no refund
           </Text>
-          <Text  >2. Please note all 
-            refund upon 
-            cancellation will be added 
-            to wallet balance 
-            and can be used another time
-          </Text>
+         
           <View style={{alignItems:'center',justifyContent:'center',width:'100%'}}>
           <TouchableOpacity style={{height:30,width:70,justifyContent:'center',borderColor:'red',
           alignItems:'center',borderWidth:0.5}}  onPress={()=>updateBooking(item.key,'Cancelled',item.checkout)}>
