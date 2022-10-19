@@ -173,8 +173,8 @@ const HomeScreen = ({ navigation }) => {
 >
   <Picker.Item label="select" value="" />
   <Picker.Item label="PLK To JHB" value="N1" />
-  <Picker.Item label="JHB To Dur" value="N2" />
-  <Picker.Item label="JHB To CP" value="N3" />
+  <Picker.Item label="JHB To Dur" value="N3" />
+  {/* <Picker.Item label="JHB To CP" value="N2" /> */}
   
 </Picker>
 <FlatList

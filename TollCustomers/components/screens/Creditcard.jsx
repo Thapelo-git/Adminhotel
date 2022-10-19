@@ -62,18 +62,62 @@ const Creditcard = ({navigation,route}) => {
    const [cardNumber,setCardNumber]=useState('')
    const [CVV,setCVV]=useState('')
    const [Expiry,setExpiry]=useState('')
-   useEffect(()=>{
-    db.ref('/users/'+ user).on('value',snap=>{
+   const [Booking,setBooking]=useState([])
+    
+   const [filteredDataSource, setFilteredDataSource] = useState([]);
+ const [masterDataSource, setMasterDataSource] = useState([]);
+ 
+ 
+ useEffect(()=>{
+   
+   
+   db.ref('/TollPayment/').on('value',snap=>{
+         
+     const Booking=[]
+        snap.forEach(action=>{
+            const key=action.key
+            const data =action.val()
+            Booking.push({
+                key:key,
+                hotelimg:data.hotelimg,
+                totPrice:data.totPrice,
+                price:data.price,
+                Classes:data.Classes,
+                description:data.description,
+                hotelname:data.hotelname,
+                Status:data.Status,
+                userid:data.userid,
+                NoPlate:data.NoPlate,
+                
+            })
+           })
+  
+           console.log(user)
+           
+          
+            if(user){
+              const userinfor = Booking.filter(function(item){
+               const itemData = item.userid?
       
-      setCardName(snap.val() && snap.val().cardName);
-  
-  setCardNumber(snap.val().cardNumber)
-  setCVV(snap.val().CVV)
-  setExpiry(snap.val().Expiry)
+ (  item.userid)
+               :   ( '') 
+               const textData = user;
+               return itemData.indexOf( textData)>-1;
+
+           })
+           setBooking(userinfor)
+             setFilteredDataSource(userinfor);
+            setMasterDataSource(userinfor);
+        
+            
+           }
+         
+            
+       //  })
     })
-  
-}) 
-//   },[])
+    
+ },[])
+ const [newPrice ,setnewPrice ]=useState(0)
 const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
 const markcategory=(key,vehicleType)=>{
     setSelectedBtnIndex(key)
@@ -199,7 +243,11 @@ borderRadius:10,borderWidth:2,borderColor:selectedBtnIndex == index?('blue'):('#
   renderItem={({item,index})=><Aminities category={item} index={index}/>}
   />
 
-
+{/* {
+    Booking.map((element)=>(
+        <Text>{newPrice=newPrice + element.Price}</Text>
+    ))
+} */}
 </View>
 <View style={{width:'100%',justifyContent:'center',alignItems:'center',padding:10}}>
 <Flatbutton text='Pay' style={{ top: 10, }}

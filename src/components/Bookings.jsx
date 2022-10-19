@@ -49,9 +49,9 @@ export const Bookings = () => {
   console.log(Booking)
     return (
         <div className='container'>
-          <div className='heading'>
+          {/* <div className='heading'>
             <h4>Payments</h4>
-          </div>
+          </div> */}
         <div className='content grid'>
         {Object.keys(Booking).map((id,booking) => (
           <div className='box btn_shadow'>

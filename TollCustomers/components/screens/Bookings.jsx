@@ -178,7 +178,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
             <Text  style={{color:'#fff',}}>  {item.NoPlate} </Text>
    
           <View style={{width:'100%',}}><Text style={{color:'#fff'}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
-          <Image style={{height:40,width:120}} source={require('../images/Barcode.jpg')}/>
+          <Image style={{height:40,width:150}} source={require('../images/Barcode.jpg')}/>
           
           <Text style={{color:"#fff"}}>{item.key}</Text>
           <Text style={{color:"#fff"}}>Ticket ID</Text>

@@ -21,7 +21,10 @@ function Guests() {
     })
     
   },[])
-
+  const onDelete =(id)=>{
+    db.ref(`/Tollgate/${id}`).remove()
+   
+   }
     return (
         <div>
           <div className='headings'>
@@ -38,7 +41,8 @@ function Guests() {
             <img src={Tollgate[id].url} className="profile_pic"/>
             <p>{Tollgate[id].name} </p>
             <p>{Tollgate[id].Route}</p>
-            <Link to={`ViewToll/${id}`}><i className='fas fa-chevron-right'></i></Link>
+            <button className='deletebtn' onClick={()=>onDelete(id)}>Delete</button>
+            {/* <Link to={`ViewToll/${id}`}><i className='fas fa-chevron-right'></i></Link> */}
             
             </div>
              )

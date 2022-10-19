@@ -1,7 +1,7 @@
 import React,{useState,useEffect,useRef} from 'react'
 import { StyleSheet, Text, View,FlatList,TextInput, Image, ScrollView ,
   Animated, TouchableOpacity ,Alert,ImageBackground} from 'react-native'
-
+//https://dribbble.com/shots/14463817-Car-Parking-mobile-app
 
 import { db,auth } from './firebase.jsx';
 import Entypo from 'react-native-vector-icons/Entypo'
@@ -86,7 +86,7 @@ const HistoryScreen = () => {
   const handleDelete=(key)=>{
     Alert.alert('Confirm','Are you sure you want to delete?',[
       {text:'Yes',
-     onPress:()=>db.ref('Booking').child(key).remove(),
+     onPress:()=>db.ref('TollPayment').child(key).remove(),
     },
     {text:'No'},
     ]);
@@ -181,13 +181,13 @@ const HistoryScreen = () => {
           </Text>
             <Text  style={{color:'#fff',}}>  {item.NoPlate} </Text>
    
-          <View style={{width:'100%',}}><Text style={{color:'#fff'}}> - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
-          <Image style={{height:40,width:120}} source={require('../images/Barcode.jpg')}/>
+          <View style={{width:'100%',}}><Text style={{color:'#fff'}}>- - - - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
+          <Image style={{height:40,width:150}} source={require('../images/Barcode.jpg')}/>
           
           <Text style={{color:"#fff"}}>{item.key}</Text>
           <Text style={{color:"#fff"}}>Ticket ID</Text>
           </ImageBackground>
-          <View style={{alignItems:'center'}}>
+          <View style={{alignItems:'center',width:'100%'}}>
         
           <View style={{alignItems:'center',justifyContent:'center',width:'100%',flexDirection:'row'}}>
           <View style={{height:30,width:70,justifyContent:'center',borderColor:'red',
