@@ -97,8 +97,8 @@ const HotelDetails = ({ navigation, route }) => {
 
   const FilterFunction = (text) => {
     if (text) {
-      const newData = TollClass.filter(function (item) {
-        const itemData = item.TollClass ? item.TollClass.toUpperCase()
+      const newData = list.filter(function (item) {
+        const itemData = item.class ? item.class.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
         return itemData.indexOf(textData) > -1;

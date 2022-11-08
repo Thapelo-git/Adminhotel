@@ -6,7 +6,10 @@ export const Dummy_Tollgates=[
             longitude: 28.979474,
         },
         place:'Nyl',
-        description:''
+       class:{
+        class1:'15',
+        class2:'19',class3:'22',class4:'25'
+       }
     },
     {
         id:2,
@@ -15,7 +18,11 @@ export const Dummy_Tollgates=[
             longitude: 28.471539,
         },
         place:'Kranskop',
-        description:''
+        description:'',
+        class:{
+            class1:'14',
+            class2:'17',class3:'28',class4:'31'
+           }
     },
     {
         id:3,
@@ -24,7 +31,11 @@ export const Dummy_Tollgates=[
             longitude: 28.275609,
         },
         place:'Pumulani',
-        description:''
+        description:'',
+        class:{
+            class1:'12',
+            class2:'18',class3:'26',class4:'29'
+           }
     },
     {
         id:4,
@@ -33,7 +44,11 @@ export const Dummy_Tollgates=[
             longitude: 18.366538,
         },
         place:'Carousel',
-        description:''
+        description:'',
+        class:{
+            class1:'14',
+            class2:'18',class3:'26',class4:'32'
+           }
     },
     {
         id:5,
@@ -42,7 +57,11 @@ export const Dummy_Tollgates=[
             longitude: 28.389754,
         },
         place:'De Hoek',
-        description:''
+        description:'',
+        class:{
+            class1:'19',
+            class2:'27',class3:'31',class4:'37'
+           }
     },
     {
         id:6,
@@ -51,7 +70,11 @@ export const Dummy_Tollgates=[
             longitude: 28.62623,
         },
         place:'Wilge',
-        description:''
+        description:'',
+        class:{
+            class1:'11',
+            class2:'19',class3:'23',class4:'29'
+           }
     },
     {
         id:7,
@@ -60,7 +83,11 @@ export const Dummy_Tollgates=[
             longitude: 27.921431,
         },
         place:'Brits',
-        description:''
+        description:'',
+        class:{
+            class1:'10',
+            class2:'18',class3:'22',class4:'28'
+           }
     },
     {
         id:8,
@@ -69,7 +96,11 @@ export const Dummy_Tollgates=[
             longitude: 30.00383,
         },
         place:'Mooi River',
-        description:''
+        description:'',
+        class:{
+            class1:'15',
+            class2:'19',class3:'23',class4:'27'
+           }
     },
 
 ]

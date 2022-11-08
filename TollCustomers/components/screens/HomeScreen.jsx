@@ -237,15 +237,50 @@ const HomeScreen = ({ navigation }) => {
                   latitude: place.coords.latitude,
                   longitude: place.coords.longitude,
                 }}
+                
               >
                 <Callout onPress={onOpenSnack}>
+           
+          
+                    <View style={styles.bubble}>
                   <Text>{place.place}</Text>
+                  <Text>class1=R{place.class.class1}</Text>
+                  <Text>class2=R{place.class.class2}</Text>
+                  <Text>class3=R{place.class.class3}</Text>
+                  <Text>class4=R{place.class.class4}</Text>
+                  </View>
+                  
                 </Callout>
               </Marker>
             </>
           );
         })}
       </MapView>
+      <ScrollView
+      horizontal
+      scrollEventThrottle={1}
+      showsHorizontalScrollIndicator={false}
+      height={50}
+      style={styles.chipsScrollView}
+      >
+                {Dummy_Tollgates.map((place,index) => {
+          return (
+  <TouchableOpacity style={styles.chipsItem} key={index}
+          onPress={() => navigation.navigate('HotelDetails', {
+              data: place, 
+              phonenumber: phonenumber
+          })}
+          >
+                    <View style={styles.bubble}>
+                  <Text>{place.place}</Text>
+                  <Text>class1=R{place.class.class1}</Text>
+                  <Text>class2=R{place.class.class2}</Text>
+                  <Text>class3=R{place.class.class3}</Text>
+                  <Text>class4=R{place.class.class4}</Text>
+                  </View>
+                  </TouchableOpacity>
+          )})}
+      </ScrollView>
           <SearchScreen bottomopen={bottomopen} navigation={navigation}/>
 
      
@@ -261,6 +296,15 @@ const styles = StyleSheet.create({
     map: {
         height: "100%",
         width: "100%",
+      },
+      bubble:{
+        
+      },
+      chipsItem:{
+        flexDirection:'row',
+        height:35,
+        paddingHorizontal:24,
+        marginHorizontal:10,padding:8,
       },
     header: {
         marginTop: 10,
