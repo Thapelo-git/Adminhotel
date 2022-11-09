@@ -9,7 +9,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 //https://dribbble.com/shots/18568156-ECHO-PARK-Parking-Space-Finder-App
 //https://github.com/react-native-voice/voice/blob/master/example/src/VoiceTest.tsx
 //https://dribbble.com/shots/15942307-Fashion-Store-Mobile-Version
+import MapView, { Callout, Marker } from 'react-native-maps'
 
+import {Dummy_Tollgates} from '../screens/Dummy_Tollgates'
+import * as Location from "expo-location";
 import { auth,db } from './firebase';
 import SearchScreen from './SearchScreen';
 import {Picker} from '@react-native-picker/picker';
@@ -117,6 +120,30 @@ const HomeScreen = ({ navigation }) => {
                 </View>
             </TouchableOpacity>)
     }
+    const [longitude, setLongitude] = useState(0);
+    const [latitude, setLatitude] = useState(0);
+  
+    const [isSnackBarVisible, setIsSnackBarVisible] = useState(false);
+  
+    const onOpenSnack = () => {
+      setIsSnackBarVisible(!isSnackBarVisible);
+    };
+  
+    useEffect(() => {
+      (async () => {
+        let { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== "granted") {
+          setError("Permission to access location was denied");
+          return;
+        }
+  
+        let { coords } = await Location.getCurrentPositionAsync({});
+        setLocation(coords);
+        var { latitude, longitude } = coords;
+        setLatitude(latitude);
+        setLongitude(longitude);
+      })();
+    }, []);
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff',padding:10}}>
             <StatusBar
@@ -161,7 +188,7 @@ const HomeScreen = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
         
-            <View>
+            {/* <View>
             <View style={{ paddingVertical: 20 }}>
 
 <Text style={styles.titles}>Select Your Destination</Text>
@@ -174,7 +201,7 @@ const HomeScreen = ({ navigation }) => {
   <Picker.Item label="select" value="" />
   <Picker.Item label="PLK To JHB" value="N1" />
   <Picker.Item label="JHB To Dur" value="N3" />
-  {/* <Picker.Item label="JHB To CP" value="N2" /> */}
+ 
   
 </Picker>
 <FlatList
@@ -190,7 +217,70 @@ const HomeScreen = ({ navigation }) => {
 </View>
 
             
-        </View>
+        </View> */}
+             <MapView
+        style={styles.map}
+        region={{
+          latitude: latitude,
+          longitude: longitude,
+          latitudeDelta: 0.09,
+          longitudeDelta: 0.029,
+        }}
+      >
+        {Dummy_Tollgates.map((place) => {
+          return (
+            <> 
+              <Marker
+                key={place.id.toString()}
+                title={place.place}
+                coordinate={{
+                  latitude: place.coords.latitude,
+                  longitude: place.coords.longitude,
+                }}
+                
+              >
+                <Callout onPress={onOpenSnack}>
+           
+          
+                    <View style={styles.bubble}>
+                  <Text>{place.place}</Text>
+                  <Text>class1=R{place.class.class1}</Text>
+                  <Text>class2=R{place.class.class2}</Text>
+                  <Text>class3=R{place.class.class3}</Text>
+                  <Text>class4=R{place.class.class4}</Text>
+                  </View>
+                  
+                </Callout>
+              </Marker>
+            </>
+          );
+        })}
+      </MapView>
+      <ScrollView
+      horizontal
+      scrollEventThrottle={1}
+      showsHorizontalScrollIndicator={false}
+      height={50}
+      style={styles.chipsScrollView}
+      >
+                {Dummy_Tollgates.map((place,index) => {
+          return (
+  <TouchableOpacity style={styles.chipsItem} key={index}
+          onPress={() => navigation.navigate('HotelDetails', {
+              data: place, 
+              phonenumber: phonenumber
+          })}
+          >
+                    <View style={styles.bubble}>
+                  <Text>{place.place}</Text>
+                  <Text>class1=R{place.class.class1}</Text>
+                  <Text>class2=R{place.class.class2}</Text>
+                  <Text>class3=R{place.class.class3}</Text>
+                  <Text>class4=R{place.class.class4}</Text>
+                  </View>
+                  </TouchableOpacity>
+          )})}
+      </ScrollView>
           <SearchScreen bottomopen={bottomopen} navigation={navigation}/>
 
      
@@ -203,6 +293,19 @@ const HomeScreen = ({ navigation }) => {
 export default HomeScreen
 
 const styles = StyleSheet.create({
+    map: {
+        height: "100%",
+        width: "100%",
+      },
+      bubble:{
+        
+      },
+      chipsItem:{
+        flexDirection:'row',
+        height:35,
+        paddingHorizontal:24,
+        marginHorizontal:10,padding:8,
+      },
     header: {
         marginTop: 10,
         flexDirection: 'row',
