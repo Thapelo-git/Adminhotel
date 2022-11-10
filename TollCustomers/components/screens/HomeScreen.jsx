@@ -16,6 +16,7 @@ import * as Location from "expo-location";
 import { auth,db } from './firebase';
 import SearchScreen from './SearchScreen';
 import {Picker} from '@react-native-picker/picker';
+import GeoSearch from './GeoSearch'
 const { width } = Dimensions.get("screen")
 const cardWidth = width / 1.8
 const HomeScreen = ({ navigation }) => {
@@ -281,8 +282,8 @@ const HomeScreen = ({ navigation }) => {
                   </TouchableOpacity>
           )})}
       </ScrollView>
-          <SearchScreen bottomopen={bottomopen} navigation={navigation}/>
-
+          {/* <SearchScreen bottomopen={bottomopen} navigation={navigation}/> */}
+          <GeoSearch bottomopen={bottomopen}/>
      
 
 
