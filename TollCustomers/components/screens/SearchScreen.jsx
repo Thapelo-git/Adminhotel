@@ -148,7 +148,7 @@ const SearchScreen = ({navigation,bottomopen}) => {
      
         
      </BottomSheet>
-   </Animated.View>
+            </Animated.View>
     
         </SafeAreaView>
     )
