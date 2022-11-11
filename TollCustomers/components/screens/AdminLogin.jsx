@@ -1,15 +1,18 @@
-
-import React,{useState}from 'react'
-import { View,SafeAreaView, Text ,StatusBar,Image,StyleSheet,
-    TextInput,TouchableOpacity,CheckBox, ScrollView,Alert, ActivityIndicator,ToastAndroid} from 'react-native';
-import Separator from '../onbording/Separator';
+import React ,{useState} from 'react'
+import { SafeAreaView, StyleSheet, Text, View,ImageBackground,TextInput,
+    Alert,ToastAndroid } from 'react-native'
+import Flatbutton from '../styles/button'
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons'
-import AsyncStorage from '@react-native-async-storage/async-storage'
+
+
+import { Checkbox } from 'react-native-paper'
+
 import * as yup from 'yup' 
+//AdminLogin
 import { Formik } from 'formik'
-import Flatbutton from '../styles/button';
-import { auth,db } from './firebase';
-const Login = ({navigation}) => {
+import { auth } from './firebase';
+import AsyncStorage from '@react-native-async-storage/async-storage'
+const AdminLogin = ({navigation}) => {
     const [isSelected,setSelection]=useState(false)
     const [isPasswordShow,setPasswordShow]=useState(false)
     const ReviewSchem =yup.object({
@@ -30,8 +33,8 @@ const Login = ({navigation}) => {
               try {
                   
                 const jsonValue = JSON.stringify(res.user)
-                await AsyncStorage.setItem("users", res.user.uid)
-                navigation.navigate('TabScreen')
+                await AsyncStorage.setItem("user", res.user.uid)
+                navigation.navigate('AdminHome')
               } catch (e) {
                 // saving error
                 console.log('no data')
@@ -47,25 +50,14 @@ const Login = ({navigation}) => {
           )
         }
     }
-  return (
-    <SafeAreaView style={styles.container}>
-    <StatusBar
-    backgroundColor="#0225A1"
-    barStyle="light-content"
-    />
-     <View style={styles.headerContainer} 
-                >
-                   <Separator
-                height={StatusBar.currentHeight}
-                />
-                <Text style={styles.headerTitle}></Text>
-                </View>
-                <ScrollView>
-                <View style={{alignItems:'center',marginTop:5}}>
-                    <Image source={require('../images/toll_gate4.jpg')} style={{width:250,height:180,
-                   borderRadius:30 }}/>
-                </View>
-                <Formik 
+    
+    return (
+        <SafeAreaView>
+            <ImageBackground style={styles.imageBackground} source={require('../images/toll_gate2.jpg')}>
+        <View style={styles.container}>
+            <Text style={{fontWeight:'bold',fontSize:30,
+        color:'#4A1DD6'}}>Login</Text>
+        <Formik 
         initialValues={{email:'',password:''}}
         validationSchema={ReviewSchem}
         onSubmit={(values,action)=>{
@@ -75,7 +67,7 @@ const Login = ({navigation}) => {
         >
             {(props)=>(
         
-            <View style={{padding:20}}>
+           <>
         <View style={styles.inputContainer}>
         <View style={styles.inputIconView}>
             <Icon name='email'
@@ -117,75 +109,58 @@ const Login = ({navigation}) => {
             </View>
         </View>
         <Text style={{color:'red'}}>{props.touched.password && props.errors.password}</Text>
-        <View style={styles.forgetPasswordContainer}>
+        {/* <View style={styles.forgetPasswordContainer}>
         <View style={styles.toggleContainer}>
-     
+        <Checkbox
+                    value={isSelected}
+                    onValueChange={setSelection}
+                    style={styles.checkbox}/>
+         <Text style={styles.rememberMeText}>remember me</Text>
         
         </View>
         <Text style={styles.forgetPasswordText}
         onPress={()=>navigation.navigate('ForgetPassword')}>Forget Password</Text>
-        </View>
+        </View> */}
         <View style={{marginTop:20,alignItems:'center',justifyContent:'center'}}>
-        <Flatbutton text='LOGIN' 
-         onPress={props.handleSubmit}
-        // onPress={()=>navigation.navigate('TabScreen')}
-          />
+            <Flatbutton text='LOGIN'  onPress={props.handleSubmit} />
             <View style={styles.signupContainer}>
                <Text style={styles.accountText}>Don't have account?</Text>
                <Text style={styles.signupText}
-               onPress={()=>navigation.navigate('Register')}>Sign Up</Text>
-            </View>
-            <View style={styles.signupContainer}>
-               <Text style={styles.accountText}>Admin?</Text>
-               <Text style={styles.signupText}
-               onPress={()=>navigation.navigate('AdminLogin')}>Sign In</Text>
+               onPress={()=>navigation.navigate('SignUp')}>Sign Up</Text>
             </View>
             </View>
-            </View>
+            </>
             )}</Formik>
-                </ScrollView>
-    </SafeAreaView>
-  )
+        </View>
+        </ImageBackground>
+        </SafeAreaView>
+    )
 }
 
-export default Login
+export default AdminLogin
 
 const styles = StyleSheet.create({
     container:{
-        flex:1,
         backgroundColor:'#fff',
-        
-        
-    },
-    headerContainer:{
-       flexDirection:'row' ,
-       alignItems:'center',
-       justifyContent:'center',
-       paddingVertical:20,
-       paddingHorizontal:20
-    },
-    headerTitle:{
-      fontSize:20,
-      lineHeight:20 * 1.4,
-      width:80,
-      textAlign:'center'  
-
-    },
-    signinButton:{
-        backgroundColor:'#0225A1',
-        borderRadius:8,
-        height: 40,
-        marginHorizontal:30,
+        padding:10,
+        width:'100%',
+        height:'90%',
+        marginTop:100,
+        borderTopRightRadius:50,
+        borderTopLeftRadius:50,
         justifyContent:'center',
-        alignItems:'center',
-        marginTop:20,
-      elevation:2,
+        alignItems:'center'
     },
-    signinButtonText:{
-        fontSize:18,
-        lineHeight:18 * 1.4,
-        color:'#fff',
+    imageBackground:{
+        width:'100%',
+        height:'100%',backgroundColor:'#fff'
+    },
+    inputs:{
+        borderBottomColor:'black',
         
+         flex:0.8,
+        paddingLeft:10,
+   
     },
     inputContainer:{
         borderRadius:30,
@@ -209,13 +184,6 @@ const styles = StyleSheet.create({
         borderTopRightRadius:0,
         borderBottomRightRadius:0,
         elevation:2,
-    },
-    inputs:{
-        borderBottomColor:'black',
-        
-         flex:0.8,
-        paddingLeft:10,
-        
     },
     forgetPasswordContainer:{
         padding:10,

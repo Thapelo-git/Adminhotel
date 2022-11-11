@@ -10,13 +10,15 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 //https://github.com/react-native-voice/voice/blob/master/example/src/VoiceTest.tsx
 //https://dribbble.com/shots/15942307-Fashion-Store-Mobile-Version
 import MapView, { Callout, Marker } from 'react-native-maps'
-
+import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {Dummy_Tollgates} from '../screens/Dummy_Tollgates'
 import * as Location from "expo-location";
 import { auth,db } from './firebase';
 import SearchScreen from './SearchScreen';
 import {Picker} from '@react-native-picker/picker';
+import MapViewDirections from 'react-native-maps-directions';
 import GeoSearch from './GeoSearch'
+
 const { width } = Dimensions.get("screen")
 const cardWidth = width / 1.8
 const HomeScreen = ({ navigation }) => {
@@ -151,26 +153,8 @@ const HomeScreen = ({ navigation }) => {
                 backgroundColor="#0225A1"
                 barStyle="light-content"
             />
-            <View style={styles.header}>
-                <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('EditProfile', {
-                        email: email, name: name, phonenumber: phonenumber
-                    })}>
-                        <Image source={{ uri: 'https://image.shutterstock.com/image-vector/male-avatar-profile-picture-use-600w-193292033.jpg' }}
-                            style={{ height: 50, width: 50, borderRadius: 25 }} />
-                    </TouchableOpacity>
-                    <Text style={{
-                        fontSize: 18, fontWeight: 'bold', marginLeft: 10,
-                        marginTop: 18
-                    }}>Welcome </Text>
-                    <Text style={{
-                        fontSize: 18, marginLeft: 10,
-                        marginTop: 18
-                    }}>{name}</Text>
-                </View>
-               
-            </View>
-            
+  
+
             <View style={{
                 marginTop: 20,
                 flexDirection: 'row',
@@ -240,6 +224,7 @@ const HomeScreen = ({ navigation }) => {
                 }}
                 
               >
+       
                 <Callout onPress={onOpenSnack}>
            
           
@@ -257,7 +242,7 @@ const HomeScreen = ({ navigation }) => {
           );
         })}
       </MapView>
-      <ScrollView
+      {/* <ScrollView
       horizontal
       scrollEventThrottle={1}
       showsHorizontalScrollIndicator={false}
@@ -281,9 +266,9 @@ const HomeScreen = ({ navigation }) => {
                   </View>
                   </TouchableOpacity>
           )})}
-      </ScrollView>
-          {/* <SearchScreen bottomopen={bottomopen} navigation={navigation}/> */}
-          <GeoSearch bottomopen={bottomopen}/>
+      </ScrollView> */}
+          <SearchScreen bottomopen={bottomopen} navigation={navigation}/>
+   
      
 
 
@@ -298,8 +283,15 @@ const styles = StyleSheet.create({
         height: "100%",
         width: "100%",
       },
-      bubble:{
-        
+      inputContainer: {
+        marginTop: 10,
+        flexDirection: "row",
+        alignItems: "center",
+        borderWidth: 0.5,
+        borderRadius: 10,
+        marginHorizontal: 10,
+        paddingVertical:10,
+
       },
       chipsItem:{
         flexDirection:'row',

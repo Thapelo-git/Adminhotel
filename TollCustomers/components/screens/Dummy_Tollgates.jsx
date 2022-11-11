@@ -9,7 +9,8 @@ export const Dummy_Tollgates=[
        class:{
         class1:'15',
         class2:'19',class3:'22',class4:'25'
-       }
+       },
+      
     },
     {
         id:2,

@@ -26,7 +26,7 @@ const setMapLocation=(res)=>{
   }
 
 // const RenderAutocomplete = () => (
-//     <View style={styles.searchContainer}>
+//    import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 //       <View>
 //         <Text style={{fontWeight:'bold',marginLeft:10}}>Where are you going</Text>
 //       </View>
@@ -82,22 +82,7 @@ const setMapLocation=(res)=>{
         }}
       />
                 {/* <RenderAutocomplete/> */}
-                <GooglePlacesAutocomplete
-        placeholder="Location"
-        onTimeout={()=>console.log('timeout')}
-        onFail={(error)=>console.log('Error',error)}
-        onPress={(data, details = null) => {
-          // 'details' is provided when fetchDetails = true
-        //   setMapLocation(data,details)
-        setDestinationText({data,details})
-        }}
-        styles={{ textInput: styles.inputContainer }}
-        query={{
-          key:"AIzaSyBTPFTAftGDxrC6SLNdnH-fYmcR0LSggvo",
-          language: "en",
-          types: "(cities)"
-        }}
-      />
+            
      
                 
             </BottomSheet>

@@ -42,48 +42,25 @@ const Bookings = () => {
                  
              })
             })
-    // db.ref('/users/'+ user).on('value',snap=>{
-    //  setBooking(snap.val().Booking)
+   
     
-    // })
-    if(user){
-      const userinfor = Booking.filter(function(item){
-       const itemData = item.userid?
-
-(  item.userid)
-       :   ( '')
-       const textData = user;
-       return itemData.indexOf( textData)>-1;
-
-   })
-         
-             const text='Pending'
-             if(text){
-              const newData = userinfor.filter(function(item){
-                  const itemData = item.Status ? item.Status
-                  :'';
-                  const textData = text;
-                  return itemData.indexOf( textData)>-1;
-  
-              })
-              setBooking(newData)
-              setFilteredDataSource(newData);
-             setMasterDataSource(newData);
-             console.log(newData,'booooking')
-            }
+            setBooking(Booking);
+            setFilteredDataSource(Booking);
+           setMasterDataSource(Booking);
+           
           }
           
              
         
-     })
-  },[])
+     
+  )},[])
     const [searchtext,setSearchtext] = useState('');
     const [filteredDataSource, setFilteredDataSource] = useState([]);
   const [masterDataSource, setMasterDataSource] = useState([]);
    
 const day=moment(new Date()).format('YYYY/MM/DD')
     const updateBooking = (key, status) => {
-      Alert.alert('Confirm','Are you sure you want to cancel?',[
+      Alert.alert('Confirm','Are you sure you want to Approve?',[
         {text:'Yes',
        onPress:()=>db.ref('TollPayment').child(key).update({Status:status,description:status})
        .then(()=>db.ref('TollPayment').once('value'))
@@ -117,7 +94,12 @@ const day=moment(new Date()).format('YYYY/MM/DD')
     }
     const ItemView = ({item}) => {
         return (
-           // Flat List Item
+            <>
+          
+            {
+             item.Status == 'Pending'?(
+               <>
+          
            <View style={{width:230,height:380,margin: 20,
            justifyContent:'center',alignItems:'center'}}>
           <ImageBackground source={require('../images/ticket1.jpg')}
@@ -174,27 +156,25 @@ const day=moment(new Date()).format('YYYY/MM/DD')
           <Text style={{color:"#fff"}}>Ticket ID</Text>
           </ImageBackground>
           <View style={{alignItems:'center'}}>
-          <Text
-            style={{fontWeight:'bold',}}
-            >  
-              Information
-          </Text>
-          <Text  > 1. Cancellation of
-             payment must
-             be done at least 2 hours before 
-            arrival ,there will be no refund
-          </Text>
+          
          
           <View style={{alignItems:'center',justifyContent:'center',width:'100%'}}>
           <TouchableOpacity style={{height:30,width:70,justifyContent:'center',borderColor:'red',
-          alignItems:'center',borderWidth:0.5}}  onPress={()=>updateBooking(item.key,'Cancelled',item.checkout)}>
-          <Text style={{color:'red'}}>Cancel</Text>
+          alignItems:'center',borderWidth:0.5}}  onPress={()=>updateBooking(item.key,'Approved',item.checkout)}>
+          <Text style={{color:'red'}}>Approve</Text>
           </TouchableOpacity>
           </View>
           </View>
           </View>
-        );
-      };
+          </>
+        ):(<></>)
+      }
+        </>
+       
+         
+        )}
+      
+     
     
       const ItemSeparatorView = () => {
         return (
@@ -209,10 +189,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
         );
       };
     
-      const getItem = (item) => {
-        // Function for click on an item
-        alert('Id : ' + item.id + ' Title : ' + item.name);
-      };
+     
     
     return (
         <View>
@@ -227,6 +204,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
            {/* <View style={styles.header}>
                 <Text style={{color:'#fff'}}>My Payments</Text>
                 </View> */}
+                <Text>search payments by name of Tollgate</Text>
            <View style={{
             marginTop:20,
             flexDirection:'row',
@@ -236,7 +214,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
         <Ionicons name="search" size={24}/>
         <TextInput 
         style={{fontSize:18,flex:1,marginLeft:10}}
-        placeholder="Looking for your payments?"
+        placeholder="search "
         onChangeText={(text) => searchFilterFunction(text)}
         />
         {/* <TouchableOpacity onPress={(text) => searchFilterFunction('')}>

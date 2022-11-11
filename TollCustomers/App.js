@@ -17,6 +17,8 @@ import PaySucc from './components/screens/PaySucc';
 import ProfileScreen from './components/screens/ProfileScreen';
 import EditProfile from './components/screens/EditProfile';
 import { auth } from './components/screens/firebase';
+import AdminLogin from './components/screens/AdminLogin';
+import AdminHome from './components/screens/AdminHome';
 const Stack =createStackNavigator()
 export default function App({navigation}) {
   const [signedIn,setSignedIn]=useState(false)
@@ -39,6 +41,7 @@ export default function App({navigation}) {
         <>
       <Stack.Navigator screenOptions={{headerShown:true}}>
       <Stack.Screen name='Login' options={{headerShown:false}} component={Login}/>
+      <Stack.Screen name='AdminLogin' options={{headerShown:false}} component={AdminLogin}/>
       <Stack.Screen name='Register' options={{headerShown:false}} component={Register}/>
       <Stack.Screen name='ForgetPassword' options={{headerShown:false}} component={ForgetPassword}/>
       </Stack.Navigator>
@@ -55,6 +58,8 @@ export default function App({navigation}) {
       <Stack.Screen name='PaySucc' options={{headerShown:false}} component={PaySucc}/>
       <Stack.Screen name='ProfileScreen' options={{headerShown:false}} component={ProfileScreen}/>
       <Stack.Screen name='EditProfile' options={{headerShown:false}} component={EditProfile}/>
+     
+      <Stack.Screen name='AdminHome' options={{headerShown:false}} component={AdminHome}/>
       </Stack.Navigator>
       </>
       )}
