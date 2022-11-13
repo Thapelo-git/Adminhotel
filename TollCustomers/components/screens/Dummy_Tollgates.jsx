@@ -6,10 +6,11 @@ export const Dummy_Tollgates=[
             longitude: 28.979474,
         },
         place:'Nyl',
-       class:{
-        class1:'15',
-        class2:'19',class3:'22',class4:'25'
-       },
+       class:
+        [{class:'class1',price:'15'},{class:'class2',price:'19'},{class:'class3',price:'22'},{class:'class4',price:'25'}],
+        
+        
+       
       
     },
     {
@@ -20,10 +21,8 @@ export const Dummy_Tollgates=[
         },
         place:'Kranskop',
         description:'',
-        class:{
-            class1:'14',
-            class2:'17',class3:'28',class4:'31'
-           }
+        class:
+        [{class:'class1',price:'14'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
     },
     {
         id:3,
@@ -33,10 +32,8 @@ export const Dummy_Tollgates=[
         },
         place:'Pumulani',
         description:'',
-        class:{
-            class1:'12',
-            class2:'18',class3:'26',class4:'29'
-           }
+        class:
+        [{class:'class1',price:'12'},{class:'class2',price:'16'},{class:'class3',price:'28'},{class:'class4',price:'39'}],
     },
     {
         id:4,
@@ -46,10 +43,8 @@ export const Dummy_Tollgates=[
         },
         place:'Carousel',
         description:'',
-        class:{
-            class1:'14',
-            class2:'18',class3:'26',class4:'32'
-           }
+        class:
+        [{class:'class1',price:'14'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
     },
     {
         id:5,
@@ -59,10 +54,8 @@ export const Dummy_Tollgates=[
         },
         place:'De Hoek',
         description:'',
-        class:{
-            class1:'19',
-            class2:'27',class3:'31',class4:'37'
-           }
+        class:
+        [{class:'class1',price:'14'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
     },
     {
         id:6,
@@ -72,10 +65,8 @@ export const Dummy_Tollgates=[
         },
         place:'Wilge',
         description:'',
-        class:{
-            class1:'11',
-            class2:'19',class3:'23',class4:'29'
-           }
+        class:
+        [{class:'class1',price:'14'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
     },
     {
         id:7,
@@ -85,10 +76,8 @@ export const Dummy_Tollgates=[
         },
         place:'Brits',
         description:'',
-        class:{
-            class1:'10',
-            class2:'18',class3:'22',class4:'28'
-           }
+        class:
+        [{class:'class1',price:'14'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
     },
     {
         id:8,
@@ -98,10 +87,8 @@ export const Dummy_Tollgates=[
         },
         place:'Mooi River',
         description:'',
-        class:{
-            class1:'15',
-            class2:'19',class3:'23',class4:'27'
-           }
+        class:
+        [{class:'class1',price:'14'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
     },
 
 ]

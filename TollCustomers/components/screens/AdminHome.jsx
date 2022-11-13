@@ -10,6 +10,7 @@ import Entypo from 'react-native-vector-icons/Entypo'
 import { } from 'react-native-gesture-handler';
 import Ionicons from 'react-native-vector-icons/Ionicons'
 //AdminHome
+import Icon from 'react-native-vector-icons/Ionicons';
 import moment from 'moment';
 const Bookings = () => {
   const [animationValue,setAnimationValue]=useState(-1000)
@@ -176,19 +177,11 @@ const day=moment(new Date()).format('YYYY/MM/DD')
       
      
     
-      const ItemSeparatorView = () => {
-        return (
-          // Flat List Item Separator
-          <View
-            style={{
-              height: 0.5,
-              width: '100%',
-              backgroundColor: '#C8C8C8',
-            }}
-          />
-        );
-      };
-    
+        const onSignout =()=>{
+        
+            auth.signOut()
+            
+        }
      
     
     return (
@@ -204,6 +197,19 @@ const day=moment(new Date()).format('YYYY/MM/DD')
            {/* <View style={styles.header}>
                 <Text style={{color:'#fff'}}>My Payments</Text>
                 </View> */}
+                <TouchableOpacity  onPress={()=>onSignout()} style={{backgroundColor:'red', width:140, marginTop: 50, borderRadius:5, padding:5}}>
+
+<View style={{flexDirection: 'row', justifyContent:'center'}}>
+<Icon
+    name='ios-log-out'
+    type='Ionicon'
+    color='#fff'
+    size={25}/>
+    <Text style={{padding: 5, paddingTop: -15, fontSize: 18, color: '#fff'}}>
+        Log-out
+    </Text>
+</View>
+</TouchableOpacity>
                 <Text>search payments by name of Tollgate</Text>
            <View style={{
             marginTop:20,

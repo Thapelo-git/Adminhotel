@@ -8,12 +8,12 @@ import moment from 'moment'
 import Flatbutton from '../styles/button'
 const screenwidth=Dimensions.get('screen').width
 const Creditcard = ({navigation,route}) => {
-    const hotelinfor=route.params.hotelinfor
+    const hotelname=route.params.hotelinfor
  
-    const hotelname=hotelinfor.name
+    
  const [price,setPrice]=useState(route.params.price)
  const [Classes,setClasses]=useState(route.params.Classes)
-  const [hotelimg,setHotelimg]=useState(hotelinfor.url)
+  
   const [Phonenumber,setPhonenumber]=useState(route.params.Phonenumber)
   const NoPlate=route.params.NoPlate
   const VehicleName=route.params.VehicleName
@@ -47,7 +47,7 @@ const Creditcard = ({navigation,route}) => {
         db.ref('TollPayment').push({
             userid,Status,
             description,hotelname,
-           hotelimg,price,Classes,
+          price,Classes,
             datetoday,VehicleName,NoPlate
        
         })

@@ -42,12 +42,12 @@ const HotelDetails = ({ navigation, route }) => {
   let _panel = React.useRef(null)
   let bs = React.createRef();
   let fall = new Animated.Value(1)
-  const list = route.params.data;
+  const Class = route.params.class;
 
 
 
-  const hotelinfor = list
-  const location = list._location
+
+  const Tollname = route.params.Plazzname
 
 
   
@@ -97,7 +97,7 @@ const HotelDetails = ({ navigation, route }) => {
 
   const FilterFunction = (text) => {
     if (text) {
-      const newData = list.filter(function (item) {
+      const newData = Class.filter(function (item) {
         const itemData = item.class ? item.class.toUpperCase()
           : ''.toUpperCase();
         const textData = text.toUpperCase();
@@ -167,21 +167,10 @@ const HotelDetails = ({ navigation, route }) => {
               <Text style={{ color: 'gray', fontSize: 17 }}>Name     </Text>
               <Text
                 style={{ color: '#032B7A', fontWeight: 'bold', fontSize: 20, marginBottom: 5 }}
-              >{list.name}</Text>
+              >{Tollname}</Text>
             </View>
            
-            <View style={{ flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
-              <Text style={{ color: 'gray', fontSize: 17 }}>Road     </Text>
-              <Text
-                style={{ color: '#032B7A', fontWeight: 'bold', fontSize: 20, marginBottom: 5 }}
-              >{list.Road}       </Text>
-               <View style={{ flexDirection: 'row', justifyContent:'space-around', alignItems:'stretch' }}>
-              <Text style={{ color: 'gray', fontSize: 17 }}>Route     </Text>
-              <Text
-                style={{ color: '#032B7A', fontWeight: 'bold', fontSize: 20, }}
-              >{list.Route}</Text>
-            </View>
-            </View>
+           
             {/* <TouchableOpacity onPress={() => navigation.navigate('MapScreen')} style={{ flexDirection: 'row' }}>
               <MaterialIcons name='location-pin' size={20} />
               <Text style={{ marginBottom: 5, color: 'gray' }}>{list.location}</Text>
@@ -227,10 +216,10 @@ const HotelDetails = ({ navigation, route }) => {
             onValueChange={(value, id) => { FilterFunction(value) }}
           >
             <Picker.Item label="select" value="" />
-            <Picker.Item label="Class 1" value="ClassOne" />
-            <Picker.Item label="Class 2" value="ClassTwo" />
-            <Picker.Item label="Class 3" value="ClassThree" />
-            <Picker.Item label="Class 4" value="ClassFour" />
+            <Picker.Item label="Class 1" value="class1" />
+            <Picker.Item label="Class 2" value="class2" />
+            <Picker.Item label="Class 3" value="class3" />
+            <Picker.Item label="Class 4" value="class4" />
           </Picker>
 
           <Text style={styles.titles}>Fees </Text>
@@ -239,21 +228,9 @@ const HotelDetails = ({ navigation, route }) => {
 
               <>
 
-                {/* <Text>{element.selector}</Text> */}
-                <Text style={{ color: '#000', fontWeight: 'bold' }}>Price for {element.TollClass} = R {price = element.Price}</Text>
+                <Text style={{ color: '#000', fontWeight: 'bold' }}> Price for {element.class} R {price = element.price}</Text>
 
-                <TextInput
-                  placeholder="R00.00"
-                  keyboardType="numeric"
-                  value={element.Price}
-                  // onChangeText={ setFee(element.Price)}
-                  style={{
-                    padding: 10,
-                    backgroundColor: "gainsboro",
-                    borderRadius: 10,
-                    borderWidth: 1,
-                  }}
-                />
+                
               </>
 
             ))
@@ -270,7 +247,7 @@ const HotelDetails = ({ navigation, route }) => {
           <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Flatbutton text='Pay' style={{ top: 10, }} disable={true}
             onPress={() => navigation.navigate('Creditcard', {
-              hotelinfor: hotelinfor,
+             
               price: price, Classes: Classes,
               Phonenumber: Phonenumber,
               NoPlate: NoPlate, VehicleName: VehicleName,
@@ -283,7 +260,7 @@ const HotelDetails = ({ navigation, route }) => {
               <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
               <Flatbutton text='Pay' style={{ top: 10, }} disable={true}
                 onPress={() => navigation.navigate('Creditcard', {
-                  hotelinfor: hotelinfor,
+                 
                   price: price, Classes: Classes,
                   Phonenumber: Phonenumber,
                   NoPlate: NoPlate, VehicleName: VehicleName,
@@ -294,7 +271,7 @@ const HotelDetails = ({ navigation, route }) => {
               <View style={{ justifyContent: 'center', alignItems: 'center', width: '100%' }}>
           <Flatbutton text='Pay' style={{ top: 10, }}
             onPress={() => navigation.navigate('Creditcard', {
-              hotelinfor: hotelinfor,
+               hotelinfor:Tollname,
               price: price, Classes: Classes,
               Phonenumber: Phonenumber,
               NoPlate: NoPlate, VehicleName: VehicleName,

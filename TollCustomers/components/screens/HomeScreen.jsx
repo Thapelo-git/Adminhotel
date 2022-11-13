@@ -16,12 +16,17 @@ import * as Location from "expo-location";
 import { auth,db } from './firebase';
 import SearchScreen from './SearchScreen';
 import {Picker} from '@react-native-picker/picker';
-import MapViewDirections from 'react-native-maps-directions';
-import GeoSearch from './GeoSearch'
 
+import GeoSearch from './GeoSearch'
+import MapViewDirections from 'react-native-maps-directions';
 const { width } = Dimensions.get("screen")
 const cardWidth = width / 1.8
 const HomeScreen = ({ navigation }) => {
+  
+
+// const origin = {latitude: 37.3318456, longitude: -122.0296002};
+// const destination = {latitude: 37.771707, longitude: -122.4053769};
+// const GOOGLE_MAPS_APIKEY = 'AIzaSyD7cuY-05n0_dTpwD4VFoVJCnjrJ9MptI0';
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
@@ -94,35 +99,7 @@ const HomeScreen = ({ navigation }) => {
     const [modalopen,setModalopen]=useState(false)
     const [ selectedBtnIndex,setSelectedBtnIndex] = useState(0);
     
-    const Card = ({ Tollgate, index }) => {
-        return (
-            <TouchableOpacity 
-            onPress={() => navigation.navigate('HotelDetails', {
-                data: Tollgate, index: index,
-                phonenumber: phonenumber
-            })}
-            >
-                <View style={styles.cardContainer}>
-                    <Image style={styles.cardImage} source={{ uri: Tollgate.url }} />
-                    <View style={{ height: 100, alignItems: 'center' }}>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 18, color: 'gray', }}>Name: </Text>
-                            <Text style={{ fontSize: 20, color: 'blue', }}>{Tollgate.name}</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 18, color: 'gray', }}>Route: </Text>
-                            <Text style={{ fontSize: 20, color: 'gray', }}>{Tollgate.Route}</Text>
-                        </View>
-                        <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                            <Text style={{ fontSize: 18, color: 'gray', }}>Road: </Text>
-                            <Text style={{ fontSize: 18, color: 'gray', }}>{Tollgate.Road}</Text>
-                        </View>
-  
-                    </View>
-  
-                </View>
-            </TouchableOpacity>)
-    }
+   
     const [longitude, setLongitude] = useState(0);
     const [latitude, setLatitude] = useState(0);
   
@@ -147,6 +124,11 @@ const HomeScreen = ({ navigation }) => {
         setLongitude(longitude);
       })();
     }, []);
+    const [Plazzname,setPlazz]=useState('')
+    const [Class1,setClass1]=useState('')
+    const [Class2,setClass2]=useState('')
+    const [Class3,setClass3]=useState('')
+    const [Class4,setClass4]=useState('')
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff',padding:10}}>
             <StatusBar
@@ -212,6 +194,11 @@ const HomeScreen = ({ navigation }) => {
           longitudeDelta: 0.029,
         }}
       >
+        {/* <MapViewDirections
+    origin={origin}
+    destination={destination}
+    apikey={GOOGLE_MAPS_APIKEY}
+  /> */}
         {Dummy_Tollgates.map((place) => {
           return (
             <> 
@@ -225,15 +212,25 @@ const HomeScreen = ({ navigation }) => {
                 
               >
        
-                <Callout onPress={onOpenSnack}>
+                <Callout onPress={()=>navigation.navigate('HotelDetails',{
+                  Plazzname:place.place,class:place.class
+                })}>
            
           
                     <View style={styles.bubble}>
                   <Text>{place.place}</Text>
-                  <Text>class1=R{place.class.class1}</Text>
+                  {place.class.map((place) => {
+          return (
+            <View style={{flexDirection:'row',}}>
+            <Text>{place.class}{":R"}</Text> 
+            <Text>{place.price}</Text> 
+             </View>
+          );
+        })}
+                  {/* <Text>class1=R{place.class.class}</Text>
                   <Text>class2=R{place.class.class2}</Text>
                   <Text>class3=R{place.class.class3}</Text>
-                  <Text>class4=R{place.class.class4}</Text>
+                  <Text>class4=R{place.class.class4}</Text> */}
                   </View>
                   
                 </Callout>
@@ -267,8 +264,8 @@ const HomeScreen = ({ navigation }) => {
                   </TouchableOpacity>
           )})}
       </ScrollView> */}
-          <SearchScreen bottomopen={bottomopen} navigation={navigation}/>
-   
+          {/* <SearchScreen bottomopen={bottomopen} navigation={navigation}/> */}
+        <GeoSearch bottomopen={bottomopen}/>
      
 
 
