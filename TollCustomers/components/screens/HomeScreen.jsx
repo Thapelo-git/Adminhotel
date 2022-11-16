@@ -23,10 +23,11 @@ const { width } = Dimensions.get("screen")
 const cardWidth = width / 1.8
 const HomeScreen = ({ navigation }) => {
   
-
-// const origin = {latitude: 37.3318456, longitude: -122.0296002};
-// const destination = {latitude: 37.771707, longitude: -122.4053769};
-// const GOOGLE_MAPS_APIKEY = 'AIzaSyD7cuY-05n0_dTpwD4VFoVJCnjrJ9MptI0';
+//latitude: 37.3318456, longitude: -122.0296002
+//latitude: 37.771707, longitude: -122.4053769
+  const origin = {latitude: -23.9045, longitude: 29.4689};
+  const destination = {latitude: -23.8320, longitude: 30.1358};
+const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
@@ -194,11 +195,13 @@ const HomeScreen = ({ navigation }) => {
           longitudeDelta: 0.029,
         }}
       >
-        {/* <MapViewDirections
+        <MapViewDirections
     origin={origin}
     destination={destination}
     apikey={GOOGLE_MAPS_APIKEY}
-  /> */}
+    strokeWidth={4}
+    strokeColor='#000'
+  />
         {Dummy_Tollgates.map((place) => {
           return (
             <> 
@@ -206,6 +209,7 @@ const HomeScreen = ({ navigation }) => {
                 key={place.id.toString()}
                 title={place.place}
                 coordinate={{
+                  
                   latitude: place.coords.latitude,
                   longitude: place.coords.longitude,
                 }}
