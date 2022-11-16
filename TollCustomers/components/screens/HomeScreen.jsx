@@ -12,6 +12,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons'
 import MapView, { Callout, Marker } from 'react-native-maps'
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {Dummy_Tollgates} from '../screens/Dummy_Tollgates'
+import { Route } from './Route'
 import * as Location from "expo-location";
 import { auth,db } from './firebase';
 import SearchScreen from './SearchScreen';
@@ -28,6 +29,7 @@ const HomeScreen = ({ navigation }) => {
   const origin = {latitude: -23.9045, longitude: 29.4689};
   const destination = {latitude: -23.8320, longitude: 30.1358};
 const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
+
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
     const [phonenumber, setPhonenumber] = useState('')
@@ -80,20 +82,24 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
 
   
 
-    const [Route, setRoute] = useState([]);
+    const [Routeplace, setRouteplace] = useState([]);
     const [RouteContainer, setRouteContainer] = useState('')
- 
-    const FilterFunction = (text) => {
-        if (text) {
-            const newData = masterDataSource.filter(function (item) {
-                const itemData = item.Route ? item.Route.toUpperCase()
+    const [DestinLocation,setDestinLocation]=useState('')
+    const setMapLocation=(res)=>{
+     
+      setDestinLocation(res.description)
+    }
+    const FilterFunction = () => {
+        if (DestinLocation) {
+            const newData = Route.filter(function (item) {
+                const itemData = item.place ? item.place.toUpperCase()
                     : ''.toUpperCase();
-                const textData = text.toUpperCase();
+                const textData = DestinLocation.toUpperCase();
                 return itemData.indexOf(textData) > -1;
 
             })
-            setRoute(newData)
-            setRouteContainer(text)
+            setRouteplace(newData)
+            
         }
     }
     const bottomopen = useRef()
@@ -125,11 +131,8 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
         setLongitude(longitude);
       })();
     }, []);
-    const [Plazzname,setPlazz]=useState('')
-    const [Class1,setClass1]=useState('')
-    const [Class2,setClass2]=useState('')
-    const [Class3,setClass3]=useState('')
-    const [Class4,setClass4]=useState('')
+  
+    
     return (
         <SafeAreaView style={{ flex: 1, backgroundColor: '#fff',padding:10}}>
             <StatusBar
@@ -150,7 +153,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
 
                     <View
                         style={{ fontSize: 18, flex: 1, marginLeft: 10 }}
-                        ><Text>Search by Name</Text></View>
+                        ><Text>{DestinLocation}</Text></View>
                        
                   
                 </TouchableOpacity>
@@ -195,13 +198,30 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
           longitudeDelta: 0.029,
         }}
       >
-        <MapViewDirections
-    origin={origin}
-    destination={destination}
-    apikey={GOOGLE_MAPS_APIKEY}
-    strokeWidth={4}
-    strokeColor='#000'
-  />
+        <Marker
+               
+                coordinate={{
+                  
+                  latitude: latitude,
+                  longitude: longitude,
+                }}
+                
+              ></Marker>
+              {
+                Route.filter(element=>element.place===DestinLocation).map(
+                  item=>(
+                    <MapViewDirections
+                    origin={{latitude: latitude,
+                      longitude: longitude,}}
+                    destination={item.coords}
+                    apikey={GOOGLE_MAPS_APIKEY}
+                    strokeWidth={4}
+                    strokeColor='#000'
+                  />
+                  )
+                )
+              }
+     
         {Dummy_Tollgates.map((place) => {
           return (
             <> 
@@ -269,7 +289,7 @@ const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
           )})}
       </ScrollView> */}
           {/* <SearchScreen bottomopen={bottomopen} navigation={navigation}/> */}
-        <GeoSearch bottomopen={bottomopen}/>
+        <GeoSearch bottomopen={bottomopen} setMapLocation={setMapLocation}/>
      
 
 

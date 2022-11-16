@@ -6,7 +6,7 @@ import BottomSheet from 'react-native-gesture-bottom-sheet'
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
 import {Dummy_Tollgates} from '../screens/Dummy_Tollgates'
 
-const GeoSearch = ({bottomopen,navigation,setSearchResult}) => {
+const GeoSearch = ({bottomopen,navigation,setMapLocation}) => {
 const deviceHeight=Dimensions.get("window").height
 const [result,setResult]=useState('')
 const [originPlace,setOriginPlace]=useState('')
@@ -14,16 +14,10 @@ const [DestinationText,setDestinationText]=useState('')
 useEffect(()=>{
 if(originPlace && DestinationText){
     console.warn('redirect')
-    {Dummy_Tollgates.map(items=>
-        <Text>{items.place}</Text>
-        )}
+   
 }
 },[])
-const setMapLocation=(res)=>{
-    // console.log(res)
-    // setSearchResult(res.description)
-    setResult(res.description)
-  }
+
 
 // const RenderAutocomplete = () => (
 //    import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
@@ -71,8 +65,8 @@ const setMapLocation=(res)=>{
         onFail={(error)=>console.log('Error',error)}
         onPress={(data, details = null) => {
           // 'details' is provided when fetchDetails = true
-        //   setMapLocation(data,details)
-        setOriginPlace({data,details})
+          setMapLocation(data,details)
+        // setOriginPlace({data,details})
         }}
         styles={{ textInput: styles.inputContainer }}
         query={{
@@ -84,7 +78,7 @@ const setMapLocation=(res)=>{
                 {/* <RenderAutocomplete/> */}
             
      
-                
+                <Text>{result}</Text>
             </BottomSheet>
         </Animated.View>
     </SafeAreaView>
