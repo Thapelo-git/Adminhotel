@@ -6,49 +6,47 @@ export const Route=[
             longitude:28.045490,
         },
         place:'Johannessburg,South Africa',
-      
-       
-      
+   
     },
     {
         id:2,
         coords:{
-            latitude: -26.201450,
-            longitude:28.045490,
+            latitude:-25.668500,
+            longitude:27.242370,
         },
-        place:'Johannessburg,South Africa',
+        place:'Rustenburg, South Africa',
     },
     {
         id:3,
         coords:{
-            latitude: -26.201450,
-            longitude:28.045490,
+            latitude: -29.603510,
+            longitude:30.379620,
         },
-        place:'Johannessburg,South Africa',
+        place:'Pietermaritzburg, South Africa',
     },
     {
         id:4,
         coords:{
-            latitude: -26.201450,
-            longitude:28.045490,
+            latitude: -25.746020,
+            longitude:28.187120,
         },
-        place:'Johannessburg,South Africa',
+        place:'Pretoria, South Africa',
     },
     {
         id:5,
         coords:{
-            latitude: -26.201450,
-            longitude:28.045490,
+            latitude: -33.927109,
+            longitude:18.420059,
         },
-        place:'Johannessburg,South Africa',
+        place:'Cape Town, South Africa',
     },
     {
         id:6,
         coords:{
-            latitude: -26.201450,
-            longitude:28.045490,
+            latitude: -21.428169,
+            longitude:-50.088081,
         },
-        place:'Johannessburg,South Africa',
+        place:'Durban, South Africa',
     },
     {
         id:7,

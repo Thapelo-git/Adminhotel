@@ -82,13 +82,14 @@ export const Dummy_Tollgates=[
     {
         id:8,
         coords:{
-            latitude: 29.21906,
-            longitude: 30.00383,
+            latitude:-26.267239,
+            longitude: 28.360582,
         },
-        place:'Mooi River',
+        place:'Denne oord',
         description:'',
         class:
-        [{class:'class1',price:'14'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
+        [{class:'class1',price:'16'},{class:'class2',price:'18'},{class:'class3',price:'25'},{class:'class4',price:'29'}],
     },
+  
 
 ]
