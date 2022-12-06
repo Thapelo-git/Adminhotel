@@ -1,8 +1,10 @@
 
 import React,{useState,useEffect,useRef} from 'react'
 import { StyleSheet, Text, View,FlatList,TextInput, Image, ScrollView ,
-  Animated, TouchableOpacity,Alert, ImageBackground} from 'react-native'
-
+  Animated, TouchableOpacity,Alert, ImageBackground,Button} from 'react-native'
+  import { StatusBar } from 'expo-status-bar';
+  
+  import { BarCodeScanner } from 'expo-barcode-scanner';
 
 
 import { db,auth } from './firebase.jsx';
@@ -183,65 +185,42 @@ const day=moment(new Date()).format('YYYY/MM/DD')
             
         }
      
-    
+        const [hasPermission, setHasPermission] = React.useState(false);
+        const [scanData, setScanData] = React.useState();
+      
+        useEffect(() => {
+          (async() => {
+            const {status} = await BarCodeScanner.requestPermissionsAsync();
+            setHasPermission(status === "granted");
+          })();
+        }, []);
+      
+        if (!hasPermission) {
+          return (
+            <View style={styles.container}>
+              <Text>Please grant camera permissions to app.</Text>
+            </View>
+          );
+        }
+      
+        const handleBarCodeScanned = ({type, data}) => {
+          setScanData(data);
+          console.log(`Data: ${data}`);
+          console.log(`Type: ${type}`);
+        };
     return (
-        <View>
-           {/* <SearchBar
-           placeholder="Looking for your bookings?"
-           onChangeText={(text) => searchFilterFunction(text)}
-           onClear={(text) => searchFilterFunction('')}
-           value={searchtext}
-           round
-     https://dribbble.com/shots/18357823-Parking-Mobile-app
-           /> */}
-           {/* <View style={styles.header}>
-                <Text style={{color:'#fff'}}>My Payments</Text>
-                </View> */}
-                <TouchableOpacity  onPress={()=>onSignout()} style={{backgroundColor:'red', width:140, marginTop: 50, borderRadius:5, padding:5}}>
-
-<View style={{flexDirection: 'row', justifyContent:'center'}}>
-<Icon
-    name='ios-log-out'
-    type='Ionicon'
-    color='#fff'
-    size={25}/>
-    <Text style={{padding: 5, paddingTop: -15, fontSize: 18, color: '#fff'}}>
-        Log-out
-    </Text>
-</View>
-</TouchableOpacity>
-                <Text>search payments by name of Tollgate</Text>
-           <View style={{
-            marginTop:20,
-            flexDirection:'row',
-            paddingHorizontal:20,
-        }}>
-        <View style={styles.inputContainer}>
-        <Ionicons name="search" size={24}/>
-        <TextInput 
-        style={{fontSize:18,flex:1,marginLeft:10}}
-        placeholder="search "
-        onChangeText={(text) => searchFilterFunction(text)}
+       
+          
+           
+<View style={styles.container}>
+      <BarCodeScanner 
+        style={StyleSheet.absoluteFillObject}
+        onBarCodeScanned={scanData ? undefined : handleBarCodeScanned}
         />
-        {/* <TouchableOpacity onPress={(text) => searchFilterFunction('')}>
-       <Entypo name='circle-with-cross' size={20}/>
-       </TouchableOpacity> */}
-        </View>
-        </View>
-        {/* <View style={{padding:10,width:'100%'}}> */}
-           <FlatList
-          data={filteredDataSource}
-          horizontal
-          keyExtractor={(item, index) => index.toString()}
-          contentContainerStyle={{ paddingLeft: 20 }}
-     
-          renderItem={ItemView}
-        />
-        {/* </View> */}
-         {/* <Cancellation
-     onCancel={()=>{toggleAnimation()}}
-     animation={showAnimation}/> */}
-        </View>
+      {scanData && <Button title='Approved !!! Scan next One?' onPress={() => setScanData(undefined)} />}
+      <StatusBar style="auto" />
+    </View>
+        
     )
 }
 
@@ -256,6 +235,12 @@ const styles = StyleSheet.create({
     backgroundColor:'#eee',
     alignItems:'center',
     paddingHorizontal:20, 
+},
+container: {
+  flex: 1,
+  backgroundColor: '#fff',
+  alignItems: 'center',
+  justifyContent: 'center',
 },
 header: {
   width:'100%',

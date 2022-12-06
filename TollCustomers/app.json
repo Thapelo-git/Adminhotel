@@ -13,7 +13,8 @@
       "owner": "studentproject"
     },
     "updates": {
-      "fallbackToCacheTimeout": 0
+      "fallbackToCacheTimeout": 0,
+      "enabled":true
     },
     "assetBundlePatterns": [
       "**/*"
