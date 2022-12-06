@@ -121,7 +121,7 @@ const day=moment(new Date()).format('YYYY/MM/DD')
            <View style={{width:230,height:380,margin: 20,
            justifyContent:'center',alignItems:'center'}}>
           <ImageBackground source={require('../images/ticket1.jpg')}
-           style={{height:220,width:220,justifyContent:'center',alignItems:'center',
+           style={{height:300,width:300,justifyContent:'center',alignItems:'center',
            margin:10}}>
             {/* <Text style={{color:"#fff"}}>Ticket ID{item.key}</Text> */}
             <View style={{justifyContent:'flex-start',alignItems:'flex-start',width:'100%'}}>
@@ -168,10 +168,11 @@ const day=moment(new Date()).format('YYYY/MM/DD')
             <Text  style={{color:'#fff',}}>  {item.NoPlate} </Text>
    
           <View style={{width:'100%',}}><Text style={{color:'#fff'}}>- - - - - - - - - - - - - - - - - - - - - - - - - - - - - </Text></View>
-          <Image style={{height:40,width:150}} source={require('../images/Barcode.jpg')}/>
+          <Image style={{height:180,width:180}} source={require('../images/barcode_icon.png')}/>
           
-          <Text style={{color:"#fff"}}>{item.key}</Text>
-          <Text style={{color:"#fff"}}>Ticket ID</Text>
+          {/* re-Assembler<Text style={{color:"#fff"}}>{item.key}</Text>
+          <Text style={{color:"#fff"}}>Ticket ID</Text> */}
+          
           </ImageBackground>
           <View style={{alignItems:'center'}}>
           <Text
