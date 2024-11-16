@@ -28,7 +28,7 @@ const HomeScreen = ({ navigation }) => {
 //latitude: 37.771707, longitude: -122.4053769
   const origin = {latitude: -23.9045, longitude: 29.4689};
   const destination = {latitude: -23.8320, longitude: 30.1358};
-const GOOGLE_MAPS_APIKEY = 'AIzaSyA-ASFWlHOSno9rzIInkNsiAmIKMEuT2eA';
+const GOOGLE_MAPS_APIKEY = '';
 
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')
